@@ -10,7 +10,7 @@ php artisan key:generate
 ```
 
 
-After that edit some strings in '.env.example'
+After that edit some strings in '.env.example' and also renamed it to '.env'
 
 ```
 DB_DATABASE="your db"
