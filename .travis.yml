@@ -6,6 +6,9 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
+  - php artisan key:generate
+  - npm install
+  - npm run watch
 
 script: phpunit
 
