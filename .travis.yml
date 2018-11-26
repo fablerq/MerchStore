@@ -24,6 +24,7 @@ install:
 script:
   - vendor/bin/phpunit
   - npm run dev
+  - git push heroku master
   
 deploy:
   provider: heroku
