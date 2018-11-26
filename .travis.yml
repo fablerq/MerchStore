@@ -23,8 +23,7 @@ install:
 
 script:
   - vendor/bin/phpunit
-  - npm run dev
-  - git push heroku master
+  - npm run watch
   
 deploy:
   provider: heroku
