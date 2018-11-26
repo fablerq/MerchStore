@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>The best store ever</h1>
+    <h1>The best store ever v2</h1>
 
     <p>
       <router-link :to="{ name: 'app' }">Home</router-link> |
