@@ -9,3 +9,7 @@ before_script:
   - php artisan key:generate
 
 script: phpunit
+
+after_success:
+  - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
