@@ -4,12 +4,17 @@ php:
   - 7.1
 
 before_script:
-  - mysql -e 'create database storedb;'
+  - mkdir bootstrap/cache
+  - mkdir storage
+  - mkdir storage/app
+  - mkdir storage/framework
+  - mkdir storage/framework/sessions
+  - mkdir storage/framework/cache
+  - mkdir storage/framework/views
+  - chmod 777 -R storage
   - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer install --no-interaction
   - php artisan key:generate
-  - php artisan config:clear
-  - php artisan config:cache
 
 script:
   - vendor/bin/phpunit
