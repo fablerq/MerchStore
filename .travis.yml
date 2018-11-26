@@ -23,7 +23,7 @@ install:
 
 script:
   - vendor/bin/phpunit
-  - npm run test
+  - npm run production
   
 deploy:
   provider: heroku
