@@ -13,3 +13,9 @@ script: phpunit
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+deploy:
+  provider: heroku
+  app: merchstore1
+  api_key:
+    secure: 76836543-699b-4486-9d45-91ae27f660a3
