@@ -1,7 +1,22 @@
-language: php
+sudo: required
+dist: trusty
 
+language: php
 php:
   - 7.1
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: hhvm
+
+env:
+  - NODE_RELEASE=6.x
+  - NOTE_RELEASE=7.x
+
+before_install:
+  - sudo rm -rf ~/.nvm - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
+  - sudo apt-get install -y nodejs
 
 before_script:
   - composer self-update
@@ -11,8 +26,13 @@ before_script:
   - php artisan config:cache
   - npm run production
 
+install:
+  - composer install
+  - npm install
+
 script:
   - vendor/bin/phpunit
+  - npm test
   
 deploy:
   provider: heroku
