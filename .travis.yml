@@ -6,6 +6,10 @@ php:
 before_script:
   - composer self-update
   - composer install --no-interaction
+  - php artisan cache:clear
+  - php artisan route:cache
+  - php artisan view:clear
+  - php artisan config:cache
 
 script:
   - vendor/bin/phpunit
