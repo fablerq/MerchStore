@@ -19,12 +19,9 @@ before_install:
   - sudo apt-get install -y nodejs
 
 before_script:
-  - composer self-update
-  - composer install --no-interaction
   - php artisan cache:clear
   - php artisan view:clear
   - php artisan config:cache
-  - npm run production
 
 install:
   - composer install
@@ -32,7 +29,7 @@ install:
 
 script:
   - vendor/bin/phpunit
-  - npm test
+  - npm run watch
   
 deploy:
   provider: heroku
