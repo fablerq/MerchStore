@@ -11,6 +11,7 @@ import App from './components/App.vue'
 import ExampleCrudUsers from './components/examples/ExampleCrudUsers.vue'
 import ExampleCrudOrders from './components/examples/ExampleCrudOrders.vue'
 import ExampleCrudProducts from './components/examples/ExampleCrudProducts.vue'
+import ExampleCrudFaculties from './components/examples/faculties.vue'
 
 const router = new VueRouter({
   routes: [
@@ -24,10 +25,15 @@ const router = new VueRouter({
         name: 'products',
         component: ExampleCrudProducts,
       },
-      {
+     {
         path: '/example_orders',
         name: 'orders',
         component: ExampleCrudOrders,
+      },
+      {
+        path: '/example_faculties',
+        name: 'faculties',
+        component: ExampleCrudFaculties,
       },
   ],
 });
