@@ -7,6 +7,7 @@
       <router-link :to="{ name: 'users' }">ExampleCrudUsers</router-link>
       <router-link :to="{ name: 'products' }">ExampleCrudProducts</router-link>
       <router-link :to="{ name: 'orders' }">ExampleCrudOrders</router-link>
+      <router-link :to="{ name: 'faculties' }">ExampleCrudFaculties</router-link>
     </p>
 
     <div class="container">
