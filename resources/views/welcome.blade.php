@@ -7,7 +7,9 @@
     <title>Best Store</title>
   </head>
   <body>
+
     <div id="app">
+      Test string
         <app></app>
     </div>
   <!-- <script src="js/app.js"></script> -->
