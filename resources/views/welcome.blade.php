@@ -9,7 +9,6 @@
   <body>
 
     <div id="app">
-      Test string
         <app></app>
     </div>
   <!-- <script src="js/app.js"></script> -->
