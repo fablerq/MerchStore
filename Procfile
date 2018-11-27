@@ -1,2 +1,1 @@
-heroku config: set NPM_CONFIG_PRODUCTION=false
-web: node index.js
+web: vendor/bin/heroku-php-apache2 public/
