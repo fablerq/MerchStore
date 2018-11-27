@@ -23,7 +23,7 @@ install:
 
 script:
   - vendor/bin/phpunit
-  - npm run dev
+  - npm dev
 deploy:
   provider: heroku
   api_key:	
