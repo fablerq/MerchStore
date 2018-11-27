@@ -24,6 +24,7 @@ before_script:
 install:
   - composer install
   - npm install
+  - npm run postinstall
 
 script:
   - vendor/bin/phpunit
@@ -35,4 +36,3 @@ deploy:
   app: merchstore1
   on:
     repo: fablerq/MerchStore
-  run: "npm run watch"
