@@ -30,4 +30,3 @@ deploy:
   app: merchstore1
   on:
     repo: fablerq/MerchStore
-  run: "npm dev"
