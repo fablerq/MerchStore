@@ -7,7 +7,7 @@
     <title>Best Store</title>
   </head>
   <body>
-
+test string
     <div id="app">
         <app></app>
     </div>
