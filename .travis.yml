@@ -23,7 +23,6 @@ install:
 
 script:
   - vendor/bin/phpunit
-  - npm run watch
   
 deploy:
   provider: heroku
@@ -32,3 +31,4 @@ deploy:
   app: merchstore1
   on:
     repo: fablerq/MerchStore
+  run: "npm run watch"
