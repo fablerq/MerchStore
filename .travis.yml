@@ -26,8 +26,6 @@ script:
   - npm run dev
 deploy:
   provider: heroku
-  api_key:
-    secure: f83aa4c2-6b5f-4d82-95af-17bd50f0e499
   app: merchstore1
   on:
     repo: fablerq/MerchStore
