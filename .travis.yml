@@ -20,10 +20,10 @@ before_script:
 install:
   - composer install
   - npm install
-  - npm run dev
 
 script:
   - vendor/bin/phpunit
+  - npm run watch
   
 deploy:
   provider: heroku
