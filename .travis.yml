@@ -26,6 +26,8 @@ script:
   - npm run dev
 deploy:
   provider: heroku
+  api_key:	
+  secure: qSFXHlpwCKplvSpx8dsaKIsYjvfx6+qJqfK1ueqWg5NKV1Br2rOQv0KFhOYCzh7fGh9gU945Vdos5Pultq/Wqdd//PF9iX9kaYv1Nv6GNxg5gkoHDpk7WJkrdn0V0RTaWpiQ25T3LHEhPMNA+Zdn37HwhKXBHjawAJVLyD/hd30b/tPWGIjqcv8jUgstU/Jpc2NugtlBL7EM9Cm0yl3/1TQeoZxHYKcu/BUtR/qfQF+3s3YEGLli8sKZgl7yZgAK9/Pantp5f0ldod7H7a3c7mgIi+yE12LksKbLoMjWsWULR9FCZ8VmEliEhmjZ1ljGbFBA19EOP5il2QjALoT7DjKaCPf1tWIaArysmWUblg7297lAcu9zhbr0kebmJyMu0AdzMq6PAA8QznjrTM7zLutDuk9i/udKTOH+sAtflS2/kmw7mHoijaVpKomOFpDUSTmPgIIJRGVi6UBfKrmkik3zO2sOq8asY/zragjoLS0KtoMHXFpLvP/HAyP2maL5bt+WXpMTnB73MtYqRurCQYnv8Rx0a0U9KOnKTECqRWR97M0TaOxoalo1s4Y1QP+eOl8qvRJ8HKfP7fPG0iv3xoD1FiGpx90jt9cEJdPCVEyUPf3UcFpmNHR4U6jjjKRCK+4ZoE1c6auPMi7axz2Dh8iX0fX+3e7rcYZYCvRx71c=
   app: merchstore1
   on:
     repo: fablerq/MerchStore
