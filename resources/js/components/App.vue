@@ -9,7 +9,6 @@
       <router-link :to="{ name: 'orders' }">ExampleCrudOrders</router-link>
       <router-link :to="{ name: 'faculties' }">ExampleCrudFaculties</router-link>
     </p>
-content for everyone
     <div class="container">
       <router-view></router-view>
     </div>
