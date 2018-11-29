@@ -1,7 +1,12 @@
 <template>
   <div>
+
     <h1>The best store ever. Changed</h1>
     <h3>Is it real?</h3>
+    <vheader/>
+    
+
+
     <p>
       <router-link :to="{ name: 'app' }">Home</router-link> |
       <router-link :to="{ name: 'users' }">ExampleCrudUsers</router-link>
@@ -16,5 +21,12 @@
 </template>
 
 <script>
-  export default {}
+import vheader from './vheader.vue'
+
+
+export default {
+  components: {
+		vheader
+	}
+}
 </script>
