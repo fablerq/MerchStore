@@ -13,8 +13,10 @@ import ExampleCrudUsers from './components/examples/ExampleCrudUsers.vue'
 import ExampleCrudOrders from './components/examples/ExampleCrudOrders.vue'
 import ExampleCrudProducts from './components/examples/ExampleCrudProducts.vue'
 import ExampleCrudFaculties from './components/examples/ExampleCrudFaculties.vue'
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 
 const router = new VueRouter({
   routes: [
