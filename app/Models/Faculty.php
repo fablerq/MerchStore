@@ -9,4 +9,10 @@ class Faculty extends Model
     public function product() {
         return $this->hasOne('App\Models\Product');
     }
+    
+    protected $fillable = [
+        'name', 'color'
+    ];
+
+    public $timestamps = false;
 }
