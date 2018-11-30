@@ -1,19 +1,9 @@
 <template>
   <div>
-
-    <h1>The best store ever. Changed</h1>
-    <h3>Is it real?</h3>
     <vheader/>
-    
-
-
-    <p>
-      <router-link :to="{ name: 'app' }">Home</router-link> |
-      <router-link :to="{ name: 'users' }">ExampleCrudUsers</router-link>
-      <router-link :to="{ name: 'products' }">ExampleCrudProducts</router-link>
-      <router-link :to="{ name: 'orders' }">ExampleCrudOrders</router-link>
-      <router-link :to="{ name: 'faculties' }">ExampleCrudFaculties</router-link>
-    </p>
+    <vsearch/>
+    <vproducts/>
+    <vcharts/>
     <div class="container">
       <router-view></router-view>
     </div>
@@ -22,11 +12,16 @@
 
 <script>
 import vheader from './vheader.vue'
-
+import vsearch from './vsearch.vue'
+import vproducts from './vproducts.vue'
+import vcharts from './vcharts.vue'
 
 export default {
   components: {
-		vheader
+    vheader,
+    vsearch,
+    vproducts,
+    vcharts
 	}
 }
 </script>
