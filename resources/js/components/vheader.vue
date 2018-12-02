@@ -1,7 +1,7 @@
 <template>
     <header>
-        <div class="container-fluid">
-            <div class="row justify-content-between row align-items-center">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
                 <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <img  class="mainlogo" src="http://localhost/MerchStore/resources/imgs/mainlogo.png" alt="logo">
                 </div>
@@ -54,11 +54,8 @@ header {
     width: 100%;
     height: 100%;
     background-color: #fff;
-    padding: 10px 0;
-
-    .mainlogo {
-        
-    }
+    padding: 1% 0;
+    margin-bottom: 1%;
 
     .menu {
         list-style: none;
@@ -70,7 +67,7 @@ header {
         .menu-item {
             display: flex;
             flex-direction: column;
-            width: 200px;
+            width: 180px;
             height: auto;
             align-items: center;
         }
@@ -81,7 +78,7 @@ header {
         
         li {
             text-decoration: none;
-            margin-right: 20px;
+            margin-right: 15px;
 
             .menu-link {
                 color: black;
