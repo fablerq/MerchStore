@@ -159,7 +159,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showOrder(id) {       
-                axios.get('api/orders' + id)
+                axios.get('api/orders/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.orders = this.orders.filter(order => {
@@ -169,7 +169,7 @@ import axios from 'axios'
           },
 
           deleteOrder(id) {
-                axios.delete('api/orders' + id)
+                axios.delete('api/orders/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

@@ -119,7 +119,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showProductsVariant(id) {       
-                axios.get('api/productsvariants' + id)
+                axios.get('api/productsvariants/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.productsvariants = this.productsvariants.filter(productsvariant => {
@@ -129,7 +129,7 @@ import axios from 'axios'
           },
 
           deleteProductsVariant(id) {
-                axios.delete('api/productsvariants' + id)
+                axios.delete('api/productsvariants/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

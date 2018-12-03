@@ -122,7 +122,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showPhoto(id) {       
-                axios.get('api/photos' + id)
+                axios.get('api/photos/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.photos = this.photos.filter(photo => {
@@ -132,7 +132,7 @@ import axios from 'axios'
           },
 
           deletePhoto(id) {
-                axios.delete('api/photos' + id)
+                axios.delete('api/photos/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

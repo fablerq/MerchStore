@@ -95,7 +95,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showType(id) {       
-                axios.get('api/types' + id)
+                axios.get('api/types/' + id)
                       .then(response => {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.types = this.types.filter(type => {
@@ -105,7 +105,7 @@ import axios from 'axios'
           },
 
           deleteType(id) {
-                axios.delete('api/types' + id)
+                axios.delete('api/types/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

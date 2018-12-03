@@ -95,7 +95,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showPaymentMethod(id) {       
-                axios.get('api/paymentmethods' + id)
+                axios.get('api/paymentmethods/' + id)
                       .then(response => {
                    alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                    this.paymentmethods = this.paymentmethods.filter(paymentmethod => {
@@ -105,7 +105,7 @@ import axios from 'axios'
           },
 
           deletePaymentMethod(id) {
-                axios.delete('api/paymentmethods' + id)
+                axios.delete('api/paymentmethods/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

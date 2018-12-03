@@ -114,7 +114,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showComment(id) {       
-                axios.get('api/comments' + id)
+                axios.get('api/comments/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.comments = this.comments.filter(comment => {
@@ -124,7 +124,7 @@ import axios from 'axios'
           },
 
           deleteComment(id) {
-                axios.delete('api/comments' + id)
+                axios.delete('api/comments/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
