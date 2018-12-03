@@ -67,8 +67,8 @@
       <td>{{ order.user.login }}</td>
       <td>{{ order.status.title }}</td>
       <td>{{ order.paymentmethod.title }}</td>
-      <td><a href="#" @click="showOrders(order.id)">Show</a></td>
-      <td><a href="#" @click="deleteOrders(order.id)">Delete</a></td>
+      <td><a href="#" @click="showOrder(order.id)">Show</a></td>
+      <td><a href="#" @click="deleteOrder(order.id)">Delete</a></td>
     </tr>
   </tbody>
 </table>
