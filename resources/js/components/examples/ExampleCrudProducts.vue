@@ -1,68 +1,80 @@
 <template>
   <div>
     <h1>products</h1>
-    <table border="1">
-        <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>description</td>
-            <td>quantity</td>
-            <td>status</td>
-            <td>price</td>
-            <td>thumbnail</td>
-            <td>faculty_id</td>
-            <td>type_id</td>
-            <td>color</td>
-            <td>show</td>
-            <td>delete</td>
-        </tr>
-        <tr v-for="product in products">
-            <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.status }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.thumbnail }}</td>
-            <td>{{ product.faculty.name }} </td>
-            <td>{{ product.type.name }}</td>
-            <td>{{ product.faculty.color }}</td>
-            <td><a href="#" @click="showProduct(product.id)">Show</a></td>
-            <td><a href="#" @click="deleteProduct(product.id)">Delete</a></td>
-        </tr>
-    </table>
 <br>
+<h3>Добавить товар (не конкертный, а просто наименование)</h3>
     <div class="card-body">
-        <form action="./api/products" method="POST" @submit="addProduct()">
+
+        <div class="alert alert-danger" v-if="feedback">
+            <ul>
+                <li v-for="error in feedback">{{ error[0] }}</li>
+            </ul>
+        </div>
+
+        <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <input type="text" name="name" v-model="name" placeholder="name" class="form-control">
+                <label for="title">Title</label>
+                <input type="text" v-model="title" v-validate="{ required: true, max: 200, min: 5 }" name="title" class="form-control" :class="{ 'is-invalid': submitted && errors.has('title') }" />
+                <div v-if="submitted && errors.has('title')" class="invalid-feedback">{{ errors.first('title') }}</div>
             </div>
             <div class="form-group">
-                <input type="text" name="description" v-model="description" placeholder="description" class="form-control">
+                <label for="description">Description</label>
+                <input type="text" v-model="description" v-validate="{ required: true, max: 1000, min: 5 }" name="description" class="form-control" :class="{ 'is-invalid': submitted && errors.has('description') }" />
+                <div v-if="submitted && errors.has('description')" class="invalid-feedback">{{ errors.first('description') }}</div>
             </div>
             <div class="form-group">
-                <input type="text" name="quantity" v-model="quantity" placeholder="quantity" class="form-control">
+                <label for="price">Price</label>
+                <input type="text" v-model="price" v-validate="{ required: true, numeric: true }" name="price" class="form-control" :class="{ 'is-invalid': submitted && errors.has('price') }" />
+                <div v-if="submitted && errors.has('price')" class="invalid-feedback">{{ errors.first('price') }}</div>
             </div>
             <div class="form-group">
-                <input type="text" name="status" v-model="status" placeholder="status" class="form-control">
+                <label for="faculty_id">faculty_id</label>
+                <select class="form-control" v-model="faculty_id">
+                    <option v-for="faculty in faculties" :value="faculty.id">{{ faculty.title }}</option>
+                </select>
             </div>
             <div class="form-group">
-                <input type="text" name="price" v-model="price" placeholder="price" class="form-control">
+                <label for="type_id">type_id</label>
+                <select class="form-control" v-model="type_id">
+                    <option v-for="type1 in types" :value="type1.id">{{ type1.title }}</option>
+                </select>
             </div>
             <div class="form-group">
-                <input type="text" name="thumbnail" v-model="thumbnail" placeholder="thumbnail" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="text" name="faculty_id" v-model="faculty_id" placeholder="faculty_id" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="text" name="type_id" v-model="type_id" placeholder="type_id" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Add Product" class="btn btn-info">
+                <button class="btn btn-info">Add Product</button>
             </div>
         </form>
     </div>
+
+<br>
+
+<h3>Таблица товаров</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">title</th>
+      <th scope="col">description</th>
+      <th scope="col">price</th>
+      <th scope="col">faculty_id</th>
+      <th scope="col">type_id</th>
+      <th scope="col">show</th>
+      <th scope="col">delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="product in products">
+      <th>{{ product.id }}</th>
+      <td>{{ product.title }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.faculty.title }}</td>
+      <td>{{ product.type.title }}</td>
+      <td><a href="#" @click="showProduct(product.id)">Show</a></td>
+      <td><a href="#" @click="deleteProduct(product.id)">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
 
   </div>
 </template>
@@ -75,56 +87,83 @@ import axios from 'axios'
       data() {
           return {
              products: {},
+             faculties: {},
+             types: {},
+             title: '',
+             description: '',
+             price: '',
+             faculty_id: '',
+             type_id: '',
+             feedback: '',
+             submitted: false,
              form: new Form({
-                name : '',
-                description : '',
-                quantity : '',
-                status : '',
-                price : '',
-                thumbnail : '',
-                faculty_id : '',
-                type_id : '',
+                title: '',
+                description: '',
+                price: '',
+                faculty_id: '',
+                type_id: '',
           })
         }
       },
       created() {
           this.loadProducts();
+          this.loadFaculties();
+          this.loadTypes();
       },
       methods: {
+           handleSubmit(e) {
+            this.submitted = true;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                    this.addProduct()
+                }
+            });
+          },
           loadProducts() {
-            axios.get('./api/products')
+            axios.get('api/products')
                 .then((response => this.products = response.data));
+          },
+          loadFaculties() {
+            axios.get('api/faculties')
+                .then((response => this.faculties = response.data));
+          },
+          loadTypes() {
+            axios.get('api/types')
+                .then((response => this.types = response.data));
           },
           addProduct() {
               axios.post('api/products/', { 
-                  name: this.name, 
-                  description: this.description,
-                  quantity: this.quantity,
-                  status: this.status,
-                  price: this.price, 
-                  thumbnail: this.thumbnail,
-                  faculty_id: this.faculty_id,
-                  type_id: this.type_id,
+                    title: this.title,
+                    description: this.description,
+                    price: this.price,
+                    faculty_id: this.faculty_id,
+                    type_id: this.type_id,
+                  })                    
+                  .then(function (response) {
+                        alert(response.data.message)
+                  })
+                  .catch(error => {
+                      this.feedback = error.response.data.errors;
                   });
+                  this.loadProducts()
+                  this.feedback = null
           },
           showProduct(id) {       
                 axios.get('api/products/' + id)
-                .then(response => {
-                     this.name = response.data.name;
-                     console.log(this.name);
-                });
-                this.products = this.products.filter(product => {
+                      .then(response => {
+                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+                 this.products = this.products.filter(product => {
                     return product.id == id;
                  });
+                })
           },
+
           deleteProduct(id) {
                 axios.delete('api/products/' + id)
-                    .then(function (resp) {
-                        app.$router.replace('/');
+                    .then(function (response) {
+                        alert(response.data.message);
                     });
-                this.products = this.products.filter(product => {
-                return product.id !== id;
-                 });
+                this.loadProducts()
           }
       },
   }

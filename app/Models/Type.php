@@ -10,7 +10,9 @@ class Type extends Model
         return $this->hasOne('App\Models\Product');
     }
 
-    public function size() {
-        return $this->hasOne('App\Models\Size');
-    }
+    protected $fillable = [
+        'title'
+    ];
+
+    public $timestamps = false;
 }

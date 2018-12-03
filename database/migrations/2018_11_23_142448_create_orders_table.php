@@ -15,11 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned();
+            $table->integer('productsvariants_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->string('is_paid')->default('no');
-            $table->integer('final_price');
-            $table->timestamps();
+            $table->integer('status_id')->unsigned();
+            $table->integer('paymentmethod_id')->unsigned();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

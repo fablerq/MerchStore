@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Models\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -16,9 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('status')->get();
+        $users = User::with('role')->get();
         return response()->json($users, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
-
     }
 
     /**
@@ -36,16 +37,18 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
+        $validated = $request->validated();
         User::create([
-            'login' => $request['login'],
-            'password' => Hash::make($request['password']),
-            'email' => $request['email'],
-            'status_id' => $request['status_id'],
+            'login' => $validated['login'],
+            'password' => Hash::make($validated['password']),
+            'email' => $validated['email'],
+            'role_id' => $validated['role_id'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -90,8 +93,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if(Order::where('user_id', $id)->first()) {
+            return response()->json([
+                'message' => 'Пользователя номер '.$id.' не получилось удалить. Существует заказ от этого пользователя.',
+            ]);
+        }
         User::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Юзер номер '.$id.' удален успешно (я пришел с сервера)',
+        ]);
     }
 
     

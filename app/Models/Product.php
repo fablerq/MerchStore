@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'name', 'description', 'quantity', 'status', 'price', 'thumbnail', 'faculty_id', 'type_id'
+        'title', 'description', 'price', 'faculty_id', 'type_id'
     ];
 
     public $timestamps = false;
@@ -20,11 +20,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\Type');
     }
 
-    public function order() {
-        return $this->hasOne('App\Models\Order');
+    public function productsvariants() {
+        return $this->hasMany('App\Models\ProductsVariants');
     }
 
-    public function photo() {
-        return $this->belongsTo('App\Models\Photo');
+    public function comment() {
+        return $this->hasMany('App\Models\Comments');
     }
 }

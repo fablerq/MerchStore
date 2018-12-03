@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use App\Http\Requests\PhotoRequest;
 
 class PhotoController extends Controller
 {
-                /**
+     /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,14 +24,17 @@ class PhotoController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(PhotoRequest $request)
     {
+        $validated = $request->validated();
         Photo::create([
-            'photo_link' => $request['photo_link'],
-            'product_id' => $request['product_id'],
+            'title' => $validated['title'],
+            'photo_link' => $validated['photo_link'],
+            'product_id' => $validated['product_id'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -54,6 +58,8 @@ class PhotoController extends Controller
     public function destroy($id)
     {
         Photo::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Фотография номер '.$id.' удалена успешно (я пришел с сервера)',
+        ]);
     }
 }

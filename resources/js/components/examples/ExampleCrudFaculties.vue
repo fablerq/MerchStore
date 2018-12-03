@@ -1,19 +1,57 @@
 <template>
   <div>
+    <h1>faculties</h1>
 <br>
+<h3>Добавить факультет</h3>
     <div class="card-body">
-        <form action="./api/faculties" method="POST" @submit="addFac()">
+
+        <div class="alert alert-danger" v-if="feedback">
+            <ul>
+                <li v-for="error in feedback">{{ error[0] }}</li>
+            </ul>
+        </div>
+
+        <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <input type="text" name="name" v-model="name" placeholder="name" class="form-control">
+                <label for="title">Title</label>
+                <input type="text" v-model="title" v-validate="{ required: true, alpha_spaces: true, max: 100, min: 3 }" name="title" class="form-control" :class="{ 'is-invalid': submitted && errors.has('title') }" />
+                <div v-if="submitted && errors.has('title')" class="invalid-feedback">{{ errors.first('title') }}</div>
             </div>
             <div class="form-group">
-                <input type="text" name="color" v-model="color" placeholder="color" class="form-control">
+                <label for="color">Color</label>
+                <input type="text" v-model="color" v-validate="{ required: true, alpha_spaces: true, max: 50, min: 5 }" name="color" class="form-control" :class="{ 'is-invalid': submitted && errors.has('color') }" />
+                <div v-if="submitted && errors.has('color')" class="invalid-feedback">{{ errors.first('color') }}</div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add Fac" class="btn btn-info">
+                <button class="btn btn-info">Add Faculty</button>
             </div>
         </form>
     </div>
+
+<br>
+
+<h3>Таблица факультетов</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">title</th>
+      <th scope="col">color</th>
+      <th scope="col">show</th>
+      <th scope="col">delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="faculty in faculties">
+      <th>{{ faculty.id }}</th>
+      <td>{{ faculty.title }}</td>
+      <td>{{ faculty.color }}</td>
+      <td><a href="#" @click="showFaculty(faculty.id)">Show</a></td>
+      <td><a href="#" @click="deleteFaculty(faculty.id)">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
 
   </div>
 </template>
@@ -25,19 +63,64 @@ import axios from 'axios'
   export default {
       data() {
           return {
+             faculties: {},
+             title: '',
+             color: '',
+             feedback: '',
+             submitted: false,
              form: new Form({
-                name : '',
+                title : '',
                 color : '',
           })
         }
       },
+      created() {
+          this.loadFaculties();
+      },
       methods: {
-          addFac() {
-              axios.post('api/faculties', { 
-                  name: this.name, 
-                  color: this.color,
-                  });
+           handleSubmit(e) {
+            this.submitted = true;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                    this.addFaculty()
+                }
+            });
           },
+          loadFaculties() {
+            axios.get('api/faculties')
+                .then((response => this.faculties = response.data));
+          },
+          addFaculty() {
+              axios.post('api/faculties/', { 
+                  title: this.title, 
+                  color: this.color,
+                  })                    
+                  .then(function (response) {
+                        alert(response.data.message)
+                  })
+                  .catch(error => {
+                      this.feedback = error.response.data.errors;
+                  });
+                  this.loadFaculties()
+                  this.feedback = null
+          },
+          showFaculty(id) {       
+                axios.get('api/faculties/' + id)
+                      .then(response => {
+                alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+                 this.faculties = this.faculties.filter(faculty => {
+                    return faculty.id == id;
+                 });
+                })
+          },
+
+          deleteFaculty(id) {
+                axios.delete('api/faculties/' + id)
+                    .then(function (response) {
+                        alert(response.data.message);
+                    });
+                this.loadFaculties()
+          }
       },
   }
 </script>

@@ -15,8 +15,8 @@ class CreateFacultiesTable extends Migration
     {
         Schema::create('faculties', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 50)->unique();
-            $table->string('color', 50);
+            $table->string('title')->unique();
+            $table->string('color');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateFacultiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faculties');
+        Schema::drop('faculties');
     }
 }

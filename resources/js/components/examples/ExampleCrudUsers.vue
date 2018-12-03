@@ -1,47 +1,72 @@
 <template>
   <div>
     <h1>users</h1>
-    <p>Валидации нет. Потому осторожней. Везде уникальные поля + status_id это намбер. Пароль это hash</p>
-    <table border="1">
-        <tr>
-            <td>id</td>
-            <td>login</td>
-            <td>password</td>
-            <td>email</td>
-            <td>status_id</td>
-            <td>show</td>
-            <td>delete</td>
-        </tr>
-        <tr v-for="user in users">
-            <td>{{ user.id }}</td>
-            <td>{{ user.login }}</td>
-            <td>{{ user.password }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.status.name }}</td>
-            <td><a href="#" @click="showUser(user.id)">Show</a></td>
-            <td><a href="#" @click="deleteUser(user.id)">Delete</a></td>
-        </tr>
-    </table>
 <br>
+<h3>Добавить юзера</h3>
     <div class="card-body">
-        <form action="./api/users" method="POST" @submit="addUser()">
+
+        <div class="alert alert-danger" v-if="feedback">
+            <ul>
+                <li v-for="error in feedback">{{ error[0] }}</li>
+            </ul>
+        </div>
+
+        <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <input type="text" name="login" v-model="login" placeholder="login" class="form-control">
+                <label for="login">Login</label>
+                <input type="text" v-model="login" v-validate="{ required: true, max: 100, min: 5 }" name="login" class="form-control" :class="{ 'is-invalid': submitted && errors.has('login') }" />
+                <div v-if="submitted && errors.has('login')" class="invalid-feedback">{{ errors.first('login') }}</div>
             </div>
             <div class="form-group">
-                <input type="text" name="password" v-model="password" placeholder="password" class="form-control">
+                <label for="password">Password</label>
+                <input type="password" v-model="password" v-validate="{ required: true, min: 7 }" name="password" class="form-control" :class="{ 'is-invalid': submitted && errors.has('password') }" />
+                <div v-if="submitted && errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</div>
             </div>
             <div class="form-group">
-                <input type="text" name="email" v-model="email" placeholder="email" class="form-control">
+                <label for="email">Email</label>
+                <input type="text" v-model="email" v-validate="{ required: true, email: true }" name="email" class="form-control" :class="{ 'is-invalid': submitted && errors.has('email') }" />
+                <div v-if="submitted && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
             </div>
             <div class="form-group">
-                <input type="text" name="status_id" v-model="status_id" placeholder="status_id" class="form-control">
+                <label for="role_id">role_id</label>
+                <select class="form-control" v-model="role_id">
+                    <option v-for="role in roles" :value="role.id">{{ role.title }}</option>
+                </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add User" class="btn btn-info">
+                <button class="btn btn-info">Add User</button>
             </div>
         </form>
     </div>
+
+<br>
+
+<h3>Таблица юзеров</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">login</th>
+      <th scope="col">password</th>
+      <th scope="col">email</th>
+      <th scope="col">role_id</th>
+      <th scope="col">show</th>
+      <th scope="col">delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="user in users">
+      <th>{{ user.id }}</th>
+      <td>{{ user.login }}</td>
+      <td>{{ user.password }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role.title }}</td>
+      <td><a href="#" @click="showUser(user.id)">Show</a></td>
+      <td><a href="#" @click="deleteUser(user.id)">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
 
   </div>
 </template>
@@ -54,47 +79,74 @@ import axios from 'axios'
       data() {
           return {
              users: {},
+             roles: {},
+             login: '',
+             password: '',
+             email: '',
+             role_id: '',
+             feedback: '',
+             submitted: false,
              form: new Form({
-                login : '',
-                password : '',
-                email : '',
-                status_id : '',
+                login: '',
+                password: '',
+                email: '',
+                role_id: '',
           })
         }
       },
       created() {
           this.loadUsers();
+          this.loadRoles();
       },
       methods: {
+           handleSubmit(e) {
+            this.submitted = true;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                    this.addUser()
+                }
+            });
+          },
           loadUsers() {
-            axios.get('./api/users')
+            axios.get('api/users')
                 .then((response => this.users = response.data));
+          },
+          loadRoles() {
+            axios.get('api/roles')
+                .then((response => this.roles = response.data));
           },
           addUser() {
               axios.post('api/users/', { 
-                  title: this.login, 
-                  password: this.password,
-                  email: this.email,
-                  status_id: this.status_id,
+                    login: this.login,
+                    password: this.password,
+                    email: this.email,
+                    role_id: this.role_id,
+                  })                    
+                  .then(function (response) {
+                        alert(response.data.message)
+                  })
+                  .catch(error => {
+                      this.feedback = error.response.data.errors;
                   });
+                  this.loadUsers()
+                  this.feedback = null
           },
           showUser(id) {       
                 axios.get('api/users/' + id)
-                     .then(function (resp) {
-                        app.$router.replace('/');
-                    });
-                this.users = this.users.filter(user => {
-                return user.id !== id;
+                      .then(response => {
+                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+                 this.users = this.users.filter(user => {
+                    return user.id == id;
                  });
+                })
           },
+
           deleteUser(id) {
                 axios.delete('api/users/' + id)
-                    .then(function (resp) {
-                        app.$router.replace('/');
+                    .then(function (response) {
+                        alert(response.data.message);
                     });
-                this.users = this.users.filter(user => {
-                return user.id !== id;
-                 });
+                this.loadUsers()
           }
       },
   }

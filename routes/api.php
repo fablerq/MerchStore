@@ -31,7 +31,7 @@ Route::resource('orders', 'OrderController', [
   ]);
 
 //Additional
-  Route::resource('faculties', 'FacultyController', [
+Route::resource('faculties', 'FacultyController', [
     'except' => ['edit']
   ]);
 
@@ -48,5 +48,21 @@ Route::resource('statuses', 'StatusController', [
   ]);
 
 Route::resource('types', 'TypeController', [
+    'except' => ['edit']
+  ]);
+
+Route::resource('roles', 'RoleController', [
+    'except' => ['edit']
+  ]);
+
+Route::resource('paymentmethods', 'PaymentMethodController', [
+    'except' => ['edit']
+  ]);
+
+Route::resource('comments', 'CommentController', [
+    'except' => ['edit']
+  ]);
+
+Route::resource('productsvariants', 'ProductsVariantsController', [
     'except' => ['edit']
   ]);
