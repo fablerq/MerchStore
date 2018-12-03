@@ -107,7 +107,7 @@ import axios from 'axios'
                         alert(response.data.message)
                   })
                   .catch(error => {
-                      console.log(error.message);
+                      console.log(error.response);
                       this.feedback = error.response.data.errors;
                   });
                   this.loadComments()
