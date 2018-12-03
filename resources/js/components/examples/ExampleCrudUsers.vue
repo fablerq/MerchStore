@@ -116,7 +116,7 @@ import axios from 'axios'
                 .then((response => this.roles = response.data));
           },
           addUser() {
-              axios.post('api/users/', { 
+              axios.post('api/users', { 
                     login: this.login,
                     password: this.password,
                     email: this.email,
@@ -132,7 +132,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showUser(id) {       
-                axios.get('api/users/' + id)
+                axios.get('api/users' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.users = this.users.filter(user => {
@@ -142,7 +142,7 @@ import axios from 'axios'
           },
 
           deleteUser(id) {
-                axios.delete('api/users/' + id)
+                axios.delete('api/users' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

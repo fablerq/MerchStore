@@ -82,7 +82,7 @@ import axios from 'axios'
                 .then((response => this.roles = response.data));
           },
           addRole() {
-              axios.post('api/roles/', { 
+              axios.post('api/roles', { 
                   title: this.title, 
                   })                    
                   .then(function (response) {
@@ -95,7 +95,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showRole(id) {       
-                axios.get('api/roles/' + id)
+                axios.get('api/roles' + id)
                       .then(response => {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.roles = this.roles.filter(role => {
@@ -105,7 +105,7 @@ import axios from 'axios'
           },
 
           deleteRole(id) {
-                axios.delete('api/roles/' + id)
+                axios.delete('api/roles' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

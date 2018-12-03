@@ -132,7 +132,7 @@ import axios from 'axios'
                 .then((response => this.types = response.data));
           },
           addProduct() {
-              axios.post('api/products/', { 
+              axios.post('api/products', { 
                     title: this.title,
                     description: this.description,
                     price: this.price,
@@ -149,7 +149,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showProduct(id) {       
-                axios.get('api/products/' + id)
+                axios.get('api/products' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.products = this.products.filter(product => {
@@ -159,7 +159,7 @@ import axios from 'axios'
           },
 
           deleteProduct(id) {
-                axios.delete('api/products/' + id)
+                axios.delete('api/products' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
