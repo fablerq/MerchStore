@@ -3,36 +3,36 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                    <img  class="mainlogo" src="http://localhost/MerchStore/resources/imgs/mainlogo.png" alt="logo">
+                    <router-link class="menu-link" :to="{ name: 'main' }"><img  class="mainlogo" src="http://localhost/MerchStore/resources/imgs/mainlogo.png" alt="logo"></router-link>
                 </div>
                 <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
                     <nav>
                         <ul class="menu">
                             <li>
-                                <div class="menu-item mainpage">
+                                <div class="menu-item catalog">
                                     <img src="http://localhost/MerchStore/resources/imgs/catalog.png" alt="catalog">
-                                    <router-link class="menu-link" :to="{ name: 'app' }">Каталог</router-link>
+                                    <router-link class="menu-link" :to="{ name: 'catalog' }">Каталог</router-link>
                                 </div>
                             </li>
                             <li class="slash"><img src="http://localhost/MerchStore/resources/imgs/slash.png" alt=""></li>
                             <li>
                                 <div class="menu-item faq">
                                     <img src="http://localhost/MerchStore/resources/imgs/faq.png" alt="catalog">
-                                    <router-link class="menu-link" :to="{ name: 'users' }">F&Q</router-link>
+                                    <router-link class="menu-link" :to="{ name: '' }">F&Q</router-link>
                                 </div>
                             </li>
                             <li class="slash"><img src="http://localhost/MerchStore/resources/imgs/slash.png" alt=""></li>
                             <li>
-                                <div class="menu-item faq">
+                                <div class="menu-item contacts">
                                     <img src="http://localhost/MerchStore/resources/imgs/contacts.png" alt="catalog">
-                                    <router-link class="menu-link" :to="{ name: 'products' }">Контакты</router-link>
+                                    <router-link class="menu-link" :to="{ name: 'contacts' }">Контакты</router-link>
                                 </div>
                             </li>
                             <li class="slash"><img src="http://localhost/MerchStore/resources/imgs/slash.png" alt=""></li>
                             <li>
                                 <div class="menu-item profile">
                                     <img src="http://localhost/MerchStore/resources/imgs/profile.png" alt="catalog">
-                                    <router-link class="menu-link" :to="{ name: 'orders' }">Личный кабинет</router-link>
+                                    <router-link class="menu-link" :to="{ name: 'lkorders' }">Личный кабинет</router-link>
                                 </div>
                             </li>
                         </ul>

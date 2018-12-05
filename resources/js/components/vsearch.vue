@@ -9,7 +9,8 @@
                     </form>
                 </div>
                 <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                    <button type="button" class="btn btn-primary btn-lg btn-block cart-btn">Корзина</button>
+                    <router-link class="menu-link" :to="{ name: 'card' }"><button type="button" class="btn btn-dark btn-lg btn-block cart-btn">Корзина</button></router-link>
+                    
                 </div>
             </div>
         </div>
@@ -27,6 +28,11 @@ export default {
     background: white;
     margin: 15px 0;
     width: 100%;
+
+    .menu-link {
+            color: #fff;
+            text-decoration: none;
+    }
 
     .form-control-lg {
         width: 100%;

@@ -19,7 +19,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Войти" class="btn btn-light btn-block">
-                                <a href="#" class="text-dark to-reg">Вы ещё не с нами?</a>
+                                <router-link class="menu-link to-reg" :to="{ name: 'registration' }">Вы ещё не с нами?</router-link>
                             </div>
                             
                         </form>

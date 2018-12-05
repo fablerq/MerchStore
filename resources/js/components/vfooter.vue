@@ -33,6 +33,7 @@ footer {
     background-color: #fff;
     padding: 15px 0;
     border-top: 10px solid black;
+    margin-top: 10px;
 
     .about-us {
         width:100%;

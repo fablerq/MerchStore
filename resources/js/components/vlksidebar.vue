@@ -5,15 +5,15 @@
                             <img src="http://localhost/MerchStore/resources/imgs/user-icon.png" alt="user-icon">
                         </div>
 
-                        <router-link class="menu-link" :to="{ name: '#' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Мои заказы</button></router-link>
+                        <router-link class="menu-link" :to="{ name: 'lkorders' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Мои заказы</button></router-link>
 
-                        <router-link class="menu-link" :to="{ name: '#' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Избранное</button></router-link>
+                        <router-link class="menu-link" :to="{ name: 'lkfavorites' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Избранное</button></router-link>
 
-                        <router-link class="menu-link" :to="{ name: '#' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Личные данные</button></router-link>
+                        <router-link class="menu-link" :to="{ name: 'lkdata' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Личные данные</button></router-link>
 
-                        <router-link class="menu-link" :to="{ name: '#' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Выход</button></router-link>
+                        <router-link class="menu-link" :to="{ name: 'signin' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Выход</button></router-link>
 
-                        <router-link class="menu-link" :to="{ name: 'vcard.vue' }">Админка</router-link>
+                        <router-link class="menu-link" :to="{ name: 'admstats' }">Админка</router-link>
                     </div>
                 </div>
 </template>

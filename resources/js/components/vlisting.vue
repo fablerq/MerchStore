@@ -16,19 +16,19 @@
         <vsidebar/>
         <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
           <div class="row goods-row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
           </div>
           <div class="row  goods-row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
           </div>
           <div class="row  goods-row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="http://localhost/MerchStore/resources/imgs/good.png" alt=""></router-link></div>
           </div>
         </div>
       </div>

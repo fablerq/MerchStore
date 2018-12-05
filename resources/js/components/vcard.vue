@@ -68,6 +68,7 @@ export default {
         height: 100%;
         border: none;
         margin: 10px;
+        margin-bottom: 20px;
 
         .card-menu {
             margin-bottom: 2%;
