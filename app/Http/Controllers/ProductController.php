@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductsVariants;
+use App\Models\Photo;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 
@@ -94,7 +96,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        if(ProductsVariants::where('product_id', $id)->first()) {
+        if(ProductsVariants::where('product_id', $id)->first() || Photo::where('product_id', $id)->first() || Comment::where('product_id', $id)->first()) {
             return response()->json([
                 'message' => 'Товар номер '.$id.' не получилось удалить. Существует конкретный товар на данное наименование.',
             ]);

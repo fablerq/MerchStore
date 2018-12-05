@@ -13,6 +13,12 @@
 
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
+                <label for="user_id">user_id</label>
+                <select class="form-control" v-model="user_id">
+                    <option v-for="user in users" :value="user.id">{{ user.email }}</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="body">Body</label>
                 <input type="text" v-model="body" v-validate="{ required: true, max: 3000, min: 20 }" name="body" class="form-control" :class="{ 'is-invalid': submitted && errors.has('body') }" />
                 <div v-if="submitted && errors.has('body')" class="invalid-feedback">{{ errors.first('body') }}</div>
@@ -37,6 +43,7 @@
   <thead>
     <tr>
       <th scope="col">id</th>
+      <th scope="col">user_id</th>
       <th scope="col">body</th>
       <th scope="col">product_id</th>
       <th scope="col">show</th>
@@ -46,6 +53,7 @@
   <tbody>
     <tr v-for="comment in comments">
       <th>{{ comment.id }}</th>
+      <td>{{ comment.user.email }}</td>
       <td>{{ comment.body }}</td>
       <td>{{ comment.product.title }}</td>
       <td><a href="#" @click="showComment(comment.id)">Show</a></td>
@@ -66,12 +74,15 @@ import axios from 'axios'
           return {
              comments: {},
              products: {},
+             users: {},
              types: {},
+             user_id: '',
              body: '',
              product_id: '',
              feedback: '',
              submitted: false,
              form: new Form({
+                user_id: '',
                 body: '',
                 product_id: '',
           })
@@ -80,6 +91,7 @@ import axios from 'axios'
       created() {
           this.loadComments();
           this.loadProducts();
+          this.loadUsers();
       },
       methods: {
            handleSubmit(e) {
@@ -98,8 +110,13 @@ import axios from 'axios'
             axios.get('api/products')
                 .then((response => this.products = response.data));
           },
+          loadUsers() {
+            axios.get('api/users')
+                .then((response => this.users = response.data));
+          },
           addComment() {
               axios.post('api/comments', { 
+                    user_id: this.user_id,
                     body: this.body,
                     product_id: this.product_id,
                   })                    

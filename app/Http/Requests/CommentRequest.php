@@ -24,6 +24,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required|exists:users,id',
             'product_id' => 'required|exists:types,id',
             'body' => 'required|min:20|max:3000'
         ];
@@ -42,6 +43,8 @@ class CommentRequest extends FormRequest
             'body.max' => 'Максимальная длина комментария 3000 символов',
             'product_id.exists' => 'Данный товар не существует. Комментарий невозможен',
             'product_id.required' => 'Поле с выбором товара для комментария не должно быть пустым',
+            'user_id.exists' => 'Данный пользователь не существует. Комментарий невозможно добавить',
+            'user_id.required' => 'У комментария должен быть пользователь',
         ];
     }
 }

@@ -27,4 +27,8 @@ class Product extends Model
     public function comment() {
         return $this->hasMany('App\Models\Comments');
     }
+
+    public function photo() {
+        return $this->hasMany('App\Models\Photo');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Models\Order;
+use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -93,7 +94,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if(Order::where('user_id', $id)->first()) {
+        if(Order::where('user_id', $id)->first() || Comment::where('user_id', $id)->first()) {
             return response()->json([
                 'message' => 'Пользователя номер '.$id.' не получилось удалить. Существует заказ от этого пользователя.',
             ]);

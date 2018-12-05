@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Faculty extends Model
 {
     public function product() {
-        return $this->hasOne('App\Models\Product');
+        return $this->hasMany('App\Models\Product');
     }
     
     protected $fillable = [

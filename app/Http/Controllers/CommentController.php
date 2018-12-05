@@ -15,7 +15,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::with('product')->get();
+        $comments = Comment::with('product', 'user')->get();
         return response()->json($comments, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
@@ -39,6 +39,7 @@ class CommentController extends Controller
     {
         $validated = $request->validated();
         Comment::create([
+            'user_id' => $validated['user_id'],
             'body' => $validated['body'],
             'product_id' => $validated['product_id'],
         ]);
