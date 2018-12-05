@@ -3,14 +3,18 @@ import VueRouter from 'vue-router'
 import Form from 'vform'
 import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
-import VeeValidate from 'vee-validate';
+
+import VeeValidate, { Validator } from 'vee-validate'
+import ru from 'vee-validate/dist/locale/ru'
+
+Validator.localize({ ru: ru })
+Vue.use(VeeValidate, {locale: 'ru'})
 
 
 
 Vue.prototype.$ajax = axios
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
-Vue.use(VeeValidate);
 
 
 import App from './components/App.vue'
