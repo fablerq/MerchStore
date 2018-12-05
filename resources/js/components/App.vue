@@ -1,7 +1,8 @@
 <template>
   <div>
     <vheader/>
-    <vadmlist/>
+    <vsearch/>
+    <vcontacts/>
     <div class="container">
       <router-view></router-view>
     </div>
@@ -22,6 +23,16 @@ import vadmsidebar from './vadmsidebar.vue'
 import vadmstats from './vadmstats.vue'
 import vadmusers from './vadmusers.vue'
 import vadmlist from './vadmlist.vue'
+import vadmorders from './vadmorders.vue'
+import vlksidebar from './vlksidebar.vue'
+import vlkorders from './vlkorders.vue'
+import vlkfavorites from './vlkfavorites.vue'
+import vlkdata from './vlkdata.vue'
+import vregistration from './vregistration.vue'
+import vsignin from './vsignin.vue'
+import vcontacts from './vcontacts.vue'
+
+
 
 export default {
   components: {
@@ -37,7 +48,15 @@ export default {
     vadmsidebar,
     vadmstats,
     vadmusers,
-    vadmlist
+    vadmlist,
+    vadmorders,
+    vlksidebar,
+    vlkorders,
+    vlkfavorites,
+    vlkdata,
+    vregistration,
+    vsignin,
+    vcontacts
 	}
 }
 </script>
