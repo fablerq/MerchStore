@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import vheader from '../vheader.vue'
-import vlkorders from '../vlkorders.vue'
-import vfooter from '../vfooter.vue'
+import vheader from '../architecture/vheader.vue'
+import vlkorders from '../lk/vlkorders.vue'
+import vfooter from '../architecture/vfooter.vue'
 
 export default {
   components: {

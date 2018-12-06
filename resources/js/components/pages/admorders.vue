@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import vheader from '../vheader.vue'
-import vadmorders from '../vadmorders.vue'
-import vfooter from '../vfooter.vue'
+import vheader from '../architecture/vheader.vue'
+import vadmorders from '../admin/vadmorders.vue'
+import vfooter from '../architecture/vfooter.vue'
 
 export default {
   components: {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import vsignin from '../vsignin.vue'
+import vsignin from '../main/vsignin.vue'
 
 export default {
   components: {
