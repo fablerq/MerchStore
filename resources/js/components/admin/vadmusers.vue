@@ -7,31 +7,6 @@
         <vadmsidebar/>
         <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">login</th>
-      <th scope="col">password</th>
-      <th scope="col">email</th>
-      <th scope="col">role_id</th>
-      <th scope="col">show</th>
-      <th scope="col">delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="user in users">
-      <th>{{ user.id }}</th>
-      <td>{{ user.login }}</td>
-      <td>{{ user.password }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.role }}</td>
-      <td><a href="#" @click="showUser(user.id)">Show</a></td>
-      <td><a href="#" @click="deleteUser(user.id)">Delete</a></td>
-    </tr>
-  </tbody>
-</table>
-
 
           <crudusers v-if="this.users" :users="users" @users="loadUsers" @roles="loadRoles"></crudusers>
 
