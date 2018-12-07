@@ -19,8 +19,7 @@ before_script:
   
 install:
   - composer install
-  - npm i --save-dev babel-loader babel-preset-env
-  - npm install --save
+  - npm install
 
 script:
   - vendor/bin/phpunit
