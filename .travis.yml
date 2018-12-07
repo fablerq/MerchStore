@@ -19,7 +19,6 @@ before_script:
   
 install:
   - composer install
-  - npm rebuild node-sass
   - npm install --save
 
 script:
