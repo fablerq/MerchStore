@@ -19,8 +19,7 @@ before_script:
   
 install:
   - composer install
-  - npm install --save babel-helper-vue-jsx-merge-props
-  - npm install babel-core babel-loader laravel-mix
+  - npm install vue-nav-tabs
   - npm install
 
 script:
