@@ -19,6 +19,7 @@ before_script:
   
 install:
   - composer install
+  - npm install --save babel-helper-vue-jsx-merge-props
   - npm install
 
 script:
