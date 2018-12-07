@@ -19,6 +19,7 @@ before_script:
   
 install:
   - composer install
+  - npm i --save-dev laravel-mix
   - npm install --save
 
 script:
