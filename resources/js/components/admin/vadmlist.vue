@@ -32,7 +32,7 @@
 <script>
 import vadmsidebar from './vadmsidebar.vue'
 import crudproducts from './base/CrudProducts.vue'
-import crudproductsvariants from './base/crudproductsvariants.vue'
+import crudproductsvariants from './base/CrudProductsVariants.vue'
 import {VueTabs, VTab} from 'vue-nav-tabs/dist/vue-tabs.js'
 
 export default {
