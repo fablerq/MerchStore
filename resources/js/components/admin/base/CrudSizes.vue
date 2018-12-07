@@ -87,11 +87,11 @@ import axios from 'axios'
             });
           },
           loadSizes() {
-            axios.get('api/sizes')
+            axios.get('/api/sizes')
                 .then((response => this.sizes = response.data));
           },
           addSize() {
-              axios.post('api/sizes', { 
+              axios.post('/api/sizes', { 
                   title: this.title, 
                   description: this.description,
                   })                    
@@ -105,7 +105,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showSize(id) {       
-                axios.get('api/sizes/' + id)
+                axios.get('/api/sizes/' + id)
                       .then(response => {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.sizes = this.sizes.filter(size => {
@@ -115,7 +115,7 @@ import axios from 'axios'
           },
 
           deleteSize(id) {
-                axios.delete('api/sizes/' + id)
+                axios.delete('/api/sizes/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

@@ -48016,23 +48016,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 //Architecture
 
@@ -59725,31 +59708,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -59908,7 +59866,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadUsers: function loadUsers() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/users').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/users').then(function (response) {
                 return _this2.users = response.data;
             });
             this.$emit('users', this.users);
@@ -59917,7 +59875,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadRoles: function loadRoles() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/roles').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/roles').then(function (response) {
                 return _this3.roles = response.data;
             });
             this.$emit('roles', this.roles);
@@ -59925,7 +59883,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addUser: function addUser() {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/users', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/users/', {
                 login: this.login,
                 password: this.password,
                 email: this.email,
@@ -59941,7 +59899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showUser: function showUser(id) {
             var _this5 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/users/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/users/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this5.users = _this5.users.filter(function (user) {
                     return user.id == id;
@@ -59949,7 +59907,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteUser: function deleteUser(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/users/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/users/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadUsers();
@@ -60173,7 +60131,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(user.email))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.role))]),
+            _c("td", [_vm._v(_vm._s(user.role.title))]),
             _vm._v(" "),
             _c("td", [
               _c(
@@ -60271,57 +60229,6 @@ var render = function() {
             "div",
             { staticClass: "col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9" },
             [
-              _c("table", { staticClass: "table table-bordered" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.users, function(user) {
-                    return _c("tr", [
-                      _c("th", [_vm._v(_vm._s(user.id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.login))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.password))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.email))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.role))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                _vm.showUser(user.id)
-                              }
-                            }
-                          },
-                          [_vm._v("Show")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                _vm.deleteUser(user.id)
-                              }
-                            }
-                          },
-                          [_vm._v("Delete")]
-                        )
-                      ])
-                    ])
-                  })
-                )
-              ]),
-              _vm._v(" "),
               this.users
                 ? _c("crudusers", {
                     attrs: { users: _vm.users },
@@ -60337,30 +60244,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("id")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("login")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("password")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("email")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("role_id")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("show")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("delete")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -60527,6 +60411,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vform__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 //
 //
 //
@@ -60606,6 +60492,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -60653,28 +60540,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadProducts: function loadProducts() {
             var _this2 = this;
 
-            axios.get('api/products').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/products').then(function (response) {
                 return _this2.products = response.data;
             });
         },
         loadFaculties: function loadFaculties() {
             var _this3 = this;
 
-            axios.get('api/faculties').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/faculties').then(function (response) {
                 return _this3.faculties = response.data;
             });
         },
         loadTypes: function loadTypes() {
             var _this4 = this;
 
-            axios.get('api/types').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/types').then(function (response) {
                 return _this4.types = response.data;
             });
         },
         addProduct: function addProduct() {
             var _this5 = this;
 
-            axios.post('api/products', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/products', {
                 title: this.title,
                 description: this.description,
                 price: this.price,
@@ -60691,7 +60578,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showProduct: function showProduct(id) {
             var _this6 = this;
 
-            axios.get('api/products/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/products/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this6.products = _this6.products.filter(function (product) {
                     return product.id == id;
@@ -60699,7 +60586,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteProduct: function deleteProduct(id) {
-            axios.delete('api/products/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/products/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadProducts();
@@ -61204,28 +61091,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadProductsVariants: function loadProductsVariants() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/productsvariants').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/productsvariants').then(function (response) {
                 return _this2.productsvariants = response.data;
             });
         },
         loadProducts: function loadProducts() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/products').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/products').then(function (response) {
                 return _this3.products = response.data;
             });
         },
         loadSizes: function loadSizes() {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/sizes').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/sizes').then(function (response) {
                 return _this4.sizes = response.data;
             });
         },
         addProductsVariant: function addProductsVariant() {
             var _this5 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/productsvariants', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/productsvariants', {
                 product_id: this.product_id,
                 size_id: this.size_id
             }).then(function (response) {
@@ -61239,7 +61126,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showProductsVariant: function showProductsVariant(id) {
             var _this6 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/productsvariants/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/productsvariants/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this6.productsvariants = _this6.productsvariants.filter(function (productsvariant) {
                     return productsvariant.id == id;
@@ -61247,7 +61134,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteProductsVariant: function deleteProductsVariant(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/productsvariants/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/productsvariants/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadProductsVariants();
@@ -61796,42 +61683,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadOrders: function loadOrders() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/orders').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/orders').then(function (response) {
                 return _this2.orders = response.data;
             });
         },
         loadProductsVariants: function loadProductsVariants() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/productsvariants').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/productsvariants').then(function (response) {
                 return _this3.productsvariants = response.data;
             });
         },
         loadUsers: function loadUsers() {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/users').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/users').then(function (response) {
                 return _this4.users = response.data;
             });
         },
         loadStatuses: function loadStatuses() {
             var _this5 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/statuses').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/statuses').then(function (response) {
                 return _this5.statuses = response.data;
             });
         },
         loadPaymentmethods: function loadPaymentmethods() {
             var _this6 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/paymentmethods').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/paymentmethods').then(function (response) {
                 return _this6.paymentmethods = response.data;
             });
         },
         addOrder: function addOrder() {
             var _this7 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/orders', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/orders', {
                 productsvariants_id: this.productsvariants_id,
                 user_id: this.user_id,
                 status_id: this.status_id,
@@ -61847,7 +61734,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showOrder: function showOrder(id) {
             var _this8 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/orders/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/orders/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this8.orders = _this8.orders.filter(function (order) {
                     return order.id == id;
@@ -61855,7 +61742,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteOrder: function deleteOrder(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/orders/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/orders/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadOrders();
@@ -62531,28 +62418,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadComments: function loadComments() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/comments').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/comments').then(function (response) {
                 return _this2.comments = response.data;
             });
         },
         loadProducts: function loadProducts() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/products').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/products').then(function (response) {
                 return _this3.products = response.data;
             });
         },
         loadUsers: function loadUsers() {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/users').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/users').then(function (response) {
                 return _this4.users = response.data;
             });
         },
         addComment: function addComment() {
             var _this5 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/comments', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/comments', {
                 user_id: this.user_id,
                 body: this.body,
                 product_id: this.product_id
@@ -62568,7 +62455,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showComment: function showComment(id) {
             var _this6 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/comments/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/comments/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this6.comments = _this6.comments.filter(function (comment) {
                     return comment.id == id;
@@ -62576,7 +62463,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteComment: function deleteComment(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/comments/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/comments/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadComments();
@@ -62986,14 +62873,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadFaculties: function loadFaculties() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/faculties').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/faculties').then(function (response) {
                 return _this2.faculties = response.data;
             });
         },
         addFaculty: function addFaculty() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/faculties', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/faculties', {
                 title: this.title,
                 color: this.color
             }).then(function (response) {
@@ -63007,7 +62894,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showFaculty: function showFaculty(id) {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/faculties/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/faculties/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this4.faculties = _this4.faculties.filter(function (faculty) {
                     return faculty.id == id;
@@ -63015,7 +62902,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteFaculty: function deleteFaculty(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/faculties/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/faculties/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadFaculties();
@@ -63383,14 +63270,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadPaymentMethods: function loadPaymentMethods() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/paymentmethods').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/paymentmethods').then(function (response) {
                 return _this2.paymentmethods = response.data;
             });
         },
         addPaymentMethod: function addPaymentMethod() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/paymentmethods', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/paymentmethods', {
                 title: this.title
             }).then(function (response) {
                 alert(response.data.message);
@@ -63403,7 +63290,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showPaymentMethod: function showPaymentMethod(id) {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/paymentmethods/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/paymentmethods/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this4.paymentmethods = _this4.paymentmethods.filter(function (paymentmethod) {
                     return paymentmethod.id == id;
@@ -63411,7 +63298,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deletePaymentMethod: function deletePaymentMethod(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/paymentmethods/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/paymentmethods/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadPaymentMethods();
@@ -63752,21 +63639,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadPhotos: function loadPhotos() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/photos').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/photos').then(function (response) {
                 return _this2.photos = response.data;
             });
         },
         loadProducts: function loadProducts() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/products').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/products').then(function (response) {
                 return _this3.products = response.data;
             });
         },
         addPhoto: function addPhoto() {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/photos', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/photos', {
                 title: this.title,
                 photo_link: this.photo_link,
                 product_id: this.product_id
@@ -63781,7 +63668,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showPhoto: function showPhoto(id) {
             var _this5 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/photos/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/photos/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this5.photos = _this5.photos.filter(function (photo) {
                     return photo.id == id;
@@ -63789,7 +63676,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deletePhoto: function deletePhoto(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/photos/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/photos/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadPhotos();
@@ -64193,14 +64080,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadRoles: function loadRoles() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/roles').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/roles').then(function (response) {
                 return _this2.roles = response.data;
             });
         },
         addRole: function addRole() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/roles', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/roles', {
                 title: this.title
             }).then(function (response) {
                 alert(response.data.message);
@@ -64213,7 +64100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showRole: function showRole(id) {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/roles/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/roles/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this4.roles = _this4.roles.filter(function (role) {
                     return role.id == id;
@@ -64221,7 +64108,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteRole: function deleteRole(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/roles/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/roles/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadRoles();
@@ -64549,14 +64436,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadSizes: function loadSizes() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/sizes').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/sizes').then(function (response) {
                 return _this2.sizes = response.data;
             });
         },
         addSize: function addSize() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/sizes', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/sizes', {
                 title: this.title,
                 description: this.description
             }).then(function (response) {
@@ -64570,7 +64457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showSize: function showSize(id) {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/sizes/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/sizes/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this4.sizes = _this4.sizes.filter(function (size) {
                     return size.id == id;
@@ -64578,7 +64465,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteSize: function deleteSize(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/sizes/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/sizes/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadSizes();
@@ -64946,14 +64833,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadStatuses: function loadStatuses() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/statuses').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/statuses').then(function (response) {
                 return _this2.statuses = response.data;
             });
         },
         addStatus: function addStatus() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/statuses', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/statuses', {
                 title: this.title,
                 description: this.description
             }).then(function (response) {
@@ -64967,7 +64854,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showStatus: function showStatus(id) {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/statuses/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/statuses/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this4.statuses = _this4.statuses.filter(function (status) {
                     return status.id == id;
@@ -64975,7 +64862,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteStatus: function deleteStatus(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/statuses/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/statuses/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadStatuses();
@@ -65340,14 +65227,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadTypes: function loadTypes() {
             var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/types').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/types').then(function (response) {
                 return _this2.types = response.data;
             });
         },
         addType: function addType() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/types', {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/types', {
                 title: this.title
             }).then(function (response) {
                 alert(response.data.message);
@@ -65360,7 +65247,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showType: function showType(id) {
             var _this4 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('api/types/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/types/' + id).then(function (response) {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)');
                 _this4.types = _this4.types.filter(function (type) {
                     return type.id == id;
@@ -65368,7 +65255,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteType: function deleteType(id) {
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('api/types/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/types/' + id).then(function (response) {
                 alert(response.data.message);
             });
             this.loadTypes();
@@ -66771,8 +66658,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p"),
-    _vm._v(" "),
     _c("div", { staticClass: "container" }, [_c("router-view")], 1)
   ])
 }

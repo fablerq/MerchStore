@@ -13,7 +13,6 @@
 import vheader from './architecture/vheader.vue'
 import vfooter from './architecture/vfooter.vue'
 
-
 //Main
 import vsidebar from './main/vsidebar.vue'
 import vsearch from './main/vsearch.vue'
@@ -39,8 +38,6 @@ import vlksidebar from './lk/vlksidebar.vue'
 import vlkorders from './lk/vlkorders.vue'
 import vlkfavorites from './lk/vlkfavorites.vue'
 import vlkdata from './lk/vlkdata.vue'
-
-
 
 export default {
   components: {

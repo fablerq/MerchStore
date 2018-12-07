@@ -87,11 +87,11 @@ import axios from 'axios'
             });
           },
           loadFaculties() {
-            axios.get('api/faculties')
+            axios.get('/api/faculties')
                 .then((response => this.faculties = response.data));
           },
           addFaculty() {
-              axios.post('api/faculties', { 
+              axios.post('/api/faculties', { 
                   title: this.title, 
                   color: this.color,
                   })                    
@@ -105,7 +105,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showFaculty(id) {       
-                axios.get('api/faculties/' + id)
+                axios.get('/api/faculties/' + id)
                       .then(response => {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.faculties = this.faculties.filter(faculty => {
@@ -115,7 +115,7 @@ import axios from 'axios'
           },
 
           deleteFaculty(id) {
-                axios.delete('api/faculties/' + id)
+                axios.delete('/api/faculties/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

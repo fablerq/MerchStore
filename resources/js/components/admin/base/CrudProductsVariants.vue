@@ -92,19 +92,19 @@ import axios from 'axios'
             });
           },
           loadProductsVariants() {
-            axios.get('api/productsvariants')
+            axios.get('/api/productsvariants')
                 .then((response => this.productsvariants = response.data));
           },
           loadProducts() {
-            axios.get('api/products')
+            axios.get('/api/products')
                 .then((response => this.products = response.data));
           },
           loadSizes() {
-            axios.get('api/sizes')
+            axios.get('/api/sizes')
                 .then((response => this.sizes = response.data));
           },
           addProductsVariant() {
-              axios.post('api/productsvariants', { 
+              axios.post('/api/productsvariants', { 
                     product_id: this.product_id,
                     size_id: this.size_id,
                   })                    
@@ -118,7 +118,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showProductsVariant(id) {       
-                axios.get('api/productsvariants/' + id)
+                axios.get('/api/productsvariants/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.productsvariants = this.productsvariants.filter(productsvariant => {
@@ -128,7 +128,7 @@ import axios from 'axios'
           },
 
           deleteProductsVariant(id) {
-                axios.delete('api/productsvariants/' + id)
+                axios.delete('/api/productsvariants/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

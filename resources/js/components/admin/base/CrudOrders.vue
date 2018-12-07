@@ -78,7 +78,7 @@
 
 <script>
 import Form from 'vform'
-import axios from 'axios'
+import axios from 'axios' 
 
   export default {
       name: 'crudorders',
@@ -124,27 +124,27 @@ import axios from 'axios'
             });
           },
           loadOrders() {
-            axios.get('api/orders')
+            axios.get('/api/orders')
                 .then((response => this.orders = response.data));
           },
           loadProductsVariants() {
-            axios.get('api/productsvariants')
+            axios.get('/api/productsvariants')
                 .then((response => this.productsvariants = response.data));
           },
           loadUsers() {
-            axios.get('api/users')
+            axios.get('/api/users')
                 .then((response => this.users = response.data));
           },
           loadStatuses() {
-            axios.get('api/statuses')
+            axios.get('/api/statuses')
                 .then((response => this.statuses = response.data));
           },
           loadPaymentmethods() {
-            axios.get('api/paymentmethods')
+            axios.get('/api/paymentmethods')
                 .then((response => this.paymentmethods = response.data));
           },
           addOrder() {
-              axios.post('api/orders', { 
+              axios.post('/api/orders', { 
                     productsvariants_id: this.productsvariants_id,
                     user_id: this.user_id,
                     status_id: this.status_id,
@@ -160,7 +160,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showOrder(id) {       
-                axios.get('api/orders/' + id)
+                axios.get('/api/orders/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.orders = this.orders.filter(order => {
@@ -170,7 +170,7 @@ import axios from 'axios'
           },
 
           deleteOrder(id) {
-                axios.delete('api/orders/' + id)
+                axios.delete('/api/orders/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

@@ -98,15 +98,15 @@ import axios from 'axios'
             });
           },
           loadPhotos() {
-            axios.get('api/photos')
+            axios.get('/api/photos')
                 .then((response => this.photos = response.data));
           },
           loadProducts() {
-            axios.get('api/products')
+            axios.get('/api/products')
                 .then((response => this.products = response.data));
           },
           addPhoto() {
-              axios.post('api/photos', { 
+              axios.post('/api/photos', { 
                     title: this.title,
                     photo_link: this.photo_link,
                     product_id: this.product_id,
@@ -121,7 +121,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showPhoto(id) {       
-                axios.get('api/photos/' + id)
+                axios.get('/api/photos/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.photos = this.photos.filter(photo => {
@@ -131,7 +131,7 @@ import axios from 'axios'
           },
 
           deletePhoto(id) {
-                axios.delete('api/photos/' + id)
+                axios.delete('/api/photos/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

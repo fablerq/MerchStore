@@ -59,7 +59,7 @@
       <td>{{ user.login }}</td>
       <td>{{ user.password }}</td>
       <td>{{ user.email }}</td>
-      <td>{{ user.role }}</td>
+      <td>{{ user.role.title }}</td>
       <td><a href="#" @click="showUser(user.id)">Show</a></td>
       <td><a href="#" @click="deleteUser(user.id)">Delete</a></td>
     </tr>
@@ -107,18 +107,18 @@ import axios from 'axios'
             });
           },
           loadUsers() {
-            axios.get('api/users')
+            axios.get('/api/users')
                 .then((response => this.users = response.data));
             this.$emit('users', this.users)
             console.log(this.users)
           },
           loadRoles() {
-            axios.get('api/roles')
+            axios.get('/api/roles')
                 .then((response => this.roles = response.data));
             this.$emit('roles', this.roles)
           },
           addUser() {
-              axios.post('api/users', { 
+              axios.post('/api/users/', { 
                     login: this.login,
                     password: this.password,
                     email: this.email,
@@ -134,7 +134,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showUser(id) {       
-                axios.get('api/users/' + id)
+                axios.get('/api/users/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.users = this.users.filter(user => {
@@ -144,7 +144,7 @@ import axios from 'axios'
           },
 
           deleteUser(id) {
-                axios.delete('api/users/' + id)
+                axios.delete('/api/users/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

@@ -79,7 +79,7 @@
 
 <script>
 import Form from 'vform'
-
+import axios from 'axios' 
 
   export default {
       name: 'crudproducts',
@@ -120,19 +120,19 @@ import Form from 'vform'
             });
           },
           loadProducts() {
-            axios.get('api/products')
+            axios.get('/api/products')
                 .then((response => this.products = response.data));
           },
           loadFaculties() {
-            axios.get('api/faculties')
+            axios.get('/api/faculties')
                 .then((response => this.faculties = response.data));
           },
           loadTypes() {
-            axios.get('api/types')
+            axios.get('/api/types')
                 .then((response => this.types = response.data));
           },
           addProduct() {
-              axios.post('api/products', { 
+              axios.post('/api/products', { 
                     title: this.title,
                     description: this.description,
                     price: this.price,
@@ -149,7 +149,7 @@ import Form from 'vform'
                   this.feedback = null
           },
           showProduct(id) {       
-                axios.get('api/products/' + id)
+                axios.get('/api/products/' + id)
                       .then(response => {
                  alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.products = this.products.filter(product => {
@@ -159,7 +159,7 @@ import Form from 'vform'
           },
 
           deleteProduct(id) {
-                axios.delete('api/products/' + id)
+                axios.delete('/api/products/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });

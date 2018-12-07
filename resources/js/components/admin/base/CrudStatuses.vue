@@ -86,11 +86,11 @@ import axios from 'axios'
             });
           },
           loadStatuses() {
-            axios.get('api/statuses')
+            axios.get('/api/statuses')
                 .then((response => this.statuses = response.data));
           },
           addStatus() {
-              axios.post('api/statuses', { 
+              axios.post('/api/statuses', { 
                   title: this.title, 
                   description: this.description,
                   })                    
@@ -104,7 +104,7 @@ import axios from 'axios'
                   this.feedback = null
           },
           showStatus(id) {       
-                axios.get('api/statuses/' + id)
+                axios.get('/api/statuses/' + id)
                       .then(response => {
                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
                  this.statuses = this.statuses.filter(status => {
@@ -114,7 +114,7 @@ import axios from 'axios'
           },
 
           deleteStatus(id) {
-                axios.delete('api/statuses/' + id)
+                axios.delete('/api/statuses/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
