@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-    public function user() {
-        return $this->hasOne('App\User');
+    protected $fillable = [
+        'title', 'description'
+    ];
+
+    public $timestamps = false;
+
+    public function order() {
+        return $this->hasMany('App\Models\Order');
     }
 }

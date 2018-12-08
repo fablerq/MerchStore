@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import vheader from '../vheader.vue'
-import vcard from '../vcard.vue'
-import vfooter from '../vfooter.vue'
+import vheader from '../architecture/vheader.vue'
+import vcard from '../main/vcard.vue'
+import vfooter from '../architecture/vfooter.vue'
 
 export default {
   components: {

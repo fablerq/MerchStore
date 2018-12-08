@@ -18,10 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('login')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->default('qwerty');
-            $table->integer('status_id')->unsigned()->default(1);
+            $table->string('password');
+            $table->integer('role_id')->unsigned();
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

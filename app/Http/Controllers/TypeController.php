@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Type;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\TypeRequest;
 
 class TypeController extends Controller
 {
@@ -16,7 +18,6 @@ class TypeController extends Controller
     {
         $types = Type::all();
         return response()->json($types, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
-
     }
 
     /**
@@ -24,13 +25,15 @@ class TypeController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(TypeRequest $request)
     {
+        $validated = $request->validated();
         Type::create([
-            'name' => $request['name'],
+            'title' => $validated['title'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -53,7 +56,14 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
+        if(Product::where('type_id', $id)->first()) {
+            return response()->json([
+                'message' => 'Тип товара номер '.$id.' не получилось удалить. Существует товар с таким типом.',
+            ]);
+        }
         Type::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Тип номер '.$id.' удалена успешно (я пришел с сервера)',
+        ]);
     }
 }

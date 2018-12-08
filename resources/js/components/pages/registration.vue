@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import vregistration from '../vregistration.vue'
+import vregistration from '../main/vregistration.vue'
 
 export default {
   components: {

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faculty;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\FacultyRequest;
 
 class FacultyController extends Controller
 {
@@ -23,14 +25,16 @@ class FacultyController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(FacultyRequest $request)
     {
+        $validated = $request->validated();
         Faculty::create([
-            'name' => $request['name'],
-            'color' => $request['color'],
+            'title' => $validated['title'],
+            'color' => $validated['color'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -53,7 +57,14 @@ class FacultyController extends Controller
      */
     public function destroy($id)
     {
+        if(Product::where('faculty_id', $id)->first()) {
+            return response()->json([
+                'message' => 'Факультет номер '.$id.' не получилось удалить. Существует товар с таким факультетом.',
+            ]);
+        }
         Faculty::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Факультет номер '.$id.' удален успешно (я пришел с сервера)',
+        ]);
     }
 }

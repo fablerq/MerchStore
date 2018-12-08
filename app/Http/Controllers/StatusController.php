@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Status;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Requests\StatusRequest;
 
 class StatusController extends Controller
 {
@@ -16,7 +18,6 @@ class StatusController extends Controller
     {
         $statuses = Status::all();
         return response()->json($statuses, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
-
     }
 
     /**
@@ -24,14 +25,16 @@ class StatusController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StatusRequest $request)
     {
+        $validated = $request->validated();
         Status::create([
-            'name' => $request['name'],
-            'description' => $request['description'],
+            'title' => $validated['title'],
+            'description' => $validated['description'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -54,7 +57,14 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
+        if(Order::where('status_id', $id)->first()) {
+            return response()->json([
+                'message' => 'Статус номер '.$id.' не получилось удалить. Существует заказ c таким статусом.',
+            ]);
+        }
         Status::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Статус номер '.$id.' удален успешно (я пришел с сервера)',
+        ]);
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Size;
+use App\Models\ProductsVariants;
 use Illuminate\Http\Request;
+use App\Http\Requests\SizeRequest;
 
 class SizeController extends Controller
 {
@@ -14,7 +16,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $sizes = Size::with('type')->get();
+        $sizes = Size::all();
         return response()->json($sizes, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
@@ -23,15 +25,16 @@ class SizeController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(SizeRequest $request)
     {
+        $validated = $request->validated();
         Size::create([
-            'name' => $request['name'],
-            'description' => $request['description'],
-            'type_id' => $request['type_id'],
+            'title' => $validated['title'],
+            'description' => $validated['description'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -54,7 +57,14 @@ class SizeController extends Controller
      */
     public function destroy($id)
     {
+        if(ProductsVariants::where('size_id', $id)->first()) {
+            return response()->json([
+                'message' => 'Размер номер '.$id.' не получилось удалить. Существует конкретный товар с таким размером.',
+            ]);
+        }
         Size::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Размер номер '.$id.' удален успешно (я пришел с сервера)',
+        ]);
     }
 }

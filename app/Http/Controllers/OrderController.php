@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderRequest;
 
 class OrderController extends Controller
 {
@@ -14,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('user', 'product')->get();
+        $orders = Order::with('status', 'user', 'productsvariants', 'paymentmethod')->get();
         return response()->json($orders, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
@@ -34,16 +35,18 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
+        $validated = $request->validated();
         Order::create([
-            'product_id' => $request['product_id'],
-            'user_id' => $request['user_id'],
-            'is_paid' => $request['is_paid'],
-            'final_price' => $request['final_price'],
+            'productsvariants_id' => $validated['productsvariants_id'],
+            'user_id' => $validated['user_id'],
+            'status_id' => $validated['status_id'],
+            'paymentmethod_id' => $validated['paymentmethod_id'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -90,6 +93,8 @@ class OrderController extends Controller
     public function destroy($id)
     {
         Order::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Заказ номер '.$id.' удален успешно (я пришел с сервера)',
+        ]);
     }
 }

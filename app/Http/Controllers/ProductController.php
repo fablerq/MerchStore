@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductsVariants;
+use App\Models\Photo;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -16,7 +20,6 @@ class ProductController extends Controller
     {
         $products = Product::with('faculty', 'type')->get();
         return response()->json($products, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
-
     }
 
     /**
@@ -35,20 +38,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
+        $validated = $request->validated();
         Product::create([
-            'name' => $request['name'],
-            'description' => $request['description'],
-            'quantity' => $request['quantity'],
-            'status' => $request['status'],
-            'price' => $request['price'],
-            'thumbnail' => $request['thumbnail'],
-            'faculty_id' => $request['faculty_id'],
-            'type_id' => $request['type_id'],
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'price' => $validated['price'],
+            'faculty_id' => $validated['faculty_id'],
+            'type_id' => $validated['type_id'],
         ]);
-
-        return (['message' => 'created']);
+        return response()->json([
+            'message' => 'Успешно добавлено! (я пришел с сервера)',
+        ]);
     }
 
     /**
@@ -94,7 +96,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        if(ProductsVariants::where('product_id', $id)->first() || Photo::where('product_id', $id)->first() || Comment::where('product_id', $id)->first()) {
+            return response()->json([
+                'message' => 'Товар номер '.$id.' не получилось удалить. Существует конкретный товар на данное наименование.',
+            ]);
+        }
         Product::destroy($id);
-        return response()->json(['message' => 'deleted']);
+        return response()->json([
+            'message' => 'Товар номер '.$id.' удален успешно (я пришел с сервера)',
+        ]);
     }
 }

@@ -12,11 +12,11 @@ before_install:
   - sudo rm -rf ~/.nvm - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
   - sudo apt-get install -y nodejs
 
-before_script:
-  - php artisan cache:clear
-  - php artisan view:clear
+before_script:	
+  - php artisan cache:clear	
+  - php artisan view:clear	
   - php artisan config:cache
-
+  
 install:
   - composer install
   - npm install
