@@ -2,15 +2,13 @@
     <div class="search">
         <div class="container">
             <div class="row">
-                <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-                    <form class="form-inline">
-                        <input class="form-control-lg" type="text" placeholder="Искать..." aria-label="Search">
-                        <!--<button class="btn btn-primary search-btn" type="submit">Button</button>-->
-                    </form>
-                </div>
-                <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                    <router-link class="menu-link" :to="{ name: 'card' }"><button type="button" class="btn btn-dark btn-lg btn-block cart-btn">Корзина</button></router-link>
-                    
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">                   
+                    <b-input-group>
+                        <b-form-input  class="bg-black" variant="dark"  v-model="search" type="search" placeholder="Искать"></b-form-input>
+                        <b-input-group-append>
+                        <b-btn size="sm" text="Button" variant="dark" class="search-btn">Поиск</b-btn>
+                        </b-input-group-append>
+                    </b-input-group>
                 </div>
             </div>
         </div>
@@ -19,7 +17,12 @@
 
 <script>
 export default {
-    name: 'vsearch'
+    name: 'vsearch',
+    data () {
+    return {
+      search: ''
+    }
+  }
 }
 </script>
 
@@ -29,32 +32,14 @@ export default {
     margin: 15px 0;
     width: 100%;
 
-    .menu-link {
-            color: #fff;
-            text-decoration: none;
+    .bg-black {
+
     }
 
-    .form-control-lg {
-        width: 100%;
-        border-radius: 15px;
-        background: #000;
-        color: #fff;
-        border: none;
-        outline: none;
-    }
-
-    .cart-btn {
+    .search-btn {
         background: #FDB777;
-        border-radius: 15px;
         color: #fff;
         border: 1px solid #FDB777;
-        margin-left: -5px;
     }
-
-    /*
-    .btn-primary {
-        border-radius: 10px;
-    }
-    */
 }
 </style>

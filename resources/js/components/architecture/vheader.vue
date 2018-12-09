@@ -1,45 +1,45 @@
 <template>
     <header>
-        <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                    <router-link class="menu-link" :to="{ name: 'main' }"><img  class="mainlogo" src="../../../imgs/mainlogo.png" alt="logo"></router-link>
-                </div>
-                <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                    <nav>
-                        <ul class="menu">
-                            <li>
-                                <div class="menu-item catalog">
-                                    <img src="../../../imgs/catalog.png" alt="catalog">
+       <div class="container">
+            <b-navbar class="navigashka" toggleable="lg" type="light">
+                <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+                    <b-navbar-brand>
+                        <b-link class="menu-link" :to="{ name: 'main' }">
+                        <img  class="mainlogo" src="../../../imgs/mainlogo.png" alt="logo">
+                        </b-link>
+                    </b-navbar-brand>
+                <b-collapse is-nav id="nav_collapse">
+                    <b-navbar-nav class="ml-auto">
+                        <b-navbar-nav>
+                            <b-nav-item class="nav-item">
+                                <div class="flexer">
+                                    <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
                                     <router-link class="menu-link" :to="{ name: 'catalog' }">Каталог</router-link>
+                                </div>   
+                            </b-nav-item>
+                            <b-nav-item class="nav-item">
+                                <div class="flexer">
+                                    <img class="nav-img" src="../../../imgs/faq.png" alt="faq">
+                                    <router-link class="menu-link" :to="{ name: 'faq' }">F&Q</router-link>
                                 </div>
-                            </li>
-                            <li class="slash"><img src="../../../imgs/slash.png" alt=""></li>
-                            <li>
-                                <div class="menu-item faq">
-                                    <img src="../../../imgs/faq.png" alt="catalog">
-                                    <router-link class="menu-link" :to="{ name: '' }">F&Q</router-link>
-                                </div>
-                            </li>
-                            <li class="slash"><img src="../../../imgs/slash.png" alt=""></li>
-                            <li>
-                                <div class="menu-item contacts">
-                                    <img src="../../../imgs/contacts.png" alt="catalog">
-                                    <router-link class="menu-link" :to="{ name: 'contacts' }">Контакты</router-link>
-                                </div>
-                            </li>
-                            <li class="slash"><img src="../../../imgs/slash.png" alt=""></li>
-                            <li>
-                                <div class="menu-item profile">
-                                    <img src="../../../imgs/profile.png" alt="catalog">
+                            </b-nav-item>
+                            <b-nav-item class="nav-item">
+                                <div class="flexer">
+                                    <img class="nav-img" src="../../../imgs/profile.png" alt="profile">
                                     <router-link class="menu-link" :to="{ name: 'lkorders' }">Личный кабинет</router-link>
                                 </div>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
+                            </b-nav-item>
+                            <b-nav-item class="nav-item">
+                                <div class="flexer">
+                                    <img class="nav-img" src="../../../imgs/card.png" alt="card">
+                                    <router-link class="menu-link" :to="{ name: 'card' }">Корзина</router-link>
+                                </div>
+                            </b-nav-item>
+                        </b-navbar-nav>
+                    </b-navbar-nav>
+                </b-collapse>
+            </b-navbar>
+       </div>
     </header>
 </template>
 
@@ -50,41 +50,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    padding: 1% 0;
-    margin-bottom: 1%;
+    header {
+        box-shadow: 0px 4px 5px -5px grey;
+    }
 
-    .menu {
-        list-style: none;
-        display: flex;
-        height: 100%;
-        align-items: baseline;
-        justify-content: flex-end;
+    .navigashka {
+        background: #fff;
+    }
 
-        .menu-item {
-            display: flex;
-            flex-direction: column;
-            width: 180px;
-            height: auto;
-            align-items: center;
-        }
+    .mainlogo {
+        width: 120px;
+    }
 
-        .slash {
-            align-self: center;
-        }
+    .menu-link {
+        color: black;
         
-        li {
-            text-decoration: none;
-            margin-right: 15px;
+    }
 
-            .menu-link {
-                color: black;
-                font-size: 23px;
-            }
+    .flexer {
+        display: flex;
+        align-items: center;
+     
+        flex-direction: row;
+
+        .nav-img {
+            width: 40px;
+            margin-right: 10px;
+            
         }
     }
-}
+
+    .nav-item {
+        width: 180px;
+    }
+
+    
 </style>
