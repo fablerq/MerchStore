@@ -70,19 +70,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .main {
-    width: 80%;
-    margin: auto;
-    background-color: white;
-  }
-
-  @media (max-width: 1000px) {
-      .main {
-            width: 100%;
-      }
-    }
-
-  .sides {
-    background-color: lightgrey;
-  }
+ 
 </style>

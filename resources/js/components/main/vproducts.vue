@@ -1,28 +1,29 @@
 <template>
     <div class="products">
+        <vsearch/>
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 hoody-col">
                     <div class="hoodys">
-                        <b-link class="menu-link" :to="{ name: 'main' }">
+                        <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/hoody.jpg" alt="logo">
-                        </b-link>
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pins-col">
                             <div class="pins">
-                                <b-link class="menu-link" :to="{ name: 'main' }">
+                                <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/stickers.png" alt="logo">
-                        </b-link>
+                        </router-link>
                             </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 top-buffer">
                             <div class="stickers">
-                                <b-link class="menu-link" :to="{ name: 'main' }">
+                                <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/badge.png" alt="logo">
-                        </b-link>
+                        </router-link>
                             </div>
                         </div>
                     </div>
@@ -30,33 +31,38 @@
             
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 top-buffer">
                     <div class="stationery">
-                        <b-link class="menu-link" :to="{ name: 'main' }">
+                        <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/stationery.png" alt="logo">
-                        </b-link>
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 top-buffer">
                     <div class="backpacks">
-                        <b-link class="menu-link" :to="{ name: 'main' }">
+                        <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/backpack.jpg" alt="logo">
-                        </b-link>
+                        </router-link>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 top-buffer">
                     <div class="tees">
-                        <b-link class="menu-link" :to="{ name: 'main' }">
+                        <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/tees.jpg" alt="logo">
-                        </b-link>
+                        </router-link>
                     </div>
                 </div>
             </div>
         </div>
+        <vcharts/>
     </div>
 </template>
 
 <script>
+import vsearch from '../main/vsearch.vue'
+import vcharts from '../main/vcharts.vue'
+
 export default {
-    name: 'vproducts'
+    name: 'vproducts',
+    components: {vsearch, vcharts}
 }
 </script>
 

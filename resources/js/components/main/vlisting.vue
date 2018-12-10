@@ -1,5 +1,6 @@
 <template>
   <div class="catalog">
+    <vsearch/>
     <div class="container">
       <div class="row">
         <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 offset-10 offset-sm-10 offset-md-10 offset-lg-10 offset-xl-10">
@@ -38,10 +39,11 @@
 
 <script>
 import vsidebar from './vsidebar.vue'
+import vsearch from '../main/vsearch.vue'
 
 export default {
   name: 'vlisting',
-  components: {vsidebar}
+  components: {vsidebar, vsearch}
 }
 
 </script>

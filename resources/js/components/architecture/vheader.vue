@@ -1,55 +1,119 @@
 <template>
     <header>
-       <div class="container">
-            <v-toolbar class="navigashka" toggleable="lg" type="light" height="100px">
-                    <v-toolbar-side-icon></v-toolbar-side-icon>
-                    <span></span>
-               <span></span>
-                
+       
+            <v-toolbar class="navigashka"  type="light" height="100px">
+                    <v-toolbar-side-icon @click.stop="drawer = !drawer" class="botton"></v-toolbar-side-icon>
+    
+                    <v-toolbar-title>
                         <div class="menu-link" :to="{ name: 'main' }">
-                            <router-link class="menu-link" :to="{ name: 'catalog' }">
+                            <router-link class="menu-link" :to="{ name: 'main' }">
                         <img  class="mainlogo" src="../../../imgs/mainlogo.png" alt="logo">
                             </router-link>
                         </div>
-                  
+                    </v-toolbar-title>
 
                     <v-spacer></v-spacer>
 
                     <v-toolbar-items class="hidden-sm-and-down">
                     <v-btn flat class="nav-item">
+                            <router-link class="menu-link" :to="{ name: 'catalog' }">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
-                                    <router-link class="menu-link" :to="{ name: 'catalog' }">Каталог</router-link>
+                                    Каталог
                                 </div>   
+                            </router-link>
                     </v-btn>
                     <v-btn flat class="nav-item">
-                                <div class="flexer">
-                                    <img class="nav-img" src="../../../imgs/faq.png" alt="faq">
-                                    <router-link class="menu-link" :to="{ name: 'faq' }">F&Q</router-link>
-                                </div>
+                        <router-link class="menu-link" :to="{ name: 'faq' }">
+                            <div class="flexer">
+                                <img class="nav-img" src="../../../imgs/faq.png" alt="faq">
+                                F&Q
+                            </div>
+                        </router-link>
                     </v-btn>
-                    <v-btn flat class="nav-item">
+                    <v-btn flat class="nav-item profile">
+                        <router-link class="menu-link" :to="{ name: 'lkorders' }">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/profile.png" alt="profile">
-                                    <router-link class="menu-link" :to="{ name: 'lkorders' }">Личный кабинет</router-link>
+                                    Личный кабинет
                                 </div>
+                            </router-link>
                     </v-btn>
                      <v-btn flat class="nav-item">
+                         <router-link class="menu-link" :to="{ name: 'card' }">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/card.png" alt="card">
-                                    <router-link class="menu-link" :to="{ name: 'card' }">Корзина</router-link>
+                                    Корзина
                                 </div>
+                            </router-link>
                     </v-btn>
                     </v-toolbar-items>
 
             </v-toolbar>
-       </div>
+      
+       <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+    >
+
+
+      <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+
+        <v-list-tile class="sidebar-item">
+        <router-link class="menu-link" :to="{ name: 'catalog' }">
+                <div class="flexer">
+                    <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
+                    Каталог
+                </div>   
+            </router-link>
+            </v-list-tile>
+            <v-divider></v-divider>
+        <v-list-tile class="sidebar-item">
+            <router-link class="menu-link" :to="{ name: 'faq' }">
+                <div class="flexer">
+                    <img class="nav-img" src="../../../imgs/faq.png" alt="faq">
+                    F&Q
+                </div>
+            </router-link>
+            </v-list-tile>
+            <v-divider></v-divider>
+        <v-list-tile class="sidebar-item">
+            <router-link class="menu-link" :to="{ name: 'lkorders' }">
+                <div class="flexer">
+                    <img class="nav-img" src="../../../imgs/profile.png" alt="profile">
+                    Личный кабинет
+                </div>
+            </router-link>
+            </v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile class="sidebar-item">
+            <router-link class="menu-link" :to="{ name: 'card' }">
+                <div class="flexer">
+                    <img class="nav-img" src="../../../imgs/card.png" alt="card">
+                    Корзина
+                </div>
+            </router-link>
+        </v-list-tile>
+        <v-divider></v-divider>
+      </v-list>
+    </v-navigation-drawer>
     </header>
 </template>
 
 <script>
 export default {
-    name: 'vheader'
+    name: 'vheader',
+    data () {
+      return {
+        drawer: null,
+        items: [
+          { title: 'Home', icon: 'dashboard' },
+          { title: 'About', icon: 'question_answer' }
+        ]
+      }
+    }
 }
 </script>
 
@@ -64,18 +128,22 @@ export default {
     }
 
     .mainlogo {
-        width: 120px;
+        width: 80px;
     }
 
     .menu-link {
         color: black;
+        text-decoration: none;
     }
+
 
     .flexer {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: row;
+        width: 120px;
+        height: 100px;
 
         .nav-img {
             width: 40px;
@@ -85,12 +153,30 @@ export default {
     }
 
     .nav-item {
-        width: 160px;
+        width: 22%;
+    }
+
+    .nav-item.profile {
+        width: 33%;
+    }
+
+    .sidebar-item {
+        .flexer {
+            height: 60px;
+            width: 270px;
+            justify-content: flex-start;
+        }
     }
 
     @media (max-width: 992px) {
         .flexer {
-            justify-content: flex-start;
+            width: 100%;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .botton {
+            display: none;
         }
     }
 </style>
