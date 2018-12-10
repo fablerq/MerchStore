@@ -2,8 +2,13 @@
   <v-footer
     dark
     height="auto"
-    inset=true
+    style="box-shadow: 0 0 50px #000000;"
   >
+    <!-- <v-footer
+    dark
+    height="auto"
+    inset=true
+  > -->
     <v-card
       class="flex"
       flat

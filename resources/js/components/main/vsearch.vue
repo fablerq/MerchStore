@@ -3,12 +3,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">                   
-                    <b-input-group>
+                    <!-- <b-input-group>
                         <b-form-input  class="bg-black" variant="dark"  v-model="search" type="search" placeholder="Искать"></b-form-input>
                         <b-input-group-append>
                         <b-btn size="sm" text="Button" variant="dark" class="search-btn">Поиск</b-btn>
                         </b-input-group-append>
-                    </b-input-group>
+                    </b-input-group> -->
+                          <v-text-field
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
                 </div>
             </div>
         </div>

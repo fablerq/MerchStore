@@ -2,8 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Form from 'vform'
 import axios from 'axios'
-import BootstrapVue from 'bootstrap-vue'
+// import BootstrapVue from 'bootstrap-vue'
 import Vuetify from 'vuetify'
+
+Vue.use(Vuetify)
+
+
 import WebFontLoader from 'webfontloader'
 
 //icons for Vuetify
@@ -36,15 +40,14 @@ Vue.prototype.$ajax = axios
 
 
 Vue.use(VueRouter)
-Vue.use(Vuetify)
-Vue.use(BootstrapVue)
+
+// Vue.use(BootstrapVue)
 Vue.use(VueTabs)
 
 //styles for Vutify
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import "vue-material-design-icons/styles.css"
 
 
@@ -75,66 +78,6 @@ import admfaq from './components/admin/vadmfaq.vue'
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    {
-      path: '/example_users',
-      name: 'users',
-      component: CrudUsers,
-    },
-    // {
-    //     path: '/example_products',
-    //     name: 'products',
-    //     component: ExampleCrudProducts,
-    //   },
-    //  {
-    //     path: '/example_orders',
-    //     name: 'orders',
-    //     component: ExampleCrudOrders,
-    //   },
-    //   {
-    //     path: '/example_faculties',
-    //     name: 'faculties',
-    //     component: ExampleCrudFaculties,
-    //   },
-    //   {
-    //     path: '/example_statuses',
-    //     name: 'statuses',
-    //     component: ExampleCrudStatuses,
-    //   },
-    //   {
-    //     path: '/example_roles',
-    //     name: 'roles',
-    //     component: ExampleCrudRoles,
-    //   },
-    //   {
-    //     path: '/example_paymentmethods',
-    //     name: 'paymentmethods',
-    //     component: ExampleCrudPaymentMethods,
-    //   },
-    //   {
-    //     path: '/example_types',
-    //     name: 'types',
-    //     component: ExampleCrudTypes,
-    //   },
-    //   {
-    //     path: '/example_sizes',
-    //     name: 'sizes',
-    //     component: ExampleCrudSizes,
-    //   },
-    //   {
-    //     path: '/example_photos',
-    //     name: 'photos',
-    //     component: ExampleCrudPhotos,
-    //   },
-    //   {
-    //     path: '/example_comments',
-    //     name: 'comments',
-    //     component: ExampleCrudComments,
-    //   },
-    //   {
-    //     path: '/example_productsvariants',
-    //     name: 'productsvariants',
-    //     component: ExampleCrudProductsVariants,
-    //   },
       // { path: '*', component: NotFoundComponent }
       {
         path: '/',

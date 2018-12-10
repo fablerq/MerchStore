@@ -1,44 +1,48 @@
 <template>
     <header>
        <div class="container">
-            <b-navbar class="navigashka" toggleable="lg" type="light">
-                <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-                    <b-navbar-brand>
-                        <b-link class="menu-link" :to="{ name: 'main' }">
+            <v-toolbar class="navigashka" toggleable="lg" type="light" height="100px">
+                    <v-toolbar-side-icon></v-toolbar-side-icon>
+                    <span></span>
+               <span></span>
+                
+                        <div class="menu-link" :to="{ name: 'main' }">
+                            <router-link class="menu-link" :to="{ name: 'catalog' }">
                         <img  class="mainlogo" src="../../../imgs/mainlogo.png" alt="logo">
-                        </b-link>
-                    </b-navbar-brand>
-                <b-collapse is-nav id="nav_collapse">
-                    <b-navbar-nav class="ml-auto">
-                        <b-navbar-nav>
-                            <b-nav-item class="nav-item">
+                            </router-link>
+                        </div>
+                  
+
+                    <v-spacer></v-spacer>
+
+                    <v-toolbar-items class="hidden-sm-and-down">
+                    <v-btn flat class="nav-item">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
                                     <router-link class="menu-link" :to="{ name: 'catalog' }">Каталог</router-link>
                                 </div>   
-                            </b-nav-item>
-                            <b-nav-item class="nav-item">
+                    </v-btn>
+                    <v-btn flat class="nav-item">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/faq.png" alt="faq">
                                     <router-link class="menu-link" :to="{ name: 'faq' }">F&Q</router-link>
                                 </div>
-                            </b-nav-item>
-                            <b-nav-item class="nav-item">
+                    </v-btn>
+                    <v-btn flat class="nav-item">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/profile.png" alt="profile">
                                     <router-link class="menu-link" :to="{ name: 'lkorders' }">Личный кабинет</router-link>
                                 </div>
-                            </b-nav-item>
-                            <b-nav-item class="nav-item">
+                    </v-btn>
+                     <v-btn flat class="nav-item">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/card.png" alt="card">
                                     <router-link class="menu-link" :to="{ name: 'card' }">Корзина</router-link>
                                 </div>
-                            </b-nav-item>
-                        </b-navbar-nav>
-                    </b-navbar-nav>
-                </b-collapse>
-            </b-navbar>
+                    </v-btn>
+                    </v-toolbar-items>
+
+            </v-toolbar>
        </div>
     </header>
 </template>
@@ -52,7 +56,7 @@ export default {
 <style lang="scss" scoped>
     header {
         box-shadow: 0px 4px 5px -5px grey;
-        
+        width: 100%;
     }
 
     .navigashka {
@@ -65,7 +69,6 @@ export default {
 
     .menu-link {
         color: black;
-        
     }
 
     .flexer {
@@ -82,7 +85,7 @@ export default {
     }
 
     .nav-item {
-        width: 180px;
+        width: 160px;
     }
 
     @media (max-width: 992px) {
