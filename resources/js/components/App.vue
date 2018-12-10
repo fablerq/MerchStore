@@ -1,10 +1,8 @@
 <template>
   <div>
-    
-    
+    <vheader/>
       <router-view></router-view>
- 
-
+    <vfooter/>
   </div>
 </template>
 
@@ -32,6 +30,7 @@ import vadmusers from './admin/vadmusers.vue'
 import vadmlist from './admin/vadmlist.vue'
 import vadmorders from './admin/vadmorders.vue'
 import vadmbase from './admin/vadmbase.vue'
+import vadmfaq from './admin/vadmfaq.vue'
 
 //Личный кабинет
 import vlksidebar from './lk/vlksidebar.vue'

@@ -52,6 +52,7 @@ export default {
 <style lang="scss" scoped>
     header {
         box-shadow: 0px 4px 5px -5px grey;
+        
     }
 
     .navigashka {
@@ -70,7 +71,7 @@ export default {
     .flexer {
         display: flex;
         align-items: center;
-     
+        justify-content: center;
         flex-direction: row;
 
         .nav-img {
@@ -84,5 +85,9 @@ export default {
         width: 180px;
     }
 
-    
+    @media (max-width: 992px) {
+        .flexer {
+            justify-content: flex-start;
+        }
+    }
 </style>

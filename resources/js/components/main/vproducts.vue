@@ -188,8 +188,8 @@ export default {
 
         .tees {
             img {
-                width: 103%;
-                margin-left: -3%;
+                width: 102.5%;
+                margin-left: -2.5%;
             }
         }
 

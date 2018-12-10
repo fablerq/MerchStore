@@ -9,7 +9,7 @@
 
                         <router-link class="menu-link" :to="{ name: 'admorders' }"><button type="button" class="btn btn-dark btn-lg btn-block add-to-card">Заказы</button></router-link>
 
-                        <router-link class="menu-link" :to="{ name: '' }"><button type="button" class="btn btn-dark btn-lg btn-block add-to-card">Вопрос-Ответ</button></router-link>
+                        <router-link class="menu-link" :to="{ name: 'admfaq' }"><button type="button" class="btn btn-dark btn-lg btn-block add-to-card">Вопрос-Ответ</button></router-link>
 
                         <router-link class="menu-link" :to="{ name: 'admbase' }"><button type="button" class="btn btn-dark btn-lg btn-block add-to-card">База данных</button></router-link>
 
