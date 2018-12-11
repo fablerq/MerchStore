@@ -23,6 +23,12 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="color_id">color_id</label>
+                <select class="form-control" v-model="color_id">
+                    <option v-for="color in colors" :value="color.id">{{ color.title }}</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-info">Add ProductVariant</button>
             </div>
         </form>
@@ -36,17 +42,23 @@
   <thead>
     <tr>
       <th scope="col">id</th>
+      <th scope="col">order_id</th>
       <th scope="col">product_id</th>
       <th scope="col">size_id</th>
+      <th scope="col">color_id</th>
       <th scope="col">show</th>
       <th scope="col">delete</th>
     </tr>
-  </thead>
+  </thead>  
+  <!-- ПРОВЕРКА НА НАЛ АНАЛ В ОРДЕРЕ -->
   <tbody>
     <tr v-for="productsvariant in productsvariants">
       <th>{{ productsvariant.id }}</th>
+      <td v-if="productsvariant.order">{{ productsvariant.order.id }}</td>
+      <td v-if="!productsvariant.order">Не куплено</td>
       <td>{{ productsvariant.product.title }}</td>
       <td>{{ productsvariant.size.title }}</td>
+      <td>{{ productsvariant.color.title }}</td>
       <td><a href="#" @click="showProductsVariant(productsvariant.id)">Show</a></td>
       <td><a href="#" @click="deleteProductsVariant(productsvariant.id)">Delete</a></td>
     </tr>
@@ -67,8 +79,10 @@ import axios from 'axios'
              productsvariants: {},
              products: {},
              sizes: {},
+             colors: {},
              product_id: '',
              size_id: '',
+             color_id: '',
              feedback: '',
              submitted: false,
              form: new Form({
@@ -81,6 +95,7 @@ import axios from 'axios'
           this.loadProductsVariants();
           this.loadProducts();
           this.loadSizes();
+          this.loadColors();
       },
       methods: {
            handleSubmit(e) {
@@ -103,16 +118,22 @@ import axios from 'axios'
             axios.get('/api/sizes')
                 .then((response => this.sizes = response.data));
           },
+          loadColors() {
+            axios.get('/api/colors')
+                .then((response => this.colors = response.data));
+          },
           addProductsVariant() {
               axios.post('/api/productsvariants', { 
                     product_id: this.product_id,
                     size_id: this.size_id,
+                    color_id: this.color_id,
                   })                    
                   .then(function (response) {
                         alert(response.data.message)
                   })
                   .catch(error => {
                       this.feedback = error.response.data.errors;
+                      console.log(error.response)
                   });
                   this.loadProductsVariants()
                   this.feedback = null

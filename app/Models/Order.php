@@ -15,7 +15,7 @@ class Order extends Model
     }
 
     public function productsvariants() {
-        return $this->belongsTo('App\Models\ProductsVariants');
+        return $this->hasMany('App\Models\ProductsVariants');
     }
 
     public function status() {

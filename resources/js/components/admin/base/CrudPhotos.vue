@@ -9,16 +9,16 @@
             </ul>
         </div>
 
-        <form @submit.prevent="handleSubmit">
+        <form @submit.prevent="handleSubmit" enctype='multipart/form-data'>
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" v-model="title" v-validate="{ required: true, min: 5 }" name="title" class="form-control" :class="{ 'is-invalid': submitted && errors.has('title') }" />
                 <div v-if="submitted && errors.has('title')" class="invalid-feedback">{{ errors.first('title') }}</div>
             </div>
             <div class="form-group">
-                <label for="photo_link">photo_link</label>
-                <input type="text" v-model="photo_link" v-validate="{ required: true, min: 5 }" name="photo_link" class="form-control" :class="{ 'is-invalid': submitted && errors.has('photo_link') }" />
-                <div v-if="submitted && errors.has('photo_link')" class="invalid-feedback">{{ errors.first('photo_link') }}</div>
+                <label for="image">image</label>
+                <input type="file" name="image" class="form-control" @change="imageChanged" v-validate.reject="{ required: true, image: true, size:4048 }" :class="{ 'is-invalid': submitted && errors.has('image') }"/>
+                <div v-if="submitted && errors.has('image')" class="invalid-feedback">{{ errors.first('image') }}</div>
             </div>
             <div class="form-group">
                 <label for="product_id">product_id</label>
@@ -26,6 +26,10 @@
                     <option v-for="product in products" :value="product.id">{{ product.title }}</option>
                 </select>
             </div>
+            <div class="col-md-3" >
+                 <label>Фотография</label>
+                 <img v-if="image" :src="image" class="img-responsive" height="70" width="90">
+             </div>
             <div class="form-group">
                 <button class="btn btn-info">Add Photo</button>
             </div>
@@ -41,7 +45,7 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">photo_link</th>
+      <th scope="col">image</th>
       <th scope="col">product_id</th>
       <th scope="col">show</th>
       <th scope="col">delete</th>
@@ -51,7 +55,7 @@
     <tr v-for="photo in photos">
       <th>{{ photo.id }}</th>
       <td>{{ photo.title }}</td>
-      <td>{{ photo.photo_link }}</td>
+      <td><img :src="'../images/upload/' + photo.image" alt="Girl in a jacket"> </td>
       <td>{{ photo.product.title }}</td>
       <td><a href="#" @click="showPhoto(photo.id)">Show</a></td>
       <td><a href="#" @click="deletePhoto(photo.id)">Delete</a></td>
@@ -63,7 +67,6 @@
 </template>
 
 <script>
-import Form from 'vform'
 import axios from 'axios'
 
   export default {
@@ -73,15 +76,10 @@ import axios from 'axios'
              photos: {},
              products: {},
              title: '',
-             photo_link: '',
+             image: '',
              product_id: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title: '',
-                photo_link: '',
-                product_id: '',
-          })
         }
       },
       created() {
@@ -89,7 +87,7 @@ import axios from 'axios'
           this.loadProducts();
       },
       methods: {
-           handleSubmit(e) {
+        handleSubmit(e) {
             this.submitted = true;
             this.$validator.validate().then(valid => {
                 if (valid) {
@@ -108,7 +106,7 @@ import axios from 'axios'
           addPhoto() {
               axios.post('/api/photos', { 
                     title: this.title,
-                    photo_link: this.photo_link,
+                    image: this.image,
                     product_id: this.product_id,
                   })                    
                   .then(function (response) {
@@ -136,6 +134,13 @@ import axios from 'axios'
                         alert(response.data.message);
                     });
                 this.loadPhotos()
+          },
+         imageChanged(e) {
+            var fileReader = new FileReader()
+            fileReader.readAsDataURL(e.target.files[0])
+            fileReader.onload = (e) => {
+                this.image = e.target.result
+            }
           }
       },
   }

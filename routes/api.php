@@ -66,3 +66,19 @@ Route::resource('comments', 'CommentController', [
 Route::resource('productsvariants', 'ProductsVariantsController', [
     'except' => ['edit']
   ]);
+
+Route::resource('colors', 'ColorController', [
+    'except' => ['edit']
+  ]);
+
+Route::resource('faqs', 'FAQController', [
+    'except' => ['edit']
+  ]);
+  
+//Many-to-may
+
+Route::resource('favourites', 'FavouriteController', [
+  'except' => ['edit', 'destroy', 'index']
+]);
+
+Route::delete('favourites/delfavourite/{userid}/{productid}', 'FavouriteController@delfavourite');

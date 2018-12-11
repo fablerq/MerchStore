@@ -25,7 +25,6 @@ class FacultyRequest extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:100|unique:faculties',
-            'color' => 'required|min:5|max:50',
         ];
     }
 
@@ -41,10 +40,7 @@ class FacultyRequest extends FormRequest
             'title.required' => 'Заглавие факультета не может быть пустым',
             'title.min' => 'Минимальная длина заглавия 3 символов',
             'title.max' => 'Максимальная длина заглавия 100 символов',
-            'title.unique' => 'Фукультет с таким заглавием уже существует',
-            'color.required'  => 'Цвет факультета не может быть пустым',
-            'color.min' => 'Минимальная длина цвета 5 символов',
-            'color.max' => 'Максимальная длина цвета 50 символов',
+            'title.unique' => 'Факультет с таким заглавием уже существует',
         ];
     }
 }

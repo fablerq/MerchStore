@@ -15,8 +15,10 @@ class CreateProductsVariantsTable extends Migration
     {
         Schema::create('products_variants', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('order_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned();
             $table->integer('size_id')->unsigned();
+            $table->integer('color_id')->unsigned();
             $table->timestamp('updated_at')->useCurrent();
             $table->timestamp('created_at')->useCurrent();
         });

@@ -27,13 +27,19 @@ class PhotoController extends Controller
     public function store(PhotoRequest $request)
     {
         $validated = $request->validated();
+
+        $image = $request->get('image');
+        $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+        \Image::make($request->get('image'))->fit(300, 300)->save(public_path('images/upload/').$name);
+
         Photo::create([
             'title' => $validated['title'],
-            'photo_link' => $validated['photo_link'],
+            'image' => $name,
             'product_id' => $validated['product_id'],
         ]);
+
         return response()->json([
-            'message' => 'Успешно добавлено! (я пришел с сервера)',
+            'message' => 'Фотография успешно добавлена',
         ]);
     }
 

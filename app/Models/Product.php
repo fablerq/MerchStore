@@ -31,4 +31,9 @@ class Product extends Model
     public function photo() {
         return $this->hasMany('App\Models\Photo');
     }
+
+    public function users() {
+        return $this->belongsToMany('App\User', 'product_user')
+        ->withPivot('id');
+    }
 }

@@ -30,10 +30,9 @@ class FacultyController extends Controller
         $validated = $request->validated();
         Faculty::create([
             'title' => $validated['title'],
-            'color' => $validated['color'],
         ]);
         return response()->json([
-            'message' => 'Успешно добавлено! (я пришел с сервера)',
+            'message' => 'Факультет успешно добавлен',
         ]);
     }
 

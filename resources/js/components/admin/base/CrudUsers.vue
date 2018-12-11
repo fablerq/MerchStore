@@ -109,13 +109,10 @@ import axios from 'axios'
           loadUsers() {
             axios.get('/api/users')
                 .then((response => this.users = response.data));
-            this.$emit('users', this.users)
-            console.log(this.users)
           },
           loadRoles() {
             axios.get('/api/roles')
                 .then((response => this.roles = response.data));
-            this.$emit('roles', this.roles)
           },
           addUser() {
               axios.post('/api/users/', { 
@@ -129,6 +126,7 @@ import axios from 'axios'
                   })
                   .catch(error => {
                       this.feedback = error.response.data.errors;
+                                           console.log(error.response)
                   });
                   this.loadUsers()
                   this.feedback = null

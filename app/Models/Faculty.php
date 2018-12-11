@@ -11,7 +11,7 @@ class Faculty extends Model
     }
     
     protected $fillable = [
-        'title', 'color'
+        'title'
     ];
 
     public $timestamps = false;

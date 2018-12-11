@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductsVariants extends Model
 {
     protected $fillable = [
-        'product_id', 'size_id'
+        'product_id', 'size_id', 'color_id', 'order_id'
     ];
 
     public function product() {
@@ -18,7 +18,11 @@ class ProductsVariants extends Model
         return $this->belongsTo('App\Models\Size');
     }
 
+    public function color() {
+        return $this->belongsTo('App\Models\Color');
+    }
+
     public function order() {
-        return $this->hasOne('App\Models\Order');
+        return $this->belongsTo('App\Models\Order');
     }
 }

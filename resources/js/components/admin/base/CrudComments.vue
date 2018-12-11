@@ -74,7 +74,6 @@ import axios from 'axios'
              comments: {},
              products: {},
              users: {},
-             types: {},
              user_id: '',
              body: '',
              product_id: '',
@@ -123,7 +122,6 @@ import axios from 'axios'
                         alert(response.data.message)
                   })
                   .catch(error => {
-                      console.log(error.response);
                       this.feedback = error.response.data.errors;
                   });
                   this.loadComments()

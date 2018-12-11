@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -14,7 +14,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
+
+        Validator::extend('image64', function ($attribute, $value, $parameters, $validator) {
+            $type = explode('/', explode(':', substr($value, 0, strpos($value, ';')))[1])[1];
+            if (in_array($type, $parameters)) {
+                return true;
+            }
+            return false;
+        });
+    
+        Validator::replacer('image64', function($message, $attribute, $rule, $parameters) {
+            return str_replace(':values',join(",",$parameters),$message);
+        });
     }
 
     /**
@@ -24,6 +36,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-         $this->app['request']->server->set('HTTPS', true);
+         //$this->app['request']->server->set('HTTPS', true);
     }
 }

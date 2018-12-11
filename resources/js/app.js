@@ -7,7 +7,6 @@ import BootstrapVue from 'bootstrap-vue'
 import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
 
-
 import VeeValidate, { Validator } from 'vee-validate'
 import ru from 'vee-validate/dist/locale/ru'
 
@@ -41,6 +40,7 @@ import admorders from './components/pages/admorders.vue'
 import admusers from './components/pages/admusers.vue'
 import admlist from './components/pages/admlist.vue'
 import admbase from './components/pages/admbase.vue'
+import admfaqs from './components/pages/admfaqs.vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -48,66 +48,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    {
-      path: '/example_users',
-      name: 'users',
-      component: CrudUsers,
-    },
-    // {
-    //     path: '/example_products',
-    //     name: 'products',
-    //     component: ExampleCrudProducts,
-    //   },
-    //  {
-    //     path: '/example_orders',
-    //     name: 'orders',
-    //     component: ExampleCrudOrders,
-    //   },
-    //   {
-    //     path: '/example_faculties',
-    //     name: 'faculties',
-    //     component: ExampleCrudFaculties,
-    //   },
-    //   {
-    //     path: '/example_statuses',
-    //     name: 'statuses',
-    //     component: ExampleCrudStatuses,
-    //   },
-    //   {
-    //     path: '/example_roles',
-    //     name: 'roles',
-    //     component: ExampleCrudRoles,
-    //   },
-    //   {
-    //     path: '/example_paymentmethods',
-    //     name: 'paymentmethods',
-    //     component: ExampleCrudPaymentMethods,
-    //   },
-    //   {
-    //     path: '/example_types',
-    //     name: 'types',
-    //     component: ExampleCrudTypes,
-    //   },
-    //   {
-    //     path: '/example_sizes',
-    //     name: 'sizes',
-    //     component: ExampleCrudSizes,
-    //   },
-    //   {
-    //     path: '/example_photos',
-    //     name: 'photos',
-    //     component: ExampleCrudPhotos,
-    //   },
-    //   {
-    //     path: '/example_comments',
-    //     name: 'comments',
-    //     component: ExampleCrudComments,
-    //   },
-    //   {
-    //     path: '/example_productsvariants',
-    //     name: 'productsvariants',
-    //     component: ExampleCrudProductsVariants,
-    //   },
       // { path: '*', component: NotFoundComponent }
       {
         path: '/',
@@ -183,6 +123,11 @@ const router = new VueRouter({
         path: '/adm/base',
         name: 'admbase',
         component: admbase,
+      },
+      {
+        path: '/adm/faqs',
+        name: 'admfaqs',
+        component: admfaqs,
       },
   ],
 });

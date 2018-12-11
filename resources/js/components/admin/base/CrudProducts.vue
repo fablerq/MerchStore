@@ -108,7 +108,6 @@ import axios from 'axios'
                 this.loadProducts();
                 this.loadFaculties();
                 this.loadTypes();
-                console.log('fwe')
       },
       methods: {
            handleSubmit(e) {

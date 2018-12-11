@@ -32,6 +32,7 @@ import vadmusers from './admin/vadmusers.vue'
 import vadmlist from './admin/vadmlist.vue'
 import vadmorders from './admin/vadmorders.vue'
 import vadmbase from './admin/vadmbase.vue'
+import vadmfaq from './admin/vadmfaq.vue'
 
 //Личный кабинет
 import vlksidebar from './lk/vlksidebar.vue'
@@ -56,13 +57,14 @@ export default {
     vadmlist,
     vadmorders,
     vadmbase,
+    vadmfaq,
     vlksidebar,
     vlkorders,
     vlkfavorites,
     vlkdata,
     vregistration,
     vsignin,
-    vcontacts
+    vcontacts,
 	}
 }
 </script>
