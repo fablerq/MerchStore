@@ -9,6 +9,7 @@ Singlepage app build with Vuejs on frontend and Laravel on backend. Data is coll
 > 4) ability to add several products to an order]
 > 5) user-friendly faq (admin panel)
 > 6) fixing bags and some other small features
+some text
 ## Installation
 #### First part
 > 1) set .env in normal view
@@ -20,6 +21,8 @@ Singlepage app build with Vuejs on frontend and Laravel on backend. Data is coll
 > 3) php artisan key:generate 
 > 4) php artisan migrate:fresh
 > 5) npm run watch
+## Team
+some text
 ## Team
 some text
 ## API documentation

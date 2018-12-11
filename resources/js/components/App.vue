@@ -1,11 +1,13 @@
 <template>
-  <div>
-
-    <div class="container">
-      <router-view></router-view>
+  <div class="sides">
+    <div class="main">
+      <vheader/>
+       <router-view></router-view>
+     <vfooter/>
     </div>
 
   </div>
+
 </template>
 
 <script>
@@ -73,5 +75,21 @@ export default {
     .container {
         border: 5px solid grey;
     }
+
+      .main {
+    width: 80%;
+    margin: auto;
+    background-color: white;
+  }
+
+  @media (max-width: 1000px) {
+      .main {
+            width: 100%;
+      }
+    }
+
+  .sides {
+    background-color: lightgrey;
+  }
 
 </style>

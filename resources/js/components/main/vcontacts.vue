@@ -1,5 +1,6 @@
 <template>
     <div class="contacts">
+        <vsearch/>
             <div class="container">
                 <div class="row">
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -31,8 +32,13 @@
 </template>
 
 <script>
+import vsearch from '../main/vsearch.vue'
+
 export default {
-    name: 'vcontacts'
+    name: 'vcontacts',
+    components: {
+        vsearch
+    }
 }
 </script>
 

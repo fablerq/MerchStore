@@ -1,11 +1,39 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Form from 'vform'
 import axios from 'axios'
-import BootstrapVue from 'bootstrap-vue'
+import Vuetify from 'vuetify'
+
+Vue.use(Vuetify, {
+  iconfont: 'fa',
+  icons: {
+    'cancel': 'fas fa-ban',
+    'cart': 'fas fa-shopping-cart'
+  }
+ })
+
+import WebFontLoader from 'webfontloader'
+
+//icons for Vuetify
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faFacebook, faTwitter, faGooglePlus, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+
+// TODO: Вероятно, можно добавлять скопом.
+library.add(faTwitter)
+library.add(faFacebook)
+library.add(faGooglePlus)
+library.add(faLinkedin)
+library.add(faInstagram)
+library.add(faCartPlus)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.config.productionTip = false
+
 
 import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
+
 
 import VeeValidate, { Validator } from 'vee-validate'
 import ru from 'vee-validate/dist/locale/ru'
@@ -15,35 +43,38 @@ Vue.use(VeeValidate, {locale: 'ru'})
 
 Vue.prototype.$ajax = axios
 
-Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 
 Vue.use(VueTabs)
 
+//styles for Vutify
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import "vue-material-design-icons/styles.css"
+
+
+
 import App from './components/App.vue'
 
-import CrudUsers from './components/admin/base/CrudUsers.vue'
-
-
-import main from './components/pages/main.vue'
-import catalog from './components/pages/catalog.vue'
-import contacts from './components/pages/contacts.vue'
-import card from './components/pages/card.vue'
-import good from './components/pages/good.vue'
-import lkorders from './components/pages/lkorders.vue'
-import lkfavorites from './components/pages/lkfavorites.vue'
-import lkdata from './components/pages/lkdata.vue'
-import signin from './components/pages/signin.vue'
-import registration from './components/pages/registration.vue'
-import admstats from './components/pages/admstats.vue'
-import admorders from './components/pages/admorders.vue'
-import admusers from './components/pages/admusers.vue'
-import admlist from './components/pages/admlist.vue'
-import admbase from './components/pages/admbase.vue'
-import admfaqs from './components/pages/admfaqs.vue'
-
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+//routers
+import main from './components/main/vproducts.vue'
+import catalog from './components/main/vlisting.vue'
+import contacts from './components/main/vcontacts.vue'
+import card from './components/main/vcard.vue'
+import faq from './components/main/vfaq.vue'
+import good from './components/main/vgood.vue'
+import lkorders from './components/lk/vlkorders.vue'
+import lkfavorites from './components/lk/vlkfavorites.vue'
+import lkdata from './components/lk/vlkdata.vue'
+import signin from './components/main/vsignin.vue'
+import registration from './components/main/vregistration.vue'
+import admstats from './components/admin/vadmstats.vue'
+import admorders from './components/admin/vadmorders.vue'
+import admusers from './components/admin/vadmusers.vue'
+import admlist from './components/admin/vadmlist.vue'
+import admbase from './components/admin/vadmbase.vue'
+import admfaq from './components/admin/vadmfaq.vue'
 
 const router = new VueRouter({
   mode: 'history',
@@ -68,6 +99,11 @@ const router = new VueRouter({
         path: '/card',
         name: 'card',
         component: card,
+      },
+      {
+        path: '/faq',
+        name: 'faq',
+        component: faq,
       },
       {
         path: '/catalog/good',
@@ -125,9 +161,9 @@ const router = new VueRouter({
         component: admbase,
       },
       {
-        path: '/adm/faqs',
-        name: 'admfaqs',
-        component: admfaqs,
+        path: '/adm/faq',
+        name: 'admfaq',
+        component: admfaq,
       },
   ],
 });
@@ -137,4 +173,18 @@ const app = new Vue({
   el: '#app',
   components: { App },
   router,
+
+  mounted () {
+    WebFontLoader.load({
+      google: {
+        families: ['Roboto:100,300,400,500,700,900']
+      },
+      active: this.setFontLoaded
+    })
+  },
+  methods: {
+    setFontLoaded () {
+      this.$emit('font-loaded')
+    }
+  }
 });

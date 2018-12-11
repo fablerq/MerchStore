@@ -99,7 +99,6 @@ class ProductsVariantsController extends Controller
      */
     public function destroy($id)
     {
-
         ProductsVariants::destroy($id);
         return response()->json([
             'message' => 'Вариант товара номер '.$id.' удален успешно (я пришел с сервера)',

@@ -1,14 +1,14 @@
 <template>
     <div class="good">
+        <vsearch/>
         <div class="container">
+            
             <div class="row">
                 <vsidebar/>
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
                     <div class="row">
                         <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-7">
                             <img class="good-img" src="../../../imgs/tee.png" alt="">
-                            <md-card>
-                                <md-card-media>
                                     <swiper :options="swiperOption">
                                         <swiper-slide><img src="../../../imgs/tee.png" alt=""></swiper-slide>
                                         <swiper-slide><img src="../../../imgs/tee.png" alt=""></swiper-slide>
@@ -16,8 +16,6 @@
                                         <div class="swiper-button-prev" slot="button-prev"></div>
                                         <div class="swiper-button-next" slot="button-next"></div>
                                     </swiper>
-                                </md-card-media>
-                            </md-card>
                         </div>
                         <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-5 info-block">
                             <span class="name">Футболка "Три скобочки"</span>
@@ -73,6 +71,7 @@
 
 <script>
 import vsidebar from './vsidebar.vue'
+import vsearch from './vsearch.vue'
 
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -82,7 +81,8 @@ export default {
     components: {
     swiper,
     swiperSlide,
-    vsidebar
+    vsidebar,
+    vsearch
    },
 
     data() {

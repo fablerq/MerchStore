@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
 
         Validator::extend('image64', function ($attribute, $value, $parameters, $validator) {
             $type = explode('/', explode(':', substr($value, 0, strpos($value, ';')))[1])[1];
@@ -36,6 +36,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-         $this->app['request']->server->set('HTTPS', true);
+         //$this->app['request']->server->set('HTTPS', true);
     }
 }
