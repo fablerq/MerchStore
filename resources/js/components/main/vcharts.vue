@@ -6,16 +6,7 @@
                             <h1>Лучшие товары</h1>
                         <!-- swiper -->
                         <swiper :options="swiperOption">
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
+                            <swiper-slide v-for="n in 10" :key="n"><vflypage class="item"/></swiper-slide>
                             <div class="swiper-button-prev" slot="button-prev"></div>
                             <div class="swiper-button-next" slot="button-next"></div>
                         </swiper>
@@ -29,20 +20,16 @@
 import 'swiper/dist/css/swiper.css'
 
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import vflypage from '../architecture/vflypage.vue'
 
  export default {
     name: 'vcharts',
-    components: {
-    swiper,
-    swiperSlide
-   },
-
+    components: {swiper, swiperSlide, vflypage},
     data() {
       return {
         swiperOption: {
-          slidesPerView: 5,
-          spaceBetween: 15,
-          slidesPerGroup: 5,
+          slidesPerView: 3,
+          slidesPerGroup: 3,
           loop: true,
           autoHeight: true,
           loopFillGroupWithBlank: true,
@@ -65,8 +52,9 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
         margin-bottom: 15px;
     }
 
-    .swiper-slide img {
-        width: 100%;
+    .item{
+        width: 530px;
+        margin-left: -80px;
     }
 
     .swiper-button-prev {

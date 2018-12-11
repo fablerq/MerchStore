@@ -5,8 +5,13 @@ import axios from 'axios'
 // import BootstrapVue from 'bootstrap-vue'
 import Vuetify from 'vuetify'
 
-Vue.use(Vuetify)
-
+Vue.use(Vuetify, {
+  iconfont: 'fa',
+  icons: {
+    'cancel': 'fas fa-ban',
+    'cart': 'fas fa-shopping-cart'
+  }
+ })
 
 import WebFontLoader from 'webfontloader'
 
@@ -14,6 +19,7 @@ import WebFontLoader from 'webfontloader'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faFacebook, faTwitter, faGooglePlus, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 
 // TODO: Вероятно, можно добавлять скопом.
 library.add(faTwitter)
@@ -21,6 +27,7 @@ library.add(faFacebook)
 library.add(faGooglePlus)
 library.add(faLinkedin)
 library.add(faInstagram)
+library.add(faCartPlus)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false

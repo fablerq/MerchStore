@@ -17,19 +17,9 @@
         <vsidebar/>
         <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
           <div class="row goods-row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-          </div>
-          <div class="row  goods-row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-          </div>
-          <div class="row  goods-row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"><router-link class="menu-link" :to="{ name: 'good' }"><img src="../../../imgs/good.png" alt=""></router-link></div>
+            <div v-for="n in 10" :key="n" class="flypage col-8 col-sm-8 col-md-6 col-lg-4 col-xl-4">
+                <vflypage class="item"/>
+            </div>
           </div>
         </div>
       </div>
@@ -40,10 +30,11 @@
 <script>
 import vsidebar from './vsidebar.vue'
 import vsearch from '../main/vsearch.vue'
+import vflypage from '../architecture/vflypage.vue'
 
 export default {
   name: 'vlisting',
-  components: {vsidebar, vsearch}
+  components: {vsidebar, vsearch, vflypage}
 }
 
 </script>
@@ -56,12 +47,13 @@ export default {
     margin-bottom: 9%;
   }
 
-  .goods-row{
+  .flypage{
     margin-bottom: 3%;
-  }
 
-  img {
-    width: 100%;
+    .item {
+      width: 550px;
+      margin-left: -125px;
+    }
   }
 }
 </style>

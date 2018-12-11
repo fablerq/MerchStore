@@ -59,10 +59,11 @@
 <script>
 import vsearch from '../main/vsearch.vue'
 import vcharts from '../main/vcharts.vue'
+import vflypage from '../architecture/vflypage.vue'
 
 export default {
     name: 'vproducts',
-    components: {vsearch, vcharts}
+    components: {vsearch, vcharts, vflypage}
 }
 </script>
 

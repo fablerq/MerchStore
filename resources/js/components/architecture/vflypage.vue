@@ -2,29 +2,29 @@
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
+          <router-link class="menu-link" :to="{ name: 'good' }">
         <v-img
-          class="white--text"
-          height="200px"
-          src="../../../imgs/tee.png"
-        >
-          <v-container fill-height fluid>
-            <v-layout fill-height>
-              <v-flex xs12 align-end flexbox>
-                <span class="headline">Top 10 Australian beaches</span>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-img>
-        <v-card-title>
+            class="item-img"
+          :src="require('../../../imgs/flypage.png')"
+          aspect-ratio="2.75"
+          height="150px"
+        ></v-img>
+          </router-link>
+        <v-card-title primary-title>
           <div>
-            <span class="grey--text">Number 10</span><br>
-            <span>Whitehaven Beach</span><br>
-            <span>Whitsunday Island, Whitsunday Islands</span>
+            <h5 class=" mb-0">Футболка “Три скобки”</h5>
           </div>
         </v-card-title>
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
+
+        <v-card-actions class="item-navbar">
+          <h1>800р</h1>
+          <v-btn class="fav" flat fab icon color="pink">
+            <v-icon>favorite</v-icon>
+            
+          </v-btn>
+          <v-btn class="add" outline fab color="orange">
+      <font-awesome-icon class="cart" :icon="['fas', 'cart-plus']" size="lg"/>
+    </v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -32,9 +32,27 @@
 </template>
 
 <script>
-
+export default {
+  name: 'vflypage'
+}
 </script>
 
 <style lang="scss" scoped>
+.item-navbar{
+    margin: 0 10px;
 
+    .item-img {
+        width: 100%;
+    }
+
+    .fav{
+        margin-left: 20%;
+        outline: none;
+    }
+
+    .add{
+        margin-left: -1%;
+        outline: none;
+    }
+}
 </style>
