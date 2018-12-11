@@ -7,7 +7,6 @@
 <p>Задачи:</p>
 <p>1) Текст заглушка у пустых ордеров будет добавлена позже</p>
 <p>2) Красивая валидация checboxes с конкретными товарами будет добавлена позже. (а то сейчас даже не написано что пусто)</p>
-<p>3) Осталось только написать метод нахождение макс id у ордеров для корректного добавления. На тестовых данных работает. Dont use it</p>
     <div class="card-body">
 
         <div class="alert alert-danger" v-if="feedback">
@@ -174,33 +173,28 @@ import axios from 'axios'
                 .then((response => this.paymentmethods = response.data));
           },
           addOrder() {
-            //   axios.post('/api/orders', { 
-            //         user_id: this.user_id,
-            //         status_id: this.status_id,
-            //         paymentmethod_id: this.paymentmethod_id,
-            //       })                    
-            //       .then(function (response) {
-            //             alert(response.data.message)        
-            //       })
-            //       .catch(error => {
-            //           this.feedback = error.response.data.errors;
-            //       }); 
-            //   for (let i = 0; i < this.productsvariants_id.length; i++) { 
-                            
-            //         let length = this.orders.length
-            //         console.log(this.length)
-            //         axios.put('/api/productsvariants/' + this.productsvariants_id[i], { 
-            //             order_id: length,
-            //         })                    
-            //         .then(function (response) {
-            //             alert(response.data.message)
-            //         })
-            //         .catch(error => {
-            //             this.feedback = error.response.data.errors;
-            //         });
-            //   }
-            let length = this.orders.length
-            console.log(this.orders.length)
+              axios.post('/api/orders', { 
+                    user_id: this.user_id,
+                    status_id: this.status_id,
+                    paymentmethod_id: this.paymentmethod_id,
+                  })                    
+                  .then(function (response) {
+                        alert(response.data.message)        
+                  })
+                  .catch(error => {
+                      this.feedback = error.response.data.errors;
+                  }); 
+              for (let i = 0; i < this.productsvariants_id.length; i++) { 
+                    axios.put('/api/productsvariants/' + this.productsvariants_id[i], { 
+                        order_id: this.orders[this.orders.length-1].id+1,
+                    })                    
+                    .then(function (response) {
+                        alert(response.data.message)
+                    })
+                    .catch(error => {
+                        this.feedback = error.response.data.errors;
+                    });
+              }
                 this.loadOrders()
                 this.feedback = null
           },
@@ -221,12 +215,6 @@ import axios from 'axios'
                     });
                 this.loadOrders()
           },
-
-          CheckMaxId(massiv) {
-                //massiv[]
-                //return id;
-                //добавить как достать id максимальную
-          }
       },
   }
 </script>
