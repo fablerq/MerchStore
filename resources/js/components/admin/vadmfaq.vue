@@ -1,10 +1,13 @@
 <template>
   <div class="stats">
     <div class="container">
-       <div class="row">
+
+           <div class="row align-items-center">
+      <div class="row">
         <vadmsidebar/>
         <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-9">
-       <!--    <div class="row align-items-center">
+
+    <!--      <div class="row align-items-center">
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"> 
                     <h1>Список вопросов</h1>
                 </div>
@@ -128,10 +131,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                </div> -->
+                </div> 
 
                 <vue-tabs>
 
