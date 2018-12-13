@@ -72,7 +72,6 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
-
   export default {
       name: 'crudusers',
       data() {
@@ -140,7 +139,6 @@ import axios from 'axios'
                  });
                 })
           },
-
           deleteUser(id) {
                 axios.delete('/api/users/' + id)
                     .then(function (response) {

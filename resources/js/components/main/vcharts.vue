@@ -3,31 +3,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <md-card>
-                        <md-card-actions>
-                        <div class="md-subhead">
                             <h1>Лучшие товары</h1>
-                        </div>
-                        
-                        </md-card-actions>
-                        <md-card-media>
                         <!-- swiper -->
                         <swiper :options="swiperOption">
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="../../../imgs/slide.png" alt=""></swiper-slide>
+                            <swiper-slide v-for="n in 10" :key="n"><vflypage class="item"/></swiper-slide>
                             <div class="swiper-button-prev" slot="button-prev"></div>
                             <div class="swiper-button-next" slot="button-next"></div>
                         </swiper>
-                        </md-card-media>
-                    </md-card>
                 </div>
             </div>
         </div>
@@ -36,22 +18,16 @@
 
 <script>
 import 'swiper/dist/css/swiper.css'
-
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-
+import vflypage from '../architecture/vflypage.vue'
  export default {
     name: 'vcharts',
-    components: {
-    swiper,
-    swiperSlide
-   },
-
+    components: {swiper, swiperSlide, vflypage},
     data() {
       return {
         swiperOption: {
-          slidesPerView: 5,
-          spaceBetween: 15,
-          slidesPerGroup: 5,
+          slidesPerView: 4,
+          slidesPerGroup: 4,
           loop: true,
           autoHeight: true,
           loopFillGroupWithBlank: true,
@@ -69,15 +45,13 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 .top {
     margin: 15px 0;
     width: 100%;
-
+    padding: 15px;
     h1 {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
     }
-
-    .swiper-slide img {
-        width: 100%;
+    .item{
+        margin-left: 5px;
     }
-
     .swiper-button-prev {
         background-size: contain;
         outline: none;
@@ -87,6 +61,12 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
         background-size: contain;
         outline: none;
         background-image: url(../../../imgs/right.png);
+    }
+    @media (max-width: 992px) {
+        .swiper-button-next,
+        .swiper-button-prev{
+            display: none;
+        }
     }
 }
 </style>

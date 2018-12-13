@@ -3,6 +3,8 @@
 ## Description
 Singlepage app build with Vuejs on frontend and Laravel on backend. Data is collected with backend API from Postgres database on Heroku. We are also using Travis CI for continuous integration and deployment to our hosting
 ## Features 
+### 2v1 release. 13/12/12
+> 1) The end of global redesign (except team page) :sunglasses:
 ### 2v0 release. 11/12/12
 > 1) uploading images with front and back validation
 > 2) half part of global redesign with material design

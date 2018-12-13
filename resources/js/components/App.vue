@@ -1,19 +1,16 @@
 <template>
-  <div class="sides">
-    <div class="main">
+  <div>
       <vheader/>
        <router-view></router-view>
      <vfooter/>
-    </div>
-
   </div>
-
 </template>
 
 <script>
 //Architecture
 import vheader from './architecture/vheader.vue'
 import vfooter from './architecture/vfooter.vue'
+import vflypage from './architecture/vflypage.vue'
 
 //Main
 import vsidebar from './main/vsidebar.vue'
@@ -46,6 +43,7 @@ export default {
   components: {
     vheader,
     vsearch,
+    vflypage,
     vproducts,
     vcharts,
     vfooter,
@@ -72,24 +70,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .container {
-        border: 5px solid grey;
-    }
-
-      .main {
-    width: 80%;
-    margin: auto;
-    background-color: white;
-  }
-
-  @media (max-width: 1000px) {
-      .main {
-            width: 100%;
-      }
-    }
-
-  .sides {
-    background-color: lightgrey;
-  }
+   
 
 </style>

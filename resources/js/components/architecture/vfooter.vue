@@ -2,7 +2,7 @@
   <v-footer
     dark
     height="auto"
-    style="box-shadow: 0 0 10px #000000;"
+   class="footer"
   >
     <!-- <v-footer
     dark
@@ -14,8 +14,8 @@
       flat
       tile
     >
-      <v-card-title class="orange lighten-2">
-        <strong class="subheading">Get connected with us on social networks!</strong>
+      <v-card-title class="orange accent-2">
+        <strong class="subheading">Team page</strong>
 
         <v-spacer></v-spacer>
 
@@ -31,7 +31,7 @@
       </v-card-title>
 
 
-      <v-card-actions class="grey darken-  justify-center">
+      <v-card-actions class="orange darken-1  justify-center">
         &copy;2018 — <strong> BonchDev</strong>
       </v-card-actions>
     </v-card>
@@ -54,4 +54,7 @@
 
 
 <style lang="scss" scoped>
+  .footer {
+    margin-top: 30px;
+  }
 </style>
