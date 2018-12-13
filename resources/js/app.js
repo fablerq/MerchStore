@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Form from 'vform'
 import axios from 'axios'
-// import BootstrapVue from 'bootstrap-vue'
 import Vuetify from 'vuetify'
 
 Vue.use(Vuetify, {
@@ -37,6 +35,7 @@ import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
 
 
+
 import VeeValidate, { Validator } from 'vee-validate'
 import ru from 'vee-validate/dist/locale/ru'
 
@@ -45,23 +44,20 @@ Vue.use(VeeValidate, {locale: 'ru'})
 
 Vue.prototype.$ajax = axios
 
-
 Vue.use(VueRouter)
 
-// Vue.use(BootstrapVue)
 Vue.use(VueTabs)
 
 //styles for Vutify
-import 'vuetify/dist/vuetify.min.css'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import "vue-material-design-icons/styles.css"
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
 
 
 
 import App from './components/App.vue'
-
-import CrudUsers from './components/admin/base/CrudUsers.vue'
 
 //routers
 import main from './components/main/vproducts.vue'

@@ -8,9 +8,17 @@
         <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
 
 
-          <crudusers v-if="this.users" :users="users" @users="loadUsers" @roles="loadRoles"></crudusers>
+    <vue-tabs>
 
+    <v-tab title="Пользователи">
+      <crudusers></crudusers>
+    </v-tab>
 
+    <v-tab title="Избранные товары пользователей">
+      <crudfavourites></crudfavourites>
+    </v-tab>
+
+</vue-tabs>
 
 
         </div>
@@ -23,33 +31,20 @@
 import vadmsidebar from './vadmsidebar.vue'
 
 import crudusers from './base/CrudUsers.vue'
+import crudfavourites from './base/CrudFavourites.vue'
+
+import {VueTabs, VTab} from 'vue-nav-tabs/dist/vue-tabs.js'
 
 export default {
   name: 'vadmusers',
   components: {
     vadmsidebar,
-    crudusers
+    VueTabs,
+    VTab,
+
+    crudusers,
+    crudfavourites
  },
- data() {
-    return {
-        users: {},
-        roles: {},
-    }
- },
- methods: {
-    loadUsers(kek) {
-         this.users = kek
-         console.log(this.users)
-    },
-    loadRoles(kek) {
-         this.roles = kek
-         console.log(this.roles)
-    }
- },
- mounted() {
-   console.log('few')
-   console.log(this.users)
- }
 }
 </script>
 

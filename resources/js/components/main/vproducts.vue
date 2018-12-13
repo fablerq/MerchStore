@@ -31,16 +31,42 @@
             
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 top-buffer">
                     <div class="stationery">
-                        <router-link class="menu-link" :to="{ name: 'main' }">
-                            <img  class="" src="../../../imgs/stationery.png" alt="logo">
-                        </router-link>
+                        <v-hover>
+                            <v-card slot-scope="{ hover }">
+                                <router-link class="menu-link" :to="{ name: 'main' }">
+                                    <img  class="" src="../../../imgs/stationery.png" alt="logo">
+                                    <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
+                                            style="height: 20%;"
+                                        >
+                                            Канцелярия
+                                        </div>
+                                    </v-expand-transition>
+                                </router-link>
+                            </v-card>
+                        </v-hover>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 top-buffer">
                     <div class="backpacks">
-                        <router-link class="menu-link" :to="{ name: 'main' }">
-                            <img  class="" src="../../../imgs/backpack.jpg" alt="logo">
-                        </router-link>
+                        <v-hover>
+                            <v-card slot-scope="{ hover }">
+                                <router-link class="menu-link" :to="{ name: 'main' }">
+                                    <img  class="" src="../../../imgs/backpack.jpg" alt="logo">
+                                    <v-expand-transition>
+                                                <div
+                                                    v-if="hover"
+                                                    class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
+                                                    style="height: 20%;"
+                                                >
+                                                    Рюкзаки
+                                                </div>
+                                            </v-expand-transition>
+                                </router-link>
+                            </v-card>
+                        </v-hover>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 top-buffer">
@@ -68,6 +94,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .v-card--reveal {
+        font-size: 24px;
+        color: #000;
+        align-items: center;
+        bottom: 40%;
+        justify-content: center;
+        opacity: 0.5;
+        position: absolute;
+        width: 100%;
+    }
+
     .menu-link {
         img {
             width: 100%;

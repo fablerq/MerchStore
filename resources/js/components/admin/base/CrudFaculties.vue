@@ -17,11 +17,6 @@
                 <div v-if="submitted && errors.has('title')" class="invalid-feedback">{{ errors.first('title') }}</div>
             </div>
             <div class="form-group">
-                <label for="color">Color</label>
-                <input type="text" v-model="color" v-validate="{ required: true, alpha_spaces: true, max: 50, min: 5 }" name="color" class="form-control" :class="{ 'is-invalid': submitted && errors.has('color') }" />
-                <div v-if="submitted && errors.has('color')" class="invalid-feedback">{{ errors.first('color') }}</div>
-            </div>
-            <div class="form-group">
                 <button class="btn btn-info">Add Faculty</button>
             </div>
         </form>
@@ -36,7 +31,6 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">color</th>
       <th scope="col">show</th>
       <th scope="col">delete</th>
     </tr>
@@ -45,7 +39,6 @@
     <tr v-for="faculty in faculties">
       <th>{{ faculty.id }}</th>
       <td>{{ faculty.title }}</td>
-      <td>{{ faculty.color }}</td>
       <td><a href="#" @click="showFaculty(faculty.id)">Show</a></td>
       <td><a href="#" @click="deleteFaculty(faculty.id)">Delete</a></td>
     </tr>
@@ -65,13 +58,8 @@ import axios from 'axios'
           return {
              faculties: {},
              title: '',
-             color: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title : '',
-                color : '',
-          })
         }
       },
       created() {
@@ -93,7 +81,6 @@ import axios from 'axios'
           addFaculty() {
               axios.post('/api/faculties', { 
                   title: this.title, 
-                  color: this.color,
                   })                    
                   .then(function (response) {
                         alert(response.data.message)

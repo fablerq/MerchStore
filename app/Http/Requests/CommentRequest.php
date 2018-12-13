@@ -25,7 +25,7 @@ class CommentRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'product_id' => 'required|exists:types,id',
+            'product_id' => 'required|exists:products,id',
             'body' => 'required|min:20|max:3000'
         ];
     }

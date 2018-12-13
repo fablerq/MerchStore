@@ -42,6 +42,10 @@
       <crudtypes></crudtypes>
     </v-tab>
 
+    <v-tab title="Цвета">
+      <crudcolors></crudcolors>
+    </v-tab>
+
 </vue-tabs>
 
 
@@ -65,7 +69,8 @@ import crudphotos from './base/CrudPhotos.vue'
 import crudroles from './base/CrudRoles.vue'
 import crudsizes from './base/CrudSizes.vue'
 import crudstatuses from './base/CrudStatuses.vue'
-import crudtypes from './base/CrudTypes.vue'
+import crudtypes from './base/CrudTypes.vue'  
+import crudcolors from './base/CrudColors.vue' 
 
 import {VueTabs, VTab} from 'vue-nav-tabs/dist/vue-tabs.js'
 
@@ -83,7 +88,8 @@ export default {
       crudroles,
       crudsizes,
       crudstatuses,
-      crudtypes
+      crudtypes,
+      crudcolors,
  },
 
 }

@@ -28,8 +28,8 @@ import vflypage from '../architecture/vflypage.vue'
     data() {
       return {
         swiperOption: {
-          slidesPerView: 3,
-          slidesPerGroup: 3,
+          slidesPerView: 4,
+          slidesPerGroup: 4,
           loop: true,
           autoHeight: true,
           loopFillGroupWithBlank: true,
@@ -47,14 +47,14 @@ import vflypage from '../architecture/vflypage.vue'
 .top {
     margin: 15px 0;
     width: 100%;
+    padding: 15px;
 
     h1 {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
     }
 
     .item{
-        width: 530px;
-        margin-left: -80px;
+        margin-left: 5px;
     }
 
     .swiper-button-prev {

@@ -40,4 +40,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Comment');
     }
 
+    public function faq() {
+        return $this->hasMany('App\Models\FAQ');
+    }
+
+    public function products() {
+        return $this->belongsToMany('App\Models\Product', 'product_user')
+        ->withPivot('id');
+    }
 }

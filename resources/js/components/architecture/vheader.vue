@@ -119,7 +119,7 @@ export default {
 
 <style lang="scss" scoped>
     header {
-        box-shadow: 0px 4px 5px -5px grey;
+        
         width: 100%;
     }
 

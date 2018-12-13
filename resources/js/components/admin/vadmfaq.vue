@@ -1,11 +1,13 @@
 <template>
   <div class="stats">
     <div class="container">
+
+           <div class="row align-items-center">
       <div class="row">
         <vadmsidebar/>
         <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-9">
 
-          <div class="row align-items-center">
+    <!--      <div class="row align-items-center">
                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"> 
                     <h1>Список вопросов</h1>
                 </div>
@@ -19,14 +21,12 @@
                     </select>
                 </div>
           </div>
-
-          <div class="row">
+           <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
                     <h3>Без ответа</h3>
                 </div>
           </div>
-
-          <div class="row">
+           <div class="row">
             <div class="col-xl-12">
                 <div class="userComment">
                     <div class="row commentInfo">
@@ -53,8 +53,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
+             <div class="row">
                 <div class="col-xl-12">
                     <div class="userComment">
                         <div class="row commentInfo">
@@ -81,14 +80,12 @@
                         </div>
                     </div>
                 </div>
-
-            <div class="row">
+             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
                     <h3>С ответом</h3>
                 </div>
           </div>
-
-          <div class="row">
+           <div class="row">
                 <div class="col-xl-12">
                     <div class="userComment">
                         <div class="row commentInfo">
@@ -111,8 +108,7 @@
                         </div>
                     </div>
                 </div>
-
-            <div class="row">
+             <div class="row">
                 <div class="col-xl-10 offset-xl-2">
                     <div class="adminComment">
                         <div class="row commentInfo">
@@ -135,28 +131,50 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                </div>
-            
+                </div> 
+
+                <vue-tabs>
+
+    <v-tab title="Добавить вопрос в фак" >
+      <crudfaqsask></crudfaqsask>
+    </v-tab>
+
+    <v-tab title="Добавить ответ в фак">
+       <crudfaqsreply></crudfaqsreply>
+    </v-tab>
+
+</vue-tabs>
+                
         </div>
-      </div>
+      </div> 
+
+      <!-- ВЛАД ТВОЯ ВЕРСТКА СВЕРХУ -->
+
     </div>
   </div>
 </template>
-
-<script>
+ <script>
 import vadmsidebar from './vadmsidebar.vue'
+import crudfaqsask from './base/CrudFAQSask.vue' 
+import crudfaqsreply from './base/CrudFAQSreply.vue'
 
-export default {
-  name: 'vadmstats',
-  components: {vadmsidebar}
+import {VueTabs, VTab} from 'vue-nav-tabs/dist/vue-tabs.js'
+
+ export default {
+  name: 'vadmfaqs',
+  components: {
+      vadmsidebar,
+      VueTabs,
+      VTab,
+      crudfaqsask,
+      crudfaqsreply,
+      }
 }
-
-</script>
-
-<style lang="scss" scoped>
+ </script>
+ <style lang="scss" scoped>
     %comment {
         background: #C4C4C4;
         padding: 0 15px 15px;
@@ -164,31 +182,25 @@ export default {
         width: 100%;
         margin-bottom: 15px;
     }
-
-    .adminComment {
+     .adminComment {
         @extend %comment;
         background: #FDB777;
     }
-
-    .userComment {
+     .userComment {
         @extend %comment;
     }
-
-            .commentInfo {
+             .commentInfo {
                 padding: 10px 0;
             }
-
-            .username {
+             .username {
                 font-weight: bold;
                 margin: 15px 0;
             }
-
-            .commentDate {
+             .commentDate {
                 width: 100%;
                 text-align: right;
             }
-
-            .userCommentForm,
+             .userCommentForm,
             .adminCommentForm {
                 background: #ffffff;
                 padding: 5px 10px;
@@ -196,14 +208,12 @@ export default {
                 width: 100%;
                 min-height: 75px;
             }
-
-            .btn {
+             .btn {
                 background: #FDB777;
                 color: #fff;
                 border: 1px solid #FDB777;
             }
-
-            .delete {
+             .delete {
                 margin-right: -1.5%;
             }
-</style>
+</style> 

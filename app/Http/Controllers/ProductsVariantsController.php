@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductsVariants;
-use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductsVariantsRequest;
+use App\Http\Requests\ProductsVariantsUpdateRequest;
 
 class ProductsVariantsController extends Controller
 {
@@ -16,7 +16,7 @@ class ProductsVariantsController extends Controller
      */
     public function index()
     {
-        $productsvariants = ProductsVariants::with('product', 'size')->get();
+        $productsvariants = ProductsVariants::with('product', 'size', 'color', 'order')->get();
         return response()->json($productsvariants, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
@@ -42,6 +42,7 @@ class ProductsVariantsController extends Controller
         ProductsVariants::create([
             'product_id' => $validated['product_id'],
             'size_id' => $validated['size_id'],
+            'color_id' => $validated['color_id'],
         ]);
         return response()->json([
             'message' => 'Успешно добавлено! (я пришел с сервера)',
@@ -70,7 +71,7 @@ class ProductsVariantsController extends Controller
     {
         //
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -78,9 +79,16 @@ class ProductsVariantsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductsVariantsUpdateRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $order= ProductsVariants::find($id);
+        $order->order_id=$request->get('order_id');
+        $order->save();
+
+        return response()->json([
+            'message' => 'Конкретный товар '.$id.' успешно добавлен в заказ',
+        ]);
     }
 
     /**
@@ -91,11 +99,6 @@ class ProductsVariantsController extends Controller
      */
     public function destroy($id)
     {
-        if(Order::where('productsvariants_id', $id)->first()) {
-            return response()->json([
-                'message' => 'Вариант товара номер '.$id.' не получилось удалить. Существует заказ c этим конкретным товаром.',
-            ]);
-        }
         ProductsVariants::destroy($id);
         return response()->json([
             'message' => 'Вариант товара номер '.$id.' удален успешно (я пришел с сервера)',

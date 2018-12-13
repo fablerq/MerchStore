@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Models\Order;
 use App\Models\Comment;
+use App\Models\FAQ;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,7 @@ class UserController extends Controller
     {
 
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -40,6 +42,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        
         $validated = $request->validated();
         User::create([
             'login' => $validated['login'],
@@ -94,9 +97,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if(Order::where('user_id', $id)->first() || Comment::where('user_id', $id)->first()) {
+        if(Order::where('user_id', $id)->first() || Comment::where('user_id', $id)->first() || FAQ::where('user_id', $id)->first()) {
             return response()->json([
-                'message' => 'Пользователя номер '.$id.' не получилось удалить. Существует заказ от этого пользователя.',
+                'message' => 'Пользователя номер '.$id.' не получилось удалить. Существует заказ, комент или ответ на вопрос от этого пользователя.',
             ]);
         }
         User::destroy($id);
@@ -105,5 +108,4 @@ class UserController extends Controller
         ]);
     }
 
-    
 }

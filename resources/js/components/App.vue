@@ -6,13 +6,13 @@
      <vfooter/>
     </div>
   </div>
-
 </template>
 
 <script>
 //Architecture
 import vheader from './architecture/vheader.vue'
 import vfooter from './architecture/vfooter.vue'
+import vflypage from './architecture/vflypage.vue'
 
 //Main
 import vsidebar from './main/vsidebar.vue'
@@ -58,17 +58,19 @@ export default {
     vadmlist,
     vadmorders,
     vadmbase,
+    vadmfaq,
     vlksidebar,
     vlkorders,
     vlkfavorites,
     vlkdata,
     vregistration,
     vsignin,
-    vcontacts
+    vcontacts,
+    vflypage
 	}
 }
 </script>
 
 <style lang="scss" scoped>
- 
+
 </style>

@@ -1,7 +1,6 @@
 <template>
-  <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
+ 
+      <v-card class="flypage">
           <router-link class="menu-link" :to="{ name: 'good' }">
         <v-img
             class="item-img"
@@ -18,7 +17,7 @@
 
         <v-card-actions class="item-navbar">
           <h1>800р</h1>
-          <v-btn class="fav" flat fab icon color="pink">
+          <v-btn class="fav" flat icon color="pink">
             <v-icon>favorite</v-icon>
             
           </v-btn>
@@ -27,8 +26,7 @@
     </v-btn>
         </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+   
 </template>
 
 <script>
@@ -38,6 +36,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.flypage {
+  width: 270px;
+}
+
 .item-navbar{
     margin: 0 10px;
 
@@ -46,12 +48,12 @@ export default {
     }
 
     .fav{
-        margin-left: 20%;
+        margin-left: 25%;
         outline: none;
     }
 
     .add{
-        margin-left: -1%;
+        margin-left: 5px;
         outline: none;
     }
 }

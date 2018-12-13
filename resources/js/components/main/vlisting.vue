@@ -15,11 +15,14 @@
       </div>
       <div class="row">
         <vsidebar/>
-        <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-          <div class="row goods-row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+          <div class="row goods-row justify-content-center">
             <div v-for="n in 10" :key="n" class="flypage col-8 col-sm-8 col-md-6 col-lg-4 col-xl-4">
                 <vflypage class="item"/>
             </div>
+          </div>
+          <div class="paginationBlock">
+              <v-pagination color="orange darken-1" v-model="page" :length="6"></v-pagination>
           </div>
         </div>
       </div>
@@ -29,14 +32,18 @@
 
 <script>
 import vsidebar from './vsidebar.vue'
-import vsearch from '../main/vsearch.vue'
+import vsearch from './vsearch.vue'
 import vflypage from '../architecture/vflypage.vue'
 
 export default {
   name: 'vlisting',
-  components: {vsidebar, vsearch, vflypage}
+  components: {vsidebar, vsearch, vflypage},
+  data () {
+      return {
+        page: 1
+      }
+    }
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -51,9 +58,15 @@ export default {
     margin-bottom: 3%;
 
     .item {
-      width: 550px;
-      margin-left: -125px;
+     
     }
+  }
+
+  .paginationBlock {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

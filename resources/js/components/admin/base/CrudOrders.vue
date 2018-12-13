@@ -3,6 +3,10 @@
     <h1>Заказы</h1>
 <br>
 <h3>Добавить заказ</h3>
+
+<p>Задачи:</p>
+<p>1) Текст заглушка у пустых ордеров будет добавлена позже</p>
+<p>2) Красивая валидация checboxes с конкретными товарами будет добавлена позже. (а то сейчас даже не написано что пусто)</p>
     <div class="card-body">
 
         <div class="alert alert-danger" v-if="feedback">
@@ -12,12 +16,16 @@
         </div>
 
         <form @submit.prevent="handleSubmit">
-            <div class="form-group">
-                <label for="productsvariants_id">productsvariants_id</label>
-                <select class="form-control" v-model="productsvariants_id">
-                    <option v-for="productsvariant in productsvariants" :value="productsvariant.id">{{ productsvariant.product.title }}</option>
-                </select>
-            </div>
+
+        <label for="productsvariants_id">productsvariants_id</label>
+          <ul class="form-group" v-for="productsvariant in productsvariants">
+            <li v-if="!productsvariant.order_id">
+              <input type="checkbox" :id="productsvariant.id" :value="productsvariant.id" v-model="productsvariants_id">
+              <label :for="productsvariant.id">{{ productsvariant.product.title }}</label>
+              <label :for="productsvariant.id">{{ productsvariant.color.title }}</label>
+              <label :for="productsvariant.id">{{ productsvariant.size.title }}</label>
+            </li>
+          </ul>
             <div class="form-group">
                 <label for="user_id">user_id</label>
                 <select class="form-control" v-model="user_id">
@@ -50,8 +58,9 @@
   <thead>
     <tr>
       <th scope="col">id</th>
-      <th scope="col">productsvariants_id</th>
-      <th scope="col">productsvariants_size</th>
+      <th scope="col">product_id</th>
+      <th scope="col">size_id</th>
+      <th scope="col">color_id</th>
       <th scope="col">user_id</th>
       <th scope="col">status_id</th>
       <th scope="col">paymentmethod_id</th>
@@ -62,24 +71,44 @@
   <tbody>
     <tr v-for="order in orders">
       <th>{{ order.id }}</th>
-      <td>{{ order.productsvariants.product_id }}</td>
-      <td>{{ order.productsvariants.size_id }}</td>
+      <td>
+          <ul class="form-group" v-for="productsvariant in productsvariants"> 
+            <li v-if="order.id == productsvariant.order_id">
+                {{ productsvariant.product.title }}
+            </li>
+          </ul>
+          <!-- <p v-if="productsvariants"></p>   -->
+      </td>
+      <td>
+          <ul class="form-group" v-for="productsvariant in productsvariants"> 
+            <li v-if="order.id == productsvariant.order_id">
+                {{ productsvariant.size.title }}
+            </li>
+          </ul>  
+      </td>
+      <td>
+          <ul class="form-group" v-for="productsvariant in productsvariants"> 
+            <li v-if="order.id == productsvariant.order_id">
+                {{ productsvariant.color.title }}
+            </li>
+          </ul>  
+      </td>
       <td>{{ order.user.login }}</td>
       <td>{{ order.status.title }}</td>
       <td>{{ order.paymentmethod.title }}</td>
       <td><a href="#" @click="showOrder(order.id)">Show</a></td>
       <td><a href="#" @click="deleteOrder(order.id)">Delete</a></td>
     </tr>
-  </tbody>
+  </tbody>          
 </table>
+
+
 
   </div>
 </template>
 
 <script>
-import Form from 'vform'
 import axios from 'axios' 
-
   export default {
       name: 'crudorders',
       data() {
@@ -92,19 +121,13 @@ import axios from 'axios'
              statuses: {},
              paymentmethods: {},
              //названия селектов
-             productsvariants_id: '',
+             productsvariants_id: [],
              user_id: '',
              status_id: '',
              paymentmethod_id: '',
              //прочее
              feedback: '',
              submitted: false,
-             form: new Form({
-                productsvariants_id: '',
-                user_id: '',
-                status_id: '',
-                paymentmethod_id: '',
-          })
         }
       },
       created() {
@@ -119,7 +142,13 @@ import axios from 'axios'
             this.submitted = true;
             this.$validator.validate().then(valid => {
                 if (valid) {
-                    this.addOrder()
+                    if (this.productsvariants_id)
+                    {
+                       this.addOrder()
+                    }
+                    else {
+                        this.feedback = 'Выберите конкретный товар к заказу'
+                    }
                 }
             });
           },
@@ -145,19 +174,29 @@ import axios from 'axios'
           },
           addOrder() {
               axios.post('/api/orders', { 
-                    productsvariants_id: this.productsvariants_id,
                     user_id: this.user_id,
                     status_id: this.status_id,
                     paymentmethod_id: this.paymentmethod_id,
                   })                    
                   .then(function (response) {
-                        alert(response.data.message)
+                        alert(response.data.message)        
                   })
                   .catch(error => {
                       this.feedback = error.response.data.errors;
-                  });
-                  this.loadOrders()
-                  this.feedback = null
+                  }); 
+              for (let i = 0; i < this.productsvariants_id.length; i++) { 
+                    axios.put('/api/productsvariants/' + this.productsvariants_id[i], { 
+                        order_id: this.orders[this.orders.length-1].id+1,
+                    })                    
+                    .then(function (response) {
+                        alert(response.data.message)
+                    })
+                    .catch(error => {
+                        this.feedback = error.response.data.errors;
+                    });
+              }
+                this.loadOrders()
+                this.feedback = null
           },
           showOrder(id) {       
                 axios.get('/api/orders/' + id)
@@ -175,7 +214,7 @@ import axios from 'axios'
                         alert(response.data.message);
                     });
                 this.loadOrders()
-          }
+          },
       },
   }
 </script>

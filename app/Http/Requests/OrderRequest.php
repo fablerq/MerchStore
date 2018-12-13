@@ -24,7 +24,6 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'productsvariants_id' => 'required|exists:products_variants,id',
             'user_id' => 'required|exists:users,id',
             'status_id' => 'required|exists:statuses,id',
             'paymentmethod_id' => 'required|exists:payment_methods,id'
@@ -39,8 +38,6 @@ class OrderRequest extends FormRequest
     public function messages()
     {
         return [
-            'productsvariants_id.exists' => 'Данного конкретного товара не существует',
-            'productsvariants_id.required' => 'Поле с выбором конкретного товаром не может быть пустым',
             'user_id.exists' => 'Данного пользователя не существует',
             'user_id.required' => 'Поле с выбором пользователя не может быть пустым',
             'status_id.exists' => 'Данного статуса товара не существует',
