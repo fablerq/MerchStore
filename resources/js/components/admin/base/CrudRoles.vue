@@ -48,24 +48,26 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudroles',
       data() {
           return {
-             roles: {},
              title: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title : '',
-          })
+
         }
       },
-      created() {
-          this.loadRoles();
+      mounted: function () {
+        this.$store.dispatch('LOAD_ROLES')
+      },
+      computed: {
+          ...mapGetters({
+          roles: 'GET_ROLES',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -75,10 +77,6 @@ import axios from 'axios'
                     this.addRole()
                 }
             });
-          },
-          loadRoles() {
-            axios.get('/api/roles')
-                .then((response => this.roles = response.data));
           },
           addRole() {
               axios.post('/api/roles', { 
@@ -90,7 +88,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadRoles()
+                  //this.loadRoles()
                   this.feedback = null
           },
           showRole(id) {       
@@ -108,7 +106,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadRoles()
+                //this.loadRoles()
           }
       },
   }

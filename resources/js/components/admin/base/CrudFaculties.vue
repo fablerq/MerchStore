@@ -49,21 +49,25 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudfaculties',
       data() {
           return {
-             faculties: {},
              title: '',
              feedback: '',
              submitted: false,
         }
       },
-      created() {
-          this.loadFaculties();
+      mounted: function () {
+        this.$store.dispatch('LOAD_FACULTIES')
+      },
+      computed: {
+          ...mapGetters({
+          faculties: 'GET_FACULTIES',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -73,10 +77,6 @@ import axios from 'axios'
                     this.addFaculty()
                 }
             });
-          },
-          loadFaculties() {
-            axios.get('/api/faculties')
-                .then((response => this.faculties = response.data));
           },
           addFaculty() {
               axios.post('/api/faculties', { 
@@ -88,7 +88,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadFaculties()
+                  //this.loadFaculties()
                   this.feedback = null
           },
           showFaculty(id) {       
@@ -106,7 +106,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadFaculties()
+                //this.loadFaculties()
           }
       },
   }

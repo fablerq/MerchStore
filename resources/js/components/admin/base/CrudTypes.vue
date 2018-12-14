@@ -48,24 +48,25 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudtypes',
       data() {
           return {
-             types: {},
              title: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title : '',
-          })
         }
       },
-      created() {
-          this.loadTypes();
+      mounted: function () {
+        this.$store.dispatch('LOAD_TYPES')
+      },
+      computed: {
+          ...mapGetters({
+          types: 'GET_TYPES',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -75,10 +76,6 @@ import axios from 'axios'
                     this.addType()
                 }
             });
-          },
-          loadTypes() {
-            axios.get('/api/types')
-                .then((response => this.types = response.data));
           },
           addType() {
               axios.post('/api/types', { 
@@ -90,7 +87,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadTypes()
+                  //this.loadTypes()
                   this.feedback = null
           },
           showType(id) {       
@@ -108,7 +105,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadTypes()
+                //this.loadTypes()
           }
       },
   }

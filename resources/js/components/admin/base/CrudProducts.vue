@@ -78,16 +78,13 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios' 
 
   export default {
       name: 'crudproducts',
       data() {
           return {
-             products: {},
-             faculties: {},
-             types: {},
              title: '',
              description: '',
              price: '',
@@ -95,19 +92,19 @@ import axios from 'axios'
              type_id: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title: '',
-                description: '',
-                price: '',
-                faculty_id: '',
-                type_id: '',
-          })
         }
       },
-      created() {
-                this.loadProducts();
-                this.loadFaculties();
-                this.loadTypes();
+      mounted: function () {
+        this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_FACULTIES')
+        this.$store.dispatch('LOAD_TYPES')
+      },
+      computed: {
+          ...mapGetters({
+          products: 'GET_PRODUCTS',
+          faculties: 'GET_FACULTIES',
+          types: 'GET_TYPES',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -117,18 +114,6 @@ import axios from 'axios'
                     this.addProduct()
                 }
             });
-          },
-          loadProducts() {
-            axios.get('/api/products')
-                .then((response => this.products = response.data));
-          },
-          loadFaculties() {
-            axios.get('/api/faculties')
-                .then((response => this.faculties = response.data));
-          },
-          loadTypes() {
-            axios.get('/api/types')
-                .then((response => this.types = response.data));
           },
           addProduct() {
               axios.post('/api/products', { 
@@ -144,7 +129,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadProducts()
+                  //this.loadProducts()
                   this.feedback = null
           },
           showProduct(id) {       
@@ -162,7 +147,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadProducts()
+                //this.loadProducts()
           }
       },
   }

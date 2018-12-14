@@ -109,17 +109,12 @@
 
 <script>
 import axios from 'axios' 
+import { mapActions, mapGetters } from 'vuex'
+
   export default {
       name: 'crudorders',
       data() {
           return {
-             //главный массив
-             orders: {},
-             //вспомогательные для значений
-             productsvariants: {},
-             users: {},
-             statuses: {},
-             paymentmethods: {},
              //названия селектов
              productsvariants_id: [],
              user_id: '',
@@ -130,12 +125,21 @@ import axios from 'axios'
              submitted: false,
         }
       },
-      created() {
-          this.loadOrders();
-          this.loadProductsVariants();
-          this.loadUsers();
-          this.loadStatuses();
-          this.loadPaymentmethods();
+      mounted: function () {
+        this.$store.dispatch('LOAD_ORDERS')
+        this.$store.dispatch('LOAD_PRODUCTSVARIANTS')
+        this.$store.dispatch('LOAD_USERS')
+        this.$store.dispatch('LOAD_STATUSES')
+        this.$store.dispatch('LOAD_PAYMENTMETHODS')
+      },
+      computed: {
+          ...mapGetters({
+          orders: 'GET_ORDERS',
+          productsvariants: 'GET_PRODUCTSVARIANTS',
+          users: 'GET_USERS',
+          statuses: 'GET_STATUSES',
+          paymentmethods: 'GET_PAYMENTMETHODS',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -151,26 +155,6 @@ import axios from 'axios'
                     }
                 }
             });
-          },
-          loadOrders() {
-            axios.get('/api/orders')
-                .then((response => this.orders = response.data));
-          },
-          loadProductsVariants() {
-            axios.get('/api/productsvariants')
-                .then((response => this.productsvariants = response.data));
-          },
-          loadUsers() {
-            axios.get('/api/users')
-                .then((response => this.users = response.data));
-          },
-          loadStatuses() {
-            axios.get('/api/statuses')
-                .then((response => this.statuses = response.data));
-          },
-          loadPaymentmethods() {
-            axios.get('/api/paymentmethods')
-                .then((response => this.paymentmethods = response.data));
           },
           addOrder() {
               axios.post('/api/orders', { 
@@ -195,7 +179,7 @@ import axios from 'axios'
                         this.feedback = error.response.data.errors;
                     });
               }
-                this.loadOrders()
+                //this.loadOrders()
                 this.feedback = null
           },
           showOrder(id) {       
@@ -213,7 +197,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadOrders()
+                //this.loadOrders()
           },
       },
   }
