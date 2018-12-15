@@ -16,11 +16,8 @@ class FavouriteController extends Controller
     public function index()
     {
         //$favourites = User::all()->products()->all();
-
-        
-
-        $favourites = User::find(2)->products()->get();
-        return response()->json($favourites, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+        // $favourites = User::find(2)->products()->get();
+        // return response()->json($favourites, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
     /**

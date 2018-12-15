@@ -57,7 +57,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Order::with('status', 'user', 'paymentmethod')->where('id', '=', $id)->get();
         return response()->json($order);
     }
 

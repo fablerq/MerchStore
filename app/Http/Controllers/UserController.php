@@ -13,6 +13,17 @@ use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
+
+    // public function register(Request $request) {
+    //     $this->validate($request, [
+    //         'email' => 'required|email|unique:users',
+    //         'login' => 'required|min:5|max:50|unique:users',
+    //         'password' => 'required|min:7',
+    //     ]);
+    // }
+
+
+
      /**
      * Display a listing of the resource.
      *
@@ -42,7 +53,6 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        
         $validated = $request->validated();
         User::create([
             'login' => $validated['login'],
@@ -63,7 +73,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::with('role')->where('id', '=', $id)->get();
         return response()->json($user, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
@@ -107,5 +117,6 @@ class UserController extends Controller
             'message' => 'Юзер номер '.$id.' удален успешно (я пришел с сервера)',
         ]);
     }
+
 
 }

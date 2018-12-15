@@ -51,7 +51,7 @@ class PhotoController extends Controller
      */
     public function show($id)
     {
-        $photo = Photo::find($id);
+        $photo = Photo::with('product')->where('id', '=', $id)->get();
         return response()->json($photo, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
