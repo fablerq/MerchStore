@@ -23,7 +23,9 @@
                                 <router-link class="menu-link to-reg" :to="{ name: 'register' }">Вы ещё не с нами?</router-link>
                             </div>
                         </form>
+                        <input type="submit" value="Чекнуть" v-on:click="check" class="btn btn-light btn-block">
                         <input type="submit" value="Выйти" v-on:click="logout" class="btn btn-light btn-block">
+                        <a href="http://127.0.0.1:8000/login/github" class="btn btn-secondary">Через гитхаб</a>
                 </div>
             </div>
         </div>
@@ -57,7 +59,7 @@ export default {
             })
             //console.log('юзер: ', this.$store.state.currentUser)
         },
-        logout() {
+        check() {
             axios.post('/api/getuser')
             .then(response=> {
                 console.log(response);
@@ -65,6 +67,18 @@ export default {
             .catch(error=> {
                 console.log(error.response)
             })
+        },
+        logout() {
+            axios.post('/api/logout')
+            .then(response=> {
+                console.log(response);
+            })
+            .catch(error=> {
+                console.log(error.response)
+            })
+        },
+        github() {
+            axios.get('/login/github')
         }
     }
 }
