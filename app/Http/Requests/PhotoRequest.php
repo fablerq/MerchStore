@@ -24,11 +24,12 @@ class PhotoRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
-            'image' => 'nullable|required|image64:jpeg,jpg,png',
-            'product_id' => 'required|exists:products,id'
+            'title'      => 'required|min:5',
+            'image'      => 'nullable|required|image64:jpeg,jpg,png',
+            'product_id' => 'required|exists:products,id',
         ];
     }
+
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -38,12 +39,12 @@ class PhotoRequest extends FormRequest
     {
         return [
             'title.required' => 'Заглавие фотографии не может быть пустым',
-            'title.min' => 'Минимальная длина названия фотографии 5 символов',
+            'title.min'      => 'Минимальная длина названия фотографии 5 символов',
             'image.required' => 'Изображение обязательно',
-            'image.image64' => 'Это не изображение. Загрузите изображение формата jpeg,jpg,png',
+            'image.image64'  => 'Это не изображение. Загрузите изображение формата jpeg,jpg,png',
             // 'image.dimensions' => 'Ширина и высота изображения должны находиться в диапазоне 100-3000',
             //'image.max' => 'Изображение не должно быть больше 4 мегабайт',
-            'product_id.exists' => 'Такого товара не существует',
+            'product_id.exists'   => 'Такого товара не существует',
             'product_id.required' => 'Поле с товаром обязательно',
         ];
     }

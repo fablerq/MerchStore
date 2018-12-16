@@ -24,13 +24,13 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email',
-            'login' => 'required|min:5|max:50|unique:users,login',
+            'email'    => 'required|email|unique:users,email',
+            'login'    => 'required|min:5|max:50|unique:users,login',
             'password' => 'required|min:7',
         ];
     }
 
-                /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -38,15 +38,15 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'E-mail обязателен',
-            'email.email' => 'Некорректный e-mail',
-            'email.unique' => 'Пользователь с таким email уже существует',
-            'login.required' => 'Логин обязателен',
-            'login.min' => 'Минимальная длина логина 5 символов',
-            'login.max' => 'Минимальная длина логина 50 символов',
-            'login.unique' => 'Логин занят',
+            'email.required'    => 'E-mail обязателен',
+            'email.email'       => 'Некорректный e-mail',
+            'email.unique'      => 'Пользователь с таким email уже существует',
+            'login.required'    => 'Логин обязателен',
+            'login.min'         => 'Минимальная длина логина 5 символов',
+            'login.max'         => 'Минимальная длина логина 50 символов',
+            'login.unique'      => 'Логин занят',
             'password.required' => 'Пароль обязателен',
-            'password.min' => 'Минимальная длина пароля 7 символов',
+            'password.min'      => 'Минимальная длина пароля 7 символов',
         ];
     }
 }

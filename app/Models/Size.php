@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Size extends Model
 {
-    public function productsvariants() {
+    public function productsvariants()
+    {
         return $this->hasMany('App\Models\ProductsVariants');
     }
 
     protected $fillable = [
-        'title', 'description'
+        'title', 'description',
     ];
 
     public $timestamps = false;

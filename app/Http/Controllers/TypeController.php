@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Http\Requests\TypeRequest;
+use App\Models\Product;
+use App\Models\Type;
 
 class TypeController extends Controller
 {
@@ -17,7 +16,8 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::all();
-        return response()->json($types, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($types, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -31,6 +31,7 @@ class TypeController extends Controller
         Type::create([
             'title' => $validated['title'],
         ]);
+
         return response()->json([
             'message' => 'Успешно добавлено! (я пришел с сервера)',
         ]);
@@ -39,29 +40,33 @@ class TypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         $type = Type::find($id);
-        return response()->json($type, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($type, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
-        if(Product::where('type_id', $id)->first()) {
+        if (Product::where('type_id', $id)->first()) {
             return response()->json([
                 'message' => 'Тип товара номер '.$id.' не получилось удалить. Существует товар с таким типом.',
             ]);
         }
         Type::destroy($id);
+
         return response()->json([
             'message' => 'Тип номер '.$id.' удалена успешно (я пришел с сервера)',
         ]);

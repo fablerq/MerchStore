@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -16,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'email', 'password', 'role_id'
+        'login', 'email', 'password', 'role_id',
     ];
 
     /**
@@ -25,26 +24,31 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'remember_token', 'email_verified_at'
+        'remember_token', 'email_verified_at',
     ];
 
-    public function role() {
+    public function role()
+    {
         return $this->belongsTo('App\Models\Role');
     }
 
-    public function order() {
+    public function order()
+    {
         return $this->hasMany('App\Models\Order');
     }
 
-    public function comment() {
+    public function comment()
+    {
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function faq() {
+    public function faq()
+    {
         return $this->hasMany('App\Models\FAQ');
     }
 
-    public function products() {
+    public function products()
+    {
         return $this->belongsToMany('App\Models\Product', 'product_user')
         ->withPivot('id');
     }

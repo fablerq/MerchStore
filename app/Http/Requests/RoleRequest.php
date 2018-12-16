@@ -28,8 +28,7 @@ class RoleRequest extends FormRequest
         ];
     }
 
-
-            /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -38,9 +37,9 @@ class RoleRequest extends FormRequest
     {
         return [
             'title.required' => 'Заглавие роли не может быть пустым',
-            'title.min' => 'Минимальная длина заглавия 5 символов',
-            'title.max' => 'Максимальная длина заглавия 50 символов',
-            'title.unique' => 'Роль с таким заглавием уже существует',
+            'title.min'      => 'Минимальная длина заглавия 5 символов',
+            'title.max'      => 'Максимальная длина заглавия 50 символов',
+            'title.unique'   => 'Роль с таким заглавием уже существует',
         ];
     }
 }

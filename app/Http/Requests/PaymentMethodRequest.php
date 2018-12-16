@@ -28,8 +28,7 @@ class PaymentMethodRequest extends FormRequest
         ];
     }
 
-
-                /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -38,9 +37,9 @@ class PaymentMethodRequest extends FormRequest
     {
         return [
             'title.required' => 'Заглавие метода оплаты не может быть пустым',
-            'title.min' => 'Минимальная длина заглавия 3 символов',
-            'title.max' => 'Максимальная длина заглавия 50 символов',
-            'title.unique' => 'Метод оплаты с таким заглавием уже существует',
+            'title.min'      => 'Минимальная длина заглавия 3 символов',
+            'title.max'      => 'Максимальная длина заглавия 50 символов',
+            'title.unique'   => 'Метод оплаты с таким заглавием уже существует',
         ];
     }
 }

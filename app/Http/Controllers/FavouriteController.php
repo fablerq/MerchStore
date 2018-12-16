@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
-use App\Models\Product;
-use Illuminate\Http\Request;
+
 use App\Http\Requests\FavouriteRequest;
+use App\Models\Product;
+use App\User;
 
 class FavouriteController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,17 +23,18 @@ class FavouriteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         $favourite = User::find($id)->products()->get();
-        return response()->json($favourite, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($favourite, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
-
-     /**
+    /**
      * Add favourite product in storage.
      *
      * @return Response
@@ -52,15 +53,17 @@ class FavouriteController extends Controller
         ]);
     }
 
-        /**
+    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function delfavourite($userid, $productid)
     {
         User::find($userid)->products()->detach($productid);
+
         return response()->json([
             'message' => 'Успешно удалено из избранных',
         ]);

@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    public function user() {
+    public function user()
+    {
         return $this->hasMany('App\User');
     }
 
     protected $fillable = [
-        'title'
+        'title',
     ];
 
     public $timestamps = false;
