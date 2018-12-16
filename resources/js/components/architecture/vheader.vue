@@ -119,24 +119,18 @@ export default {
 
 <style lang="scss" scoped>
     header {
-        
         width: 100%;
     }
-
     .navigashka {
         background: #fff;
     }
-
     .mainlogo {
         width: 80px;
     }
-
     .menu-link {
         color: black;
         text-decoration: none;
     }
-
-
     .flexer {
         display: flex;
         align-items: center;
@@ -144,22 +138,18 @@ export default {
         flex-direction: row;
         width: 120px;
         height: 100px;
-
         .nav-img {
             width: 40px;
             margin-right: 10px;
             
         }
     }
-
     .nav-item {
         width: 22%;
     }
-
     .nav-item.profile {
         width: 33%;
     }
-
     .sidebar-item {
         .flexer {
             height: 60px;
@@ -167,13 +157,11 @@ export default {
             justify-content: flex-start;
         }
     }
-
     @media (max-width: 992px) {
         .flexer {
             width: 100%;
         }
     }
-
     @media (min-width: 992px) {
         .botton {
             display: none;

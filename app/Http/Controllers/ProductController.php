@@ -22,6 +22,18 @@ class ProductController extends Controller
         return response()->json($products, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 
+    /** 
+    * Display 10 items of the resource. 
+    * 
+    * @return \Illuminate\Http\Response 
+    */ 
+    public function paginate($count) 
+    { 
+    $count = $count - 1; 
+    $products = Product::offset($count*6)->limit(6)->get(); 
+    return response()->json($products, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE); 
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -61,7 +73,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('faculty', 'type')->where('id', '=', $id)->get();
         return response()->json($product, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 

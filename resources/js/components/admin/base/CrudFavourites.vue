@@ -87,15 +87,13 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudfavourites',
       data() {
           return {
-             users: {},
-             products: {},
              favourites: {},
              user_id: '',
              product_id: '',
@@ -103,9 +101,15 @@ import axios from 'axios'
              submitted: false,
         }
       },
-      created() {
-          this.loadUsers();
-          this.loadProducts();
+      mounted: function () {
+        this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_USERS')
+      },
+      computed: {
+          ...mapGetters({
+          products: 'GET_PRODUCTS',
+          users: 'GET_USERS',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -115,14 +119,6 @@ import axios from 'axios'
                     this.addFavourite()
                 }
             });
-          },
-          loadUsers() {
-            axios.get('/api/users')
-                .then((response => this.users = response.data));
-          },
-          loadProducts() {
-            axios.get('/api/products')
-                .then((response => this.products = response.data));
           },
           addFavourite() {
               axios.post('/api/favourites/', { 

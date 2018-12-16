@@ -26,6 +26,8 @@ Route::resource('products', 'ProductController', [
     'except' => ['edit']
   ]);
 
+Route::get('paginateproducts/{count}', 'ProductController@paginate');
+
 Route::resource('orders', 'OrderController', [
     'except' => ['edit']
   ]);

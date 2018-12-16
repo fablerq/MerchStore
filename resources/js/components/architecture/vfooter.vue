@@ -15,7 +15,7 @@
       tile
     >
       <v-card-title class="orange accent-2">
-        <strong class="subheading">Get connected with us on social networks!</strong>
+        <strong class="subheading">Team page</strong>
 
         <v-spacer></v-spacer>
 
@@ -57,5 +57,4 @@
   .footer {
     margin-top: 30px;
   }
-
 </style>

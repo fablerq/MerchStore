@@ -55,26 +55,26 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudstatuses',
       data() {
           return {
-             statuses: {},
              title: '',
              description: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title : '',
-                description : '',
-          })
         }
       },
-      created() {
-          this.loadStatuses();
+      mounted: function () {
+        this.$store.dispatch('LOAD_STATUSES')
+      },
+      computed: {
+          ...mapGetters({
+          statuses: 'GET_STATUSES',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -84,10 +84,6 @@ import axios from 'axios'
                     this.addStatus()
                 }
             });
-          },
-          loadStatuses() {
-            axios.get('/api/statuses')
-                .then((response => this.statuses = response.data));
           },
           addStatus() {
               axios.post('/api/statuses', { 
@@ -100,7 +96,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadStatuses()
+                  //this.loadStatuses()
                   this.feedback = null
           },
           showStatus(id) {       
@@ -118,7 +114,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadStatuses()
+                //this.loadStatuses()
           }
       },
   }

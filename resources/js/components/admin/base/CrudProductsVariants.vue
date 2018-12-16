@@ -69,33 +69,33 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudproductsvariants',
       data() {
           return {
-             productsvariants: {},
-             products: {},
-             sizes: {},
-             colors: {},
              product_id: '',
              size_id: '',
              color_id: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-             product_id: '',
-             size_id: '',
-          })
         }
       },
-      created() {
-          this.loadProductsVariants();
-          this.loadProducts();
-          this.loadSizes();
-          this.loadColors();
+      mounted: function () {
+        this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_PRODUCTSVARIANTS')
+        this.$store.dispatch('LOAD_SIZES')
+        this.$store.dispatch('LOAD_COLORS')
+      },
+      computed: {
+          ...mapGetters({
+          products: 'GET_PRODUCTS',
+          productsvariants: 'GET_PRODUCTSVARIANTS',
+          sizes: 'GET_SIZES',
+          colors: 'GET_COLORS',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -105,22 +105,6 @@ import axios from 'axios'
                     this.addProductsVariant()
                 }
             });
-          },
-          loadProductsVariants() {
-            axios.get('/api/productsvariants')
-                .then((response => this.productsvariants = response.data));
-          },
-          loadProducts() {
-            axios.get('/api/products')
-                .then((response => this.products = response.data));
-          },
-          loadSizes() {
-            axios.get('/api/sizes')
-                .then((response => this.sizes = response.data));
-          },
-          loadColors() {
-            axios.get('/api/colors')
-                .then((response => this.colors = response.data));
           },
           addProductsVariant() {
               axios.post('/api/productsvariants', { 
@@ -135,7 +119,7 @@ import axios from 'axios'
                       this.feedback = error.response.data.errors;
                       console.log(error.response)
                   });
-                  this.loadProductsVariants()
+                 // this.loadProductsVariants()
                   this.feedback = null
           },
           showProductsVariant(id) {       
@@ -153,7 +137,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadProductsVariants()
+                //this.loadProductsVariants()
           }
       },
   }

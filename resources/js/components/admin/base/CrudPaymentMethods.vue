@@ -13,7 +13,7 @@
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" v-model="title" v-validate="{ required: true, alpha_spaces: true, min: 3, max: 100 }" name="title" class="form-control" :class="{ 'is-invalid': submitted && errors.has('title') }" />
+                <input type="text" v-model="title" v-validate="{ required: true, min: 3, max: 100 }" name="title" class="form-control" :class="{ 'is-invalid': submitted && errors.has('title') }" />
                 <div v-if="submitted && errors.has('title')" class="invalid-feedback">{{ errors.first('title') }}</div>
             </div>
             <div class="form-group">
@@ -49,24 +49,25 @@
 </template>
 
 <script>
-import Form from 'vform'
 import axios from 'axios' 
+import { mapActions, mapGetters } from 'vuex'
 
   export default {
       name: 'crudpaymentmethods',
       data() {
           return {
-             paymentmethods: {},
              title: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title : '',
-          })
         }
       },
-      created() {
-          this.loadPaymentMethods();
+      mounted: function () {
+        this.$store.dispatch('LOAD_PAYMENTMETHODS')
+      },
+      computed: {
+          ...mapGetters({
+          paymentmethods: 'GET_PAYMENTMETHODS',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -76,10 +77,6 @@ import axios from 'axios'
                     this.addPaymentMethod()
                 }
             });
-          },
-          loadPaymentMethods() {
-            axios.get('/api/paymentmethods')
-                .then((response => this.paymentmethods = response.data));
           },
           addPaymentMethod() {
               axios.post('/api/paymentmethods', { 
@@ -91,7 +88,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadPaymentMethods()
+                  //this.loadPaymentMethods()
                   this.feedback = null
           },
           showPaymentMethod(id) {       
@@ -109,7 +106,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadPaymentMethods()
+                //this.loadPaymentMethods()
           }
       },
   }

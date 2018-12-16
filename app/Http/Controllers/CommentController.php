@@ -56,7 +56,7 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $comment = Comment::find($id);
+        $comment = Comment::with('product', 'user')->where('id', '=', $id)->get();
         return response()->json($comment, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 

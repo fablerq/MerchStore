@@ -132,9 +132,6 @@
                                     </div>
                                 </div>
                             </div> -->
-                        </div>
-                    </div>
-                </div> 
 
                 <vue-tabs>
 
@@ -147,6 +144,15 @@
     </v-tab>
 
 </vue-tabs>
+
+
+
+
+                        </div>
+                    </div>
+                </div> 
+
+
                 
         </div>
       </div> 

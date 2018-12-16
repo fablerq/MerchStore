@@ -11,23 +11,23 @@
 
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <label for="login">Login</label>
-                <input type="text" v-model="login" v-validate="{ required: true, max: 100, min: 5 }" name="login" class="form-control" :class="{ 'is-invalid': submitted && errors.has('login') }" />
+                <label for="user.login">Login</label>
+                <input type="text" v-model="user.login" v-validate="{ required: true, max: 100, min: 5 }" name="user.login" class="form-control" :class="{ 'is-invalid': submitted && errors.has('user.login') }" />
                 <div v-if="submitted && errors.has('login')" class="invalid-feedback">{{ errors.first('login') }}</div>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" v-model="password" v-validate="{ required: true, min: 7 }" name="password" class="form-control" :class="{ 'is-invalid': submitted && errors.has('password') }" />
-                <div v-if="submitted && errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</div>
+                <label for="user.password">Password</label>
+                <input type="user.password" v-model="user.password" v-validate="{ required: true, min: 7 }" name="user.password" class="form-control" :class="{ 'is-invalid': submitted && errors.has('user.password') }" />
+                <div v-if="submitted && errors.has('user.password')" class="invalid-feedback">{{ errors.first('user.password') }}</div>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" v-model="email" v-validate="{ required: true, email: true }" name="email" class="form-control" :class="{ 'is-invalid': submitted && errors.has('email') }" />
-                <div v-if="submitted && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
+                <label for="user.email">Email</label>
+                <input type="text" v-model="user.email" v-validate="{ required: true, email: true }" name="user.email" class="form-control" :class="{ 'is-invalid': submitted && errors.has('user.email') }" />
+                <div v-if="submitted && errors.has('user.email')" class="invalid-feedback">{{ errors.first('user.email') }}</div>
             </div>
             <div class="form-group">
-                <label for="role_id">role_id</label>
-                <select class="form-control" v-model="role_id">
+                <label for="user.role_id">role_id</label>
+                <select class="form-control" v-model="user.role_id">
                     <option v-for="role in roles" :value="role.id">{{ role.title }}</option>
                 </select>
             </div>
@@ -70,65 +70,59 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudusers',
       data() {
           return {
-             users: {},
-             roles: {},
-             login: '',
-             password: '',
-             email: '',
-             role_id: '',
              feedback: '',
              submitted: false,
-             form: new Form({
+             user: {
                 login: '',
                 password: '',
                 email: '',
                 role_id: '',
-          })
+            }
         }
       },
-      created() {
-          this.loadUsers();
-          this.loadRoles();
+      mounted: function () {
+        this.$store.dispatch('LOAD_ROLES')
+        this.$store.dispatch('LOAD_USERS')
       },
+      computed: {
+          ...mapGetters({
+          users: 'GET_USERS',
+          roles: 'GET_ROLES',
+        })
+      },
+
       methods: {
-           handleSubmit(e) {
+        handleSubmit(e) {
             this.submitted = true;
             this.$validator.validate().then(valid => {
                 if (valid) {
-                    this.addUser()
+                    //this.$store.dispatch('ADD_USER', this.user)
+                    this.addUser();
                 }
             });
           },
-          loadUsers() {
-            axios.get('/api/users')
-                .then((response => this.users = response.data));
-          },
-          loadRoles() {
-            axios.get('/api/roles')
-                .then((response => this.roles = response.data));
-          },
-          addUser() {
+        addUser() {
               axios.post('/api/users/', { 
-                    login: this.login,
-                    password: this.password,
-                    email: this.email,
-                    role_id: this.role_id,
+                    login: this.user.login,
+                    password: this.user.password,
+                    email: this.user.email,
+                    role_id: this.user.role_id,
                   })                    
                   .then(function (response) {
                         alert(response.data.message)
                   })
                   .catch(error => {
                       this.feedback = error.response.data.errors;
-                                           console.log(error.response)
+                      console.log(error.response)
                   });
-                  this.loadUsers()
+                  //this.loadUsers()
                   this.feedback = null
           },
           showUser(id) {       
@@ -140,13 +134,12 @@ import axios from 'axios'
                  });
                 })
           },
-
           deleteUser(id) {
                 axios.delete('/api/users/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadUsers()
+                //this.loadUsers()
           }
       },
   }

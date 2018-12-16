@@ -56,26 +56,26 @@
 </template>
 
 <script>
-import Form from 'vform'
+import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
   export default {
       name: 'crudsizes',
       data() {
           return {
-             sizes: {},
              title: '',
              description: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                title : '',
-                description : '',
-          })
         }
       },
-      created() {
-          this.loadSizes();
+      mounted: function () {
+        this.$store.dispatch('LOAD_SIZES')
+      },
+      computed: {
+          ...mapGetters({
+          sizes: 'GET_SIZES',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -85,10 +85,6 @@ import axios from 'axios'
                     this.addSize()
                 }
             });
-          },
-          loadSizes() {
-            axios.get('/api/sizes')
-                .then((response => this.sizes = response.data));
           },
           addSize() {
               axios.post('/api/sizes', { 
@@ -101,7 +97,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadSizes()
+                  //this.loadSizes()
                   this.feedback = null
           },
           showSize(id) {       
@@ -119,7 +115,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadSizes()
+                //this.loadSizes()
           }
       },
   }

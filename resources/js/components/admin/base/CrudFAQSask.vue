@@ -73,13 +73,12 @@
 
 <script>
 import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 
   export default {
       name: 'crudfaqsask',
       data() {
           return {
-             faqs: {},
-             users: {},
              askername: '',
              email: '',
              question: '',
@@ -90,9 +89,15 @@ import axios from 'axios'
              submittedAsk: false,
         }
       },
-      created() {
-          this.loadFAQs();
-          this.loadUsers();
+      mounted: function () {
+        this.$store.dispatch('LOAD_FAQS')
+        this.$store.dispatch('LOAD_USERS')
+      },
+      computed: {
+          ...mapGetters({
+          faqs: 'GET_FAQS',
+          users: 'GET_USERS',
+        })
       },
       methods: {
            handleSubmitAsk(e) {
@@ -103,14 +108,7 @@ import axios from 'axios'
                 }
             });
           },
-          loadFAQs() {
-            axios.get('/api/faqs')
-                .then((response => this.faqs = response.data));
-          },
-          loadUsers() {
-            axios.get('/api/users')
-                .then((response => this.users = response.data));
-          },
+
           addAsk() {
               axios.post('/api/faqs', { 
                     askername: this.askername,
@@ -123,7 +121,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadFAQs()
+                  //this.loadFAQs()
                   this.feedback = null
           },
 
@@ -132,7 +130,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadFAQs()
+                //this.loadFAQs()
           }
       },
   }

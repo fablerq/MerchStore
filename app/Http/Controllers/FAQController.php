@@ -61,7 +61,7 @@ class FAQController extends Controller
      */
     public function show($id)
     {
-        $faq = FAQ::find($id);
+        $faq = FAQ::with('user')->where('id', '=', $id)->get();
         return response()->json($faq, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 

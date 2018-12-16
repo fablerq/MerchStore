@@ -57,7 +57,7 @@ class ProductsVariantsController extends Controller
      */
     public function show($id)
     {
-        $productsvariant = ProductsVariants::find($id);
+        $productsvariant = ProductsVariants::with('product', 'size', 'color', 'order')->where('id', '=', $id)->get();
         return response()->json($productsvariant, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
     }
 

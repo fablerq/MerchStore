@@ -49,21 +49,25 @@
 </template>
 
 <script>
-import Form from 'vform'
 import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 
   export default {
       name: 'crudcolors',
       data() {
           return {
-             colors: {},
              title: '',
              feedback: '',
              submitted: false,
         }
       },
-      created() {
-          this.loadColors();
+      mounted: function () {
+        this.$store.dispatch('LOAD_COLORS')
+      },
+      computed: {
+          ...mapGetters({
+          colors: 'GET_COLORS',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -73,10 +77,6 @@ import axios from 'axios'
                     this.addColor()
                 }
             });
-          },
-          loadColors() {
-            axios.get('/api/colors')
-                .then((response => this.colors = response.data));
           },
           addColor() {
               axios.post('/api/colors', { 
@@ -88,7 +88,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadColors()
+                  //this.loadColors()
                   this.feedback = null
           },
           showColor(id) {       
@@ -106,7 +106,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadColors()
+                //this.loadColors()
           }
       },
   }

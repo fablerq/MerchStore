@@ -40,17 +40,13 @@
                             </v-expansion-panel-content>
 
                             <v-expansion-panel-content>
-                                <div slot="header">Другое</div>
-                                <v-card>
-                                    <v-card-text class="grey lighten-3"><router-link class="menu-link" :to="{ name: '#' }">Значки</router-link></v-card-text>
-                                </v-card>
+                                <div slot="header"><router-link class="menu-link" :to="{ name: '#' }">Другое</router-link></div>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
                 </div>
 </template>
 
 <script>
-
 </script>
 
 <style lang="scss" scoped>
@@ -59,9 +55,7 @@
             margin: 25px 0;
         }
     }
-
     .menu-link {
         color: black;
     }
-
 </style>

@@ -1,10 +1,8 @@
 <template>
-  <div class="sides">
-    <div class="main">
+  <div>
       <vheader/>
        <router-view></router-view>
      <vfooter/>
-    </div>
   </div>
 </template>
 
@@ -45,6 +43,7 @@ export default {
   components: {
     vheader,
     vsearch,
+    vflypage,
     vproducts,
     vcharts,
     vfooter,
@@ -66,11 +65,11 @@ export default {
     vregistration,
     vsignin,
     vcontacts,
-    vflypage
 	}
 }
 </script>
 
 <style lang="scss" scoped>
+   
 
 </style>

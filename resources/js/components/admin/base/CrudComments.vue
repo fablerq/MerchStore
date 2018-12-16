@@ -64,32 +64,31 @@
 </template>
 
 <script>
-import Form from 'vform'
 import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 
   export default {
       name: 'crudcomments',
       data() {
           return {
-             comments: {},
-             products: {},
-             users: {},
              user_id: '',
              body: '',
              product_id: '',
              feedback: '',
              submitted: false,
-             form: new Form({
-                user_id: '',
-                body: '',
-                product_id: '',
-          })
         }
       },
-      created() {
-          this.loadComments();
-          this.loadProducts();
-          this.loadUsers();
+      mounted: function () {
+        this.$store.dispatch('LOAD_COMMENTS')
+        this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_USERS')
+      },
+      computed: {
+          ...mapGetters({
+          comments: 'GET_COMMENTS',
+          products: 'GET_PRODUCTS',
+          users: 'GET_USERS',
+        })
       },
       methods: {
            handleSubmit(e) {
@@ -99,18 +98,6 @@ import axios from 'axios'
                     this.addComment()
                 }
             });
-          },
-          loadComments() {
-            axios.get('/api/comments')
-                .then((response => this.comments = response.data));
-          },
-          loadProducts() {
-            axios.get('/api/products')
-                .then((response => this.products = response.data));
-          },
-          loadUsers() {
-            axios.get('/api/users')
-                .then((response => this.users = response.data));
           },
           addComment() {
               axios.post('/api/comments', { 
@@ -124,7 +111,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadComments()
+                  //this.loadComments()
                   this.feedback = null
           },
           showComment(id) {       
@@ -142,7 +129,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadComments()
+                //this.loadComments()
           }
       },
   }

@@ -37,11 +37,8 @@ export default {
     background: white;
     margin: 15px 0;
     width: 100%;
-
     .bg-black {
-
     }
-
     .search-btn {
         background: #FDB777;
         color: #fff;

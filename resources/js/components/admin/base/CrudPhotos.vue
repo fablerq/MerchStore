@@ -68,13 +68,12 @@
 
 <script>
 import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 
   export default {
       name: 'crudphotos',
       data() {
           return {
-             photos: {},
-             products: {},
              title: '',
              image: '',
              product_id: '',
@@ -82,9 +81,15 @@ import axios from 'axios'
              submitted: false,
         }
       },
-      created() {
-          this.loadPhotos();
-          this.loadProducts();
+      mounted: function () {
+        this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_PHOTOS')
+      },
+      computed: {
+          ...mapGetters({
+          photos: 'GET_PHOTOS',
+          products: 'GET_PRODUCTS',
+        })
       },
       methods: {
         handleSubmit(e) {
@@ -94,14 +99,6 @@ import axios from 'axios'
                     this.addPhoto()
                 }
             });
-          },
-          loadPhotos() {
-            axios.get('/api/photos')
-                .then((response => this.photos = response.data));
-          },
-          loadProducts() {
-            axios.get('/api/products')
-                .then((response => this.products = response.data));
           },
           addPhoto() {
               axios.post('/api/photos', { 
@@ -115,7 +112,7 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  this.loadPhotos()
+                  //this.loadPhotos()
                   this.feedback = null
           },
           showPhoto(id) {       
@@ -133,7 +130,7 @@ import axios from 'axios'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                this.loadPhotos()
+                //this.loadPhotos()
           },
          imageChanged(e) {
             var fileReader = new FileReader()
