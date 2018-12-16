@@ -24,72 +24,70 @@ Route::post('recover', 'AuthController@recover');
 Route::post('logout', 'AuthController@logout');
 Route::post('getuser', 'AuthController@getuser');
 
-
-
 //Main
 Route::resource('users', 'UserController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('products', 'ProductController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::get('paginateproducts/{count}', 'ProductController@paginate');
 
 Route::resource('orders', 'OrderController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 //Additional
 Route::resource('faculties', 'FacultyController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('photos', 'PhotoController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('sizes', 'SizeController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('statuses', 'StatusController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('types', 'TypeController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('roles', 'RoleController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('paymentmethods', 'PaymentMethodController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('comments', 'CommentController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('productsvariants', 'ProductsVariantsController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('colors', 'ColorController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
 
 Route::resource('faqs', 'FAQController', [
-    'except' => ['edit']
+    'except' => ['edit'],
   ]);
-  
+
 //Many-to-may
 
 Route::resource('favourites', 'FavouriteController', [
-  'except' => ['edit', 'destroy', 'index']
+  'except' => ['edit', 'destroy', 'index'],
 ]);
 
 Route::delete('favourites/delfavourite/{userid}/{productid}', 'FavouriteController@delfavourite');

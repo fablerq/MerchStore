@@ -28,7 +28,7 @@ class ProductsVariantsUpdateRequest extends FormRequest
         ];
     }
 
-             /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -36,7 +36,7 @@ class ProductsVariantsUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'order_id.exists' => 'Данного заказа не существует',
+            'order_id.exists'   => 'Данного заказа не существует',
             'order_id.required' => 'Поле с заказом обязательно',
         ];
     }

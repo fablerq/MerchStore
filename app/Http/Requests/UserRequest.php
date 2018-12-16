@@ -24,15 +24,14 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users',
-            'login' => 'required|min:5|max:50|unique:users',
+            'email'    => 'required|email|unique:users',
+            'login'    => 'required|min:5|max:50|unique:users',
             'password' => 'required|min:7',
-            'role_id' => 'required|exists:roles,id'
+            'role_id'  => 'required|exists:roles,id',
         ];
     }
 
-
-     /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -40,17 +39,17 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Email не может быть пустым',
-            'email.email' => 'Введите корректный email',
-            'email.unique' => 'Пользователь с таким email уже существует',
-            'login.required' => 'Логин не может быть пустым',
-            'login.min' => 'Минимальная длина логина 5 символов',
-            'login.max' => 'Максимальная длина логина 50 символов',
-            'login.unique' => 'Пользователь с таким логином уже существует',
+            'email.required'    => 'Email не может быть пустым',
+            'email.email'       => 'Введите корректный email',
+            'email.unique'      => 'Пользователь с таким email уже существует',
+            'login.required'    => 'Логин не может быть пустым',
+            'login.min'         => 'Минимальная длина логина 5 символов',
+            'login.max'         => 'Максимальная длина логина 50 символов',
+            'login.unique'      => 'Пользователь с таким логином уже существует',
             'password.required' => 'Пароль не может быть пустым',
-            'password.min' => 'Минимальная длина пароля 7 символов',
-            'role_id.exists' => 'Данной роли не существует',
-            'role_id.required' => 'Поле с ролью не может быть пустым',
+            'password.min'      => 'Минимальная длина пароля 7 символов',
+            'role_id.exists'    => 'Данной роли не существует',
+            'role_id.required'  => 'Поле с ролью не может быть пустым',
         ];
     }
 }

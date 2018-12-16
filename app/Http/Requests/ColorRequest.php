@@ -28,7 +28,7 @@ class ColorRequest extends FormRequest
         ];
     }
 
-        /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -37,10 +37,9 @@ class ColorRequest extends FormRequest
     {
         return [
             'title.required' => 'Заглавие цвета не может быть пустым',
-            'title.min' => 'Минимальная длина заглавия 3 символов',
-            'title.max' => 'Максимальная длина заглавия 100 символов',
-            'title.unique' => 'Цвет с таким заглавием уже существует',
+            'title.min'      => 'Минимальная длина заглавия 3 символов',
+            'title.max'      => 'Максимальная длина заглавия 100 символов',
+            'title.unique'   => 'Цвет с таким заглавием уже существует',
         ];
     }
-
 }

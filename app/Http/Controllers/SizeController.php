@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Size;
-use App\Models\ProductsVariants;
-use Illuminate\Http\Request;
 use App\Http\Requests\SizeRequest;
+use App\Models\ProductsVariants;
+use App\Models\Size;
 
 class SizeController extends Controller
 {
-            /**
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -17,7 +16,8 @@ class SizeController extends Controller
     public function index()
     {
         $sizes = Size::all();
-        return response()->json($sizes, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($sizes, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -29,9 +29,10 @@ class SizeController extends Controller
     {
         $validated = $request->validated();
         Size::create([
-            'title' => $validated['title'],
+            'title'       => $validated['title'],
             'description' => $validated['description'],
         ]);
+
         return response()->json([
             'message' => 'Успешно добавлено! (я пришел с сервера)',
         ]);
@@ -40,29 +41,33 @@ class SizeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         $size = Size::find($id);
-        return response()->json($size, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($size, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
-        if(ProductsVariants::where('size_id', $id)->first()) {
+        if (ProductsVariants::where('size_id', $id)->first()) {
             return response()->json([
                 'message' => 'Размер номер '.$id.' не получилось удалить. Существует конкретный товар с таким размером.',
             ]);
         }
         Size::destroy($id);
+
         return response()->json([
             'message' => 'Размер номер '.$id.' удален успешно (я пришел с сервера)',
         ]);

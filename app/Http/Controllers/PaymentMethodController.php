@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PaymentMethod;
-use App\Models\Order;
-use Illuminate\Http\Request;
 use App\Http\Requests\PaymentMethodRequest;
+use App\Models\Order;
+use App\Models\PaymentMethod;
+use Illuminate\Http\Request;
 
 class PaymentMethodController extends Controller
 {
@@ -17,7 +17,8 @@ class PaymentMethodController extends Controller
     public function index()
     {
         $paymentmethods = PaymentMethod::all();
-        return response()->json($paymentmethods, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($paymentmethods, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -33,7 +34,8 @@ class PaymentMethodController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(PaymentMethodRequest $request)
@@ -42,6 +44,7 @@ class PaymentMethodController extends Controller
         PaymentMethod::create([
             'title' => $validated['title'],
         ]);
+
         return response()->json([
             'message' => 'Успешно добавлено! (я пришел с сервера)',
         ]);
@@ -50,19 +53,22 @@ class PaymentMethodController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PaymentMethod  $paymentMethod
+     * @param \App\PaymentMethod $paymentMethod
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $paymentmethod = PaymentMethod::find($id);
-        return response()->json($paymentmethod, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($paymentmethod, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PaymentMethod  $paymentMethod
+     * @param \App\PaymentMethod $paymentMethod
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(PaymentMethod $paymentMethod)
@@ -73,8 +79,9 @@ class PaymentMethodController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PaymentMethod  $paymentMethod
+     * @param \Illuminate\Http\Request $request
+     * @param \App\PaymentMethod       $paymentMethod
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PaymentMethod $paymentMethod)
@@ -85,17 +92,19 @@ class PaymentMethodController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PaymentMethod  $paymentMethod
+     * @param \App\PaymentMethod $paymentMethod
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if(Order::where('paymentmethod_id', $id)->first()) {
+        if (Order::where('paymentmethod_id', $id)->first()) {
             return response()->json([
                 'message' => 'Метод платежа номер '.$id.' не получилось удалить. Существует заказ c таким методом платежа.',
             ]);
         }
         PaymentMethod::destroy($id);
+
         return response()->json([
             'message' => 'Метод платежа номер '.$id.' удалена успешно (я пришел с сервера)',
         ]);

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FacultyRequest;
 use App\Models\Faculty;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Http\Requests\FacultyRequest;
 
 class FacultyController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -17,7 +16,8 @@ class FacultyController extends Controller
     public function index()
     {
         $faculties = Faculty::all();
-        return response()->json($faculties, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($faculties, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -31,6 +31,7 @@ class FacultyController extends Controller
         Faculty::create([
             'title' => $validated['title'],
         ]);
+
         return response()->json([
             'message' => 'Факультет успешно добавлен',
         ]);
@@ -39,29 +40,33 @@ class FacultyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         $faculty = Faculty::find($id);
-        return response()->json($faculty, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($faculty, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
-        if(Product::where('faculty_id', $id)->first()) {
+        if (Product::where('faculty_id', $id)->first()) {
             return response()->json([
                 'message' => 'Факультет номер '.$id.' не получилось удалить. Существует товар с таким факультетом.',
             ]);
         }
         Faculty::destroy($id);
+
         return response()->json([
             'message' => 'Факультет номер '.$id.' удален успешно (я пришел с сервера)',
         ]);

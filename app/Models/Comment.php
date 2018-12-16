@@ -8,15 +8,15 @@ class Comment extends Model
 {
     public function product()
     {
-      return $this->belongsTo('App\Models\Product');
+        return $this->belongsTo('App\Models\Product');
     }
 
     public function user()
     {
-      return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User');
     }
 
     protected $fillable = [
-      'product_id', 'body', 'user_id'
+      'product_id', 'body', 'user_id',
   ];
 }

@@ -24,12 +24,12 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required',
+            'login'    => 'required',
             'password' => 'required',
         ];
     }
 
-         /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -37,7 +37,7 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'login.required' => 'Логин обязателен',
+            'login.required'    => 'Логин обязателен',
             'password.required' => 'Пароль обязателен',
         ];
     }
