@@ -6,7 +6,9 @@
                             <h1>Лучшие товары</h1>
                         <!-- swiper -->
                         <swiper :options="swiperOption">
-                            <swiper-slide v-for="n in 10" :key="n"><vflypage class="item"/></swiper-slide>
+                            <swiper-slide v-for="product in products" :key="product.id">
+                                <vflypage class="item" :product="product" :title="product.title" :price="product.price" :type="product.type.title" :product_id="product.id"/>
+                            </swiper-slide>
                             <div class="swiper-button-prev" slot="button-prev"></div>
                             <div class="swiper-button-next" slot="button-next"></div>
                         </swiper>
@@ -17,9 +19,17 @@
 </template>
 
 <script>
+//swiper
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
+//components
 import vflypage from '../architecture/vflypage.vue'
+
+//database
+import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
+
  export default {
     name: 'vcharts',
     components: {swiper, swiperSlide, vflypage},
@@ -37,7 +47,16 @@ import vflypage from '../architecture/vflypage.vue'
           }
         }
       }
-    }
+    },
+    mounted: function () { 
+        this.$store.dispatch('LOAD_PRODUCTS') 
+    }, 
+
+    computed: { 
+        ...mapGetters({
+        products: 'GET_PRODUCTS'
+        }) 
+    },
   }
 </script>
 

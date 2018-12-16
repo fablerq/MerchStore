@@ -11,21 +11,25 @@
                             <v-btn color="orange lighten-2" block dark large>Купить</v-btn>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div v-for="n in 2" :key="n" class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="row">
+                        <!--<p>
+                            <i>Ваша корзина пуста!</i>
+                            <router-link to="/">Продолжить покупки</router-link>
+                        </p>-->
+                        <div v-for="add in adds" :key="add.id" class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                             <v-card class="flypage">
-                                <router-link class="menu-link" :to="{ name: 'good' }">
-                                    <v-img class="item-img" :src="require('../../../imgs/flypage.png')" aspect-ratio="2.75" height="150px"></v-img>
+                                <router-link class="menu-link" :price="price" :to="{ path: 'catalog/good/' + add.id}">
+                                    <v-img class="item-img" :src="require('../../../imgs/flypage.png')" aspect-ratio="2.75" height="150px"></v-img>   
                                 </router-link>
                                 <v-card-title primary-title>
                                 <div>
-                                    <h5 class=" mb-0">Футболка “Три скобки”</h5>
+                                    <h5 class=" mb-0">{{add.title}}</h5>
                                 </div>
                                 </v-card-title>
 
                                 <v-card-actions>
                                     <div  class="item-navbar">
-                                    <h2>800р</h2>
+                                    <h2>{{add.price}}</h2>
                                     <v-btn fab light small color="white" class="remove"><v-icon dark>remove</v-icon></v-btn>
                                     <v-text-field
                                         solo
@@ -37,23 +41,15 @@
                             </v-card>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-4 offset-lg-7 offset-xl-8 total">
-                            <h1>Итого: 1600р</h1>
+                            <h1>{{total}}</h1>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1 offset-xl-0 col-xl-4 payment">
                     <h2>Способы оплаты</h2>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input pay-type">
-                        <label class="custom-control-label" for="customRadio1"><p><strong>Наличные</strong><br>вы можете отдать деньги нашему агенту</p></label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input pay-type">
-                        <label class="custom-control-label" for="customRadio2"><p><strong>Онлайн-оплата</strong><br>вы можете оплатить товар онлайн электронными деньгами</p></label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input pay-type">
-                        <label class="custom-control-label" for="customRadio3"><p><strong>Рабство</strong><br>всегда существует вариант пойти в рабство Bonch.dev</p></label>
+                    <div class="custom-control custom-radio" v-for="paymentmethod in paymentmethods" :key="paymentmethod.id">
+                        <input type="radio" :id="'customRadio' + paymentmethod.id" name="customRadio" class="custom-control-input pay-type">
+                        <label class="custom-control-label" :for="'customRadio' + paymentmethod.id">{{paymentmethod.title}}</label>
                     </div>
                 </div>
             </div>
@@ -62,8 +58,29 @@
 </template>
 
 <script>
+//database
+import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
-    name: 'vcard'
+    name: 'vcard',
+
+    mounted: function () { 
+        this.$store.dispatch('LOAD_PAYMENTMETHODS') 
+        this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_COLORS') 
+        this.$store.dispatch('LOAD_SIZES') 
+        this.$store.dispatch('LOAD_COMMENTS') 
+        this.$store.dispatch('LOAD_FACULTIES') 
+        this.$store.dispatch('LOAD_TYPES')
+    }, 
+
+    computed: { 
+        ...mapGetters({ 
+        paymentmethods: 'GET_PAYMENTMETHODS',
+        adds: 'GET_ADDS'
+        }),
+    },
 }
 </script>
 
@@ -106,6 +123,7 @@ export default {
         .flypage {
             width: 290px;
             padding-top: 20px;
+            margin-bottom: 20px;
         }
         .count {
             width: 50px;
@@ -130,6 +148,13 @@ export default {
     .payment {
         width: 100%;
         border-left: 3px solid #C4C4C4;
+
+        .custom-control-label {
+            font-size: 16px;
+            vertical-align: baseline;
+            margin-bottom: 20px;
+        }
+
         .pay-type {
             background: orange;
         }

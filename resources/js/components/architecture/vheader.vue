@@ -16,6 +16,22 @@
 
                     <v-toolbar-items class="hidden-sm-and-down">
                     <v-btn flat class="nav-item">
+                            <router-link class="menu-link" :to="{ name: 'login' }">
+                                <div class="flexer">
+                                    <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
+                                    Войти
+                                </div>   
+                            </router-link>
+                    </v-btn>
+                    <v-btn flat class="nav-item">
+                            <router-link class="menu-link" :to="{ name: 'register' }">
+                                <div class="flexer">
+                                    <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
+                                    Рега
+                                </div>   
+                            </router-link>
+                    </v-btn>
+                    <v-btn flat class="nav-item">
                             <router-link class="menu-link" :to="{ name: 'catalog' }">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">

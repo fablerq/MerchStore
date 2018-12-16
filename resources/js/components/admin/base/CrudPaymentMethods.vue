@@ -13,7 +13,7 @@
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" v-model="title" v-validate="{ required: true, alpha_spaces: true, min: 3, max: 100 }" name="title" class="form-control" :class="{ 'is-invalid': submitted && errors.has('title') }" />
+                <input type="text" v-model="title" v-validate="{ required: true, min: 3, max: 100 }" name="title" class="form-control" :class="{ 'is-invalid': submitted && errors.has('title') }" />
                 <div v-if="submitted && errors.has('title')" class="invalid-feedback">{{ errors.first('title') }}</div>
             </div>
             <div class="form-group">

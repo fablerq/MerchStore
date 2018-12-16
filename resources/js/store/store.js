@@ -2,11 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
      users: [],
      roles: [],
@@ -22,6 +24,7 @@ export default new Vuex.Store({
      sizes: [],
      statuses: [],
      types: [],
+     adds: [],
   },
   actions: {
     LOAD_USERS({ commit }) {
@@ -152,6 +155,9 @@ export default new Vuex.Store({
     SET_SIZES (state, sizes) {
         state.sizes = sizes
     },
+    SET_ADDS (state, adds) {
+        state.adds = adds
+    },
   },
   getters: {
     GET_USERS(state) {
@@ -195,6 +201,9 @@ export default new Vuex.Store({
     },
     GET_SIZES(state) {
         return state.sizes
+    },
+    GET_ADDS(state) {
+        return state.adds
     },
   }
 })

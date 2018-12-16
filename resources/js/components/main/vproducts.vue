@@ -51,22 +51,9 @@
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 top-buffer">
                     <div class="backpacks">
-                        <v-hover>
-                            <v-card slot-scope="{ hover }">
                                 <router-link class="menu-link" :to="{ name: 'main' }">
                                     <img  class="" src="../../../imgs/backpack.jpg" alt="logo">
-                                    <v-expand-transition>
-                                                <div
-                                                    v-if="hover"
-                                                    class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
-                                                    style="height: 20%;"
-                                                >
-                                                    Рюкзаки
-                                                </div>
-                                            </v-expand-transition>
                                 </router-link>
-                            </v-card>
-                        </v-hover>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 top-buffer">
@@ -83,12 +70,16 @@
 </template>
 
 <script>
+//components
 import vsearch from '../main/vsearch.vue'
 import vcharts from '../main/vcharts.vue'
 import vflypage from '../architecture/vflypage.vue'
+
+
+
 export default {
     name: 'vproducts',
-    components: {vsearch, vcharts, vflypage}
+    components: {vsearch, vcharts, vflypage},
 }
 </script>
 

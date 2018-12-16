@@ -13,9 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+//AUTH
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::post('recover', 'AuthController@recover');
+Route::post('logout', 'AuthController@logout');
+Route::post('getuser', 'AuthController@getuser');
+
+
 
 //Main
 Route::resource('users', 'UserController', [
@@ -25,6 +34,8 @@ Route::resource('users', 'UserController', [
 Route::resource('products', 'ProductController', [
     'except' => ['edit']
   ]);
+
+Route::get('paginateproducts/{count}', 'ProductController@paginate');
 
 Route::resource('orders', 'OrderController', [
     'except' => ['edit']

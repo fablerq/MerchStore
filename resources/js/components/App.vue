@@ -20,8 +20,8 @@ import vcharts from './main/vcharts.vue'
 import vlisting from './main/vlisting.vue'
 import vcard from './main/vcard.vue'
 import vgood from './main/vgood.vue'
-import vregistration from './main/vregistration.vue'
-import vsignin from './main/vsignin.vue'
+import vregistration from './auth/vregistration.vue'
+import vsignin from './auth/vsignin.vue'
 import vcontacts from './main/vcontacts.vue'
 
 //Админка

@@ -13,17 +13,21 @@ import good from './components/main/vgood.vue'
 import lkorders from './components/lk/vlkorders.vue'
 import lkfavorites from './components/lk/vlkfavorites.vue'
 import lkdata from './components/lk/vlkdata.vue'
-import signin from './components/main/vsignin.vue'
-import registration from './components/main/vregistration.vue'
 import admstats from './components/admin/vadmstats.vue'
 import admorders from './components/admin/vadmorders.vue'
 import admusers from './components/admin/vadmusers.vue'
 import admlist from './components/admin/vadmlist.vue'
 import admbase from './components/admin/vadmbase.vue'
 import admfaq from './components/admin/vadmfaq.vue'
+import signin from './components/auth/vsignin.vue'
+import registration from './components/auth/vregistration.vue'
+import error404 from './components/architecture/404.vue'
+import verify from './components/auth/verify.vue'
+import successreg from './components/auth/successreg.vue'
 
 const routes = [
-      // { path: '*', component: NotFoundComponent }
+      { path: '/404', component: error404 },
+      { path: '*', redirect: '/404' },  
       {
         path: '/',
         name: 'main',
@@ -50,7 +54,7 @@ const routes = [
         component: faq,
       },
       {
-        path: '/catalog/good',
+        path: '/catalog/good/:id',
         name: 'good',
         component: good,
       },
@@ -70,13 +74,13 @@ const routes = [
         component: lkdata,
       },
       {
-        path: '/signin',
-        name: 'signin',
+        path: '/login',
+        name: 'login',
         component: signin,
       },
       {
-        path: '/registration',
-        name: 'registration',
+        path: '/register',
+        name: 'register',
         component: registration,
       },
       {
@@ -108,6 +112,16 @@ const routes = [
         path: '/adm/faq',
         name: 'admfaq',
         component: admfaq,
+      },
+      {
+        path: '/verify/:id',
+        name: 'verify',
+        component: verify,
+      },
+      {
+        path: '/successreg',
+        name: 'successreg',
+        component: successreg,
       },
   ]
 
