@@ -14,7 +14,7 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
           <div class="row goods-row justify-content-center">
             <div v-for="product in products" :key="product.id" class="flypage col-8 col-sm-8 col-md-6 col-lg-4 col-xl-4">
-                <vflypage class="item" :product="product" :title="product.title" :price="product.price" :type="product.type" :product_id="product.id"/>
+                <vflypage class="item" :product="product" :title="product.title" :price="product.price" :type_id="product.type_id" :product_id="product.id"/>
             </div>
           </div>
           <div class="paginationBlock">
@@ -47,11 +47,12 @@ export default {
   },
 
   mounted: function () { 
-        this.$store.dispatch('LOAD_FACULTIES')  
+        this.$store.dispatch('LOAD_FACULTIES') 
         
         axios.get('/api/paginateproducts/' + this.page)
         .then( res => {
           this.products = res.data;
+          console.log(res.data)
         })
 
         
@@ -60,6 +61,7 @@ export default {
     computed: { 
         ...mapGetters({
         faculties: 'GET_FACULTIES',
+        types: 'GET_TYPES',
         }),
         productsCount () {
             return this.$store.getters.GET_PRODUCTSCOUNT
