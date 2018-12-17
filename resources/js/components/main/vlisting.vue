@@ -18,8 +18,7 @@
             </div>
           </div>
           <div class="paginationBlock">
-              <v-pagination color="orange darken-1" v-model="page" :length="2"></v-pagination>
-              {{page}}
+              <v-pagination color="orange darken-1" v-model="page" :length="Math.ceil(productsCount/6)"></v-pagination>
           </div>
         </div>
       </div>
@@ -43,19 +42,16 @@ export default {
   data () {
       return {
         products: [],
-        page: 2
+        page: 1
       }
   },
 
   mounted: function () { 
         this.$store.dispatch('LOAD_FACULTIES')  
         
-
         axios.get('/api/paginateproducts/' + this.page)
         .then( res => {
           this.products = res.data;
-          console.log(res.data)
-          console.log(this.products[1].title)
         })
 
         
@@ -65,12 +61,18 @@ export default {
         ...mapGetters({
         faculties: 'GET_FACULTIES',
         }),
+        productsCount () {
+            return this.$store.getters.GET_PRODUCTSCOUNT
+        }
     },
 
-    methods: {
-        getThePage(page){
-          
-        }
+    watch: {
+      page: function(nPage, oPage) {
+        axios.get('/api/paginateproducts/' + nPage)
+        .then( res => {
+          this.products = res.data;
+        })
+      }
     }
 }
 </script>

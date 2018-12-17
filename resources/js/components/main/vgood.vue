@@ -92,48 +92,39 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 feedback">
-
-                            <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                    <h2>Отзывы</h2>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                         <form @submit.prevent="handleSubmitAsk">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                        <label for="askername">Ваше имя</label>
+                                        <input type="text" v-model="askername" v-validate="{ required: false, max: 100, min: 3 }" name="askername" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('askername') }"/>
+                                        <div v-if="submittedAsk && errors.has('askername')" class="invalid-feedback">{{ errors.first('askername') }}</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" v-model="email" v-validate="{ required: true, email: true }" name="email" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('email') }"/>
+                                        <div v-if="submittedAsk && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
+                                    </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+                                        <div class="form-group">
+                                            <label for="question">Ваш вопрос</label>
+                                            <textarea type="text" rows="5" v-model="question" v-validate="{ required: true, max: 400, min: 20 }" name="question" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('question') }"></textarea>
+                                            <div v-if="submittedAsk && errors.has('question')" class="invalid-feedback">{{ errors.first('question') }}</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <v-form v-model="valid">
-                                        <v-text-field
-                                        v-model="name"
-                                        :rules="nameRules"
-                                        :counter="10"
-                                        label="Name"
-                                        required
-                                        ></v-text-field>
-                                        <v-text-field
-                                        class="email"
-                                        v-model="email"
-                                        :rules="emailRules"
-                                        label="E-mail"
-                                        required
-                                        ></v-text-field>
-                                    </v-form>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
-                                    <v-textarea
-                                    name="input-7-1"
-                                    value=""
-                                    hint="Hint text"
-                                    ></v-textarea>
-                                </div>
-                            </div>
-
-                            <div class="row justify-content-center">
+                                <div class="row justify-content-center">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                        <v-btn block small color="orange lighten-2" dark>Отправить</v-btn>
+                                        <div class="form-group">
+                                            <v-btn type="submit" block small color="orange lighten-2" dark>Отправить</v-btn>
+                                        </div>
                                     </div>
                                 </div> 
-                            </div>
+                            </form>
+                        </div>
+                    </div>
 
                             <div class="row comment" v-for="comment in comments" :key="comment.id">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
@@ -152,7 +143,6 @@
                     </div>
                 </div>
             </div>
-        </div>
 </template>
 
 <script>
@@ -230,7 +220,7 @@ export default {
 <style lang="scss" scoped>
     .discription {
         background: #e2e2e2;
-        margin: 20px 15px 0;
+        margin: 20px 15px 20px;
         padding: 10px;
         border-left: 5px solid #212121;
     }

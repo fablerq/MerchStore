@@ -2,7 +2,7 @@
     <div class="card">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                <div class="col-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                     <div class="row card-menu">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                             <h2>Моя корзина</h2>
@@ -16,7 +16,7 @@
                             <i>Ваша корзина пуста!</i>
                             <router-link to="/">Продолжить покупки</router-link>
                         </p>-->
-                        <div v-for="add in adds" :key="add.id" class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <div v-for="add in adds" :key="add.id" class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4">
                             <v-card class="flypage">
                                 <router-link class="menu-link" :price="price" :to="{ path: 'catalog/good/' + add.id}">
                                     <v-img class="item-img" :src="require('../../../imgs/flypage.png')" aspect-ratio="2.75" height="150px"></v-img>   
@@ -29,7 +29,7 @@
 
                                 <v-card-actions>
                                     <div  class="item-navbar">
-                                    <h2>{{add.price}}</h2>
+                                    <h2>{{add.price}}р</h2>
                                     <v-btn fab light small color="white" class="remove"><v-icon dark>remove</v-icon></v-btn>
                                     <v-text-field
                                         solo
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1 offset-xl-0 col-xl-4 payment">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-2 col-xl-2 payment">
                     <h2>Способы оплаты</h2>
                     <div class="custom-control custom-radio" v-for="paymentmethod in paymentmethods" :key="paymentmethod.id">
                         <input type="radio" :id="'customRadio' + paymentmethod.id" name="customRadio" class="custom-control-input pay-type">

@@ -4,12 +4,12 @@
             <div class="container">
                 <div class="row">
                         <h4>Форма входа</h4>
-                        <form class="col" action="./api/users" method="POST" @submit="addUser()">
+                        <form class="col" @submit.prevent="signin">
                             <div class="form-group">
-                                <input type="text" name="email" v-model="email" placeholder="Ведите почту" class="form-control">
+                                <input type="text" name="login" v-model="login.login" placeholder="Ведите логин" class="form-control">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="password" v-model="password" placeholder="Введите пароль" class="form-control">
+                                <input type="text" name="password" v-model="login.password" placeholder="Введите пароль" class="form-control">
                             </div>
                             <label for="networks">или вход через социальные сети</label>
                             <div class="networks" id="networks">
@@ -20,10 +20,10 @@
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Войти" class="btn btn-light btn-block">
-                                <router-link class="menu-link to-reg" :to="{ name: 'registration' }">Вы ещё не с нами?</router-link>
+                                <router-link class="menu-link to-reg" :to="{ name: 'register' }">Вы ещё не с нами?</router-link>
                             </div>
-                            
                         </form>
+                        <input type="submit" value="Выйти" v-on:click="logout" class="btn btn-light btn-block">
                 </div>
             </div>
         </div>
@@ -31,8 +31,42 @@
 </template>
 
 <script>
+import axios from 'axios' 
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
-    name: 'vsignin'
+    name: 'vsignin',
+    data() {
+        return {
+            login: {
+                login: '',
+                password: '',
+            }
+        }
+    },
+    methods: {
+        signin() {
+            axios.post('/api/login', { login: this.login.login, password: this.login.password })
+            .then(response=> {
+                console.log(response);
+                //this.$store.dispatch('LOAD_CURRENTUSER', response.data.userdata);
+                //store.commit('increment');
+            })
+            .catch(error=> {
+                console.log(error.response)
+            })
+            //console.log('юзер: ', this.$store.state.currentUser)
+        },
+        logout() {
+            axios.post('/api/getuser')
+            .then(response=> {
+                console.log(response);
+            })
+            .catch(error=> {
+                console.log(error.response)
+            })
+        }
+    }
 }
 </script>
 
@@ -50,11 +84,8 @@ export default {
         .registration {
             width: 300px;
             background: #e2e2e2;
-            position: fixed;
-            top: 40%;
-            left: 50%;
-            margin-top: -150px;
-            margin-left: -150px;
+            margin: auto;
+            margin-top: 40px;
             padding: 20px 5px 5px 5px;
             border-radius: 15px;
 

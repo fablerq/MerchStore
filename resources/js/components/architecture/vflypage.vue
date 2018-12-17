@@ -10,7 +10,7 @@
         ></v-img>
           </router-link>
         <v-card-title primary-title>
-          <div>
+          <div class="discription">
             <h5 class=" mb-0">{{title}}<v-chip class="type" outline color="orange lighten-2" small disabled>{{type}}</v-chip></h5>
           </div>
         </v-card-title>
@@ -65,6 +65,13 @@ export default {
 .flypage {
   width: 270px;
 
+  .discription {
+    width: 100%;
+    height: 30px;
+    word-wrap: break-word; 
+  }
+  
+
   .type {
     font-size: 10px;
   }
@@ -75,7 +82,7 @@ export default {
         width: 100%;
     }
     .fav{
-        margin-left: 25%;
+        margin-left: 20%;
         outline: none;
     }
     .add{
