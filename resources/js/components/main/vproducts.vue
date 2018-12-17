@@ -73,7 +73,7 @@
                         <v-hover>
                             <v-card slot-scope="{ hover }">
                                 <router-link class="menu-link" :to="{ name: 'main' }">
-                                    <img  class="" src="../../../imgs/stationery.png" alt="logo">
+                                    <img  class="" src="../../../imgs/cans.jpg" alt="logo">
                                     <v-expand-transition>
                                         <div
                                             v-if="hover"

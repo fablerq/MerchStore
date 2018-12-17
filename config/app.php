@@ -178,7 +178,7 @@ return [
 
         //'Tymon\JWTAuth\Providers\LaravelServiceProvider',
 
-        Laravel\Socialite\SocialiteServiceProvider::class,
+        
     ],
 
     /*

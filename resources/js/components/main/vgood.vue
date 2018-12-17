@@ -110,9 +110,9 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
                                         <div class="form-group">
-                                            <label for="question">Текст комментария</label>
-                                            <textarea type="text" rows="5" v-model="question" v-validate="{ required: true, max: 400, min: 20 }" name="body" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('body') }"></textarea>
-                                            <div v-if="submittedAsk && errors.has('body')" class="invalid-feedback">{{ errors.first('body') }}</div>
+                                            <label for="body">Текст комментария</label>
+                                            <textarea type="text" rows="5" v-model="body" v-validate="{ required: true, max: 400, min: 20 }" name="body" class="form-control" :class="{ 'is-invalid': submitted && errors.has('body') }"></textarea>
+                                            <div v-if="submitted && errors.has('body')" class="invalid-feedback">{{ errors.first('body') }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +120,6 @@
                                         <div class="form-group">
                                             <v-btn type="submit" block small color="orange lighten-2" dark>Добавить комментарий</v-btn>
                                         </div>
-                                        <p>Если коррент юзер нуль, то дисейблд</p>
                                 </div> 
                             </form>
 
@@ -134,7 +133,7 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                         <div class="userInfo">
                             <img src="../../../imgs/user-icon.png" alt="user-icon">
-                            <div class="userName">{{comment.user_id}}</div>
+                            <div class="userName">{{comment.user.login}}</div>
                             <div class="date">{{comment.created_at}}</div>
                         </div>
                     </div>
@@ -185,6 +184,7 @@ export default {
         product_type: '',
         feedback: '',
         submitted: false,
+        body: '',
       }
     },
 
@@ -195,6 +195,7 @@ export default {
         this.$store.dispatch('LOAD_COMMENTS') 
         this.$store.dispatch('LOAD_FACULTIES') 
         this.$store.dispatch('LOAD_TYPES')
+        
 
         axios.get(`/api/products/${this.$route.params.id}`)
         .then( res => {
@@ -209,6 +210,7 @@ export default {
 
     computed: { 
         ...mapGetters({ 
+        currentuser: 'GET_CURRENTUSER',
         products: 'GET_PRODUCTS',
         colors: 'GET_COLORS',
         sizes: 'GET_SIZES',
@@ -220,12 +222,16 @@ export default {
     },
     methods: {
         handleSubmit(e) {
-            this.submitted = true;
-            this.$validator.validate().then(valid => {
-                if (valid) {
-                    this.addComment()
-                }
-            });
+            if (this.currentuser) {
+                this.submitted = true;
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                            this.addComment()
+                    }
+                });
+            } else {
+                alert('Авторизируйтесь чтобы добавить комент')
+            }
           },
         addComment() {
               axios.post('/api/comments', { 
