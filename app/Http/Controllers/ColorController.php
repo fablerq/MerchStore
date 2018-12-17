@@ -41,10 +41,10 @@ class ColorController extends Controller
     public function store(ColorRequest $request)
     {
         $validated = $request->validated();
-        
+
         Color::create([
             'title' => $validated['title'],
-            'code' => $validated['code'],
+            'code'  => $validated['code'],
         ]);
 
         return response()->json([

@@ -76,9 +76,7 @@ class AuthController extends Controller
         return response()->json(['error'=> 'Такого проверочного кода не существует.']);
     }
 
-
-
-        /**
+    /**
      * API Recover Password.
      *
      * @param Request $request
@@ -110,7 +108,6 @@ class AuthController extends Controller
         ]);
     }
 
-
     public function getuser(Request $request)
     {
         if (Auth::guest()) {
@@ -121,8 +118,6 @@ class AuthController extends Controller
         return response()->json(['userdata'=> $currentuserid]);
     }
 
-
-
     public function login(LoginRequest $request)
     {
         $validated = $request->validated();
@@ -130,18 +125,18 @@ class AuthController extends Controller
         if (Auth::attempt($validated, true)) {
             $user = Auth::user();
             $user->makeVisible(['remember_token']);
+
             return response()->json(['message'=> 'работает', 'userdata' => $user]);
         } else {
             return response()->json(['error'=> 'Не правильный логин или пароль']);
         }
     }
 
-
-
     public function logout(Request $request)
     {
         if (Auth::user()) {
             Auth::logout();
+
             return response()->json(['error'=> 'Вышли успешно']);
         } else {
             return response()->json(['error'=> 'Чтобы разлогиниться надо сначала авторизироваться']);

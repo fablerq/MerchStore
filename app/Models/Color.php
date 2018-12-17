@@ -12,7 +12,7 @@ class Color extends Model
     }
 
     protected $fillable = [
-        'title', 'code'
+        'title', 'code',
     ];
 
     public $timestamps = false;

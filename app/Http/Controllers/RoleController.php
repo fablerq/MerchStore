@@ -98,12 +98,12 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        if($id == 1) {
+        if ($id == 1) {
             return response()->json([
                 'message' => 'Пользователя нельзя удалить',
             ]);
         }
-        if($id == 2) {
+        if ($id == 2) {
             return response()->json([
                 'message' => 'Админа нельзя удалить',
             ]);

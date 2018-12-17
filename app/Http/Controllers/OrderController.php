@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Models\ProductsVariants;
-use Illuminate\Http\Request;
 use App\User;
+use DB;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -77,7 +77,7 @@ class OrderController extends Controller
         return response()->json($order, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
-        /**
+    /**
      * Display the specified resource.
      *
      * @param \App\Models\order $order
