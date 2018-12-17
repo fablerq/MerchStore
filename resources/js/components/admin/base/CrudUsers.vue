@@ -113,7 +113,7 @@ import axios from 'axios'
             });
           },
         addUser() {
-              axios.post('/api/users/', { 
+              axios.post('/api/users', { 
                     login: this.user.login,
                     password: this.user.password,
                     email: this.user.email,
