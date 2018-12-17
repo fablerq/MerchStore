@@ -62,13 +62,10 @@ class AuthController extends Controller
         $check = DB::table('user_verifications')->where('token', $verification_code)->first();
         if (!is_null($check)) {
             $user = User::find($check->user_id);
-            if ($user->is_verified == 1) {
-                return response()->json([
-                    'error'=> 'Аккаунт уже верифицирован.',
-                ]);
-            }
 
-            $user->update(['is_verified' => 1]);
+            $user->is_verified = 1;
+            $user->save();
+
             DB::table('user_verifications')->where('token', $verification_code)->delete();
 
             return response()->json([
@@ -79,41 +76,9 @@ class AuthController extends Controller
         return response()->json(['error'=> 'Такого проверочного кода не существует.']);
     }
 
-    public function getuser(Request $request)
-    {
-        if (Auth::guest()) {
-            return response()->json(['userdata'=> 'никто не в системе']);
-        }
-        $currentuserid = Auth::user()->id;
 
-        return response()->json(['userdata'=> $currentuserid]);
-    }
 
-    public function login(LoginRequest $request)
-    {
-        $validated = $request->validated();
-
-        // create our user data for the authentication
-        $userdata = [
-        'login'     => $validated['login'],
-        'password'  => $validated['password'],
-    ];
-
-//     if (Auth::check())
-        // {
-//     return response()->json(['error'=> "молодой, ты уже зареган"]);
-        // } else {
-//     return response()->json(['error'=> "нэт"]);
-        // }
-
-        if (Auth::attempt($userdata, true)) {
-            return response()->json(['message'=> 'работает', 'userdata' => Auth::user()]);
-        } else {
-            return response()->json(['error'=> 'Не правильный логин или пароль']);
-        }
-    }
-
-    /**
+        /**
      * API Recover Password.
      *
      * @param Request $request
@@ -145,11 +110,39 @@ class AuthController extends Controller
         ]);
     }
 
+
+    public function getuser(Request $request)
+    {
+        if (Auth::guest()) {
+            return response()->json(['userdata'=> 'никто не в системе']);
+        }
+        $currentuserid = Auth::user()->role_id;
+
+        return response()->json(['userdata'=> $currentuserid]);
+    }
+
+
+
+    public function login(LoginRequest $request)
+    {
+        $validated = $request->validated();
+
+        if (Auth::attempt($validated, true)) {
+            $user = Auth::user();
+            $user->makeVisible(['remember_token']);
+            return response()->json(['message'=> 'работает', 'userdata' => $user]);
+        } else {
+            return response()->json(['error'=> 'Не правильный логин или пароль']);
+        }
+    }
+
+
+
     public function logout(Request $request)
     {
         if (Auth::user()) {
-            return response()->json(['error'=> 'Вышли успешно']);
             Auth::logout();
+            return response()->json(['error'=> 'Вышли успешно']);
         } else {
             return response()->json(['error'=> 'Чтобы разлогиниться надо сначала авторизироваться']);
         }

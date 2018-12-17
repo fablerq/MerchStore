@@ -47,7 +47,7 @@
       <th scope="col">title</th>
       <th scope="col">image</th>
       <th scope="col">product_id</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -57,7 +57,7 @@
       <td>{{ photo.title }}</td>
       <td><img :src="'../images/upload/' + photo.image" alt="Girl in a jacket"> </td>
       <td>{{ photo.product.title }}</td>
-      <td><a href="#" @click="showPhoto(photo.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showPhoto(photo.id)">Show</a></td> -->
       <td><a href="#" @click="deletePhoto(photo.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -112,25 +112,25 @@ import { mapActions, mapGetters } from 'vuex'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadPhotos()
+                  this.$store.dispatch('LOAD_PHOTOS')
                   this.feedback = null
           },
-          showPhoto(id) {       
-                axios.get('/api/photos/' + id)
-                      .then(response => {
-                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.photos = this.photos.filter(photo => {
-                    return photo.id == id;
-                 });
-                })
-          },
+        //   showPhoto(id) {       
+        //         axios.get('/api/photos/' + id)
+        //               .then(response => {
+        //          alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.photos = this.photos.filter(photo => {
+        //             return photo.id == id;
+        //          });
+        //         })
+        //   },
 
           deletePhoto(id) {
                 axios.delete('/api/photos/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadPhotos()
+                this.$store.dispatch('LOAD_PHOTOS')
           },
          imageChanged(e) {
             var fileReader = new FileReader()

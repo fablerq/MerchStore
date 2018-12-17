@@ -24,6 +24,7 @@ import registration from './components/auth/vregistration.vue'
 import error404 from './components/architecture/404.vue'
 import verify from './components/auth/verify.vue'
 import successreg from './components/auth/successreg.vue'
+import successlog from './components/auth/successlog.vue'
 
 const routes = [
       { path: '/404', component: error404 },
@@ -122,6 +123,11 @@ const routes = [
         path: '/successreg',
         name: 'successreg',
         component: successreg,
+      },
+      {
+        path: '/successlog',
+        name: 'successlog',
+        component: successlog,
       },
   ]
 

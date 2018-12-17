@@ -25,6 +25,7 @@ class ColorRequest extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:100|unique:colors',
+            'code' => 'required|min:3|max:100',
         ];
     }
 
@@ -40,6 +41,9 @@ class ColorRequest extends FormRequest
             'title.min'      => 'Минимальная длина заглавия 3 символов',
             'title.max'      => 'Максимальная длина заглавия 100 символов',
             'title.unique'   => 'Цвет с таким заглавием уже существует',
+            'code.required' => 'Код цвета не может быть пустым',
+            'code.min'      => 'Минимальная длина кода цвета 3 символов',
+            'code.max'      => 'Максимальная длина кода цвета 100 символов',
         ];
     }
 }

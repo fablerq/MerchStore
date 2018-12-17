@@ -24,7 +24,7 @@ class FacultyRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:3|max:100|unique:faculties',
+            'title' => 'required|min:2|max:100|unique:faculties',
         ];
     }
 
@@ -37,7 +37,7 @@ class FacultyRequest extends FormRequest
     {
         return [
             'title.required' => 'Заглавие факультета не может быть пустым',
-            'title.min'      => 'Минимальная длина заглавия 3 символов',
+            'title.min'      => 'Минимальная длина заглавия 2 символов',
             'title.max'      => 'Максимальная длина заглавия 100 символов',
             'title.unique'   => 'Факультет с таким заглавием уже существует',
         ];

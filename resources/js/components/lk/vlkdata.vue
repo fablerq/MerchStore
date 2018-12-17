@@ -16,27 +16,34 @@
                    <table class="table order">
                         <tbody>
                             <tr>
-                                <th scope="row">Фамилия</th>
-                                <td>Спасите</td>
+                                <th scope="row">Логин</th>
+                                <td>{{ currentuser.login }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Имя</th>
-                                <td>Я</td>
+                                <th scope="row">Статус</th>
+                                <td>
+                                    <ul class="form-group" v-for="role in roles" style="list-style: none;"> 
+                                        <li v-if="role.id == currentuser.role_id">
+                                            {{ role.title }}
+                                        </li>
+                                    </ul>  
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Статус верификации</th>
+                                <td v-if="currentuser.is_verified == 0">Почта не подтверждена</td>
+                                <td v-if="currentuser.is_verified == 1">Почта подтверждена</td>
                             </tr>
                             <tr>
                                 <th scope="row">Эл. почта</th>
-                                <td>хочу@gmail.com</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Телефон</th>
-                                <td>+7(91с)пат-ь3-76</td>
+                                <td>{{ currentuser.email }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Дата регистрации</th>
-                                <td>20.10.2000</td>
+                                <td>{{ currentuser.created_at }} </td>
                             </tr>
                             <tr>
-                                <td colspan="2"><button type="button" class="btn btn-dark btn-sm btn-block change-btn">Изменить пароль</button></td>
+                                <td colspan="2"><button type="button" class="btn btn-dark btn-sm btn-block change-btn">Изменить пароль (not ready)</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,10 +58,16 @@
 
 <script>
 import vlksidebar from './vlksidebar.vue'
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'vlkdata',
-  components: {vlksidebar}
+  components: {vlksidebar},
+  computed: {
+       ...mapGetters({
+        currentuser: 'GET_CURRENTUSER',
+        roles: 'GET_ROLES',
+       })
+  },
 }
 
 </script>

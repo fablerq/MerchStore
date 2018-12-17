@@ -15,22 +15,7 @@
                     <v-spacer></v-spacer>
 
                     <v-toolbar-items class="hidden-sm-and-down">
-                    <v-btn flat class="nav-item">
-                            <router-link class="menu-link" :to="{ name: 'login' }">
-                                <div class="flexer">
-                                    <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
-                                    Войти
-                                </div>   
-                            </router-link>
-                    </v-btn>
-                    <v-btn flat class="nav-item">
-                            <router-link class="menu-link" :to="{ name: 'register' }">
-                                <div class="flexer">
-                                    <img class="nav-img" src="../../../imgs/catalog.png" alt="catalog">
-                                    Рега
-                                </div>   
-                            </router-link>
-                    </v-btn>
+                        
                     <v-btn flat class="nav-item">
                             <router-link class="menu-link" :to="{ name: 'catalog' }">
                                 <div class="flexer">
@@ -47,12 +32,21 @@
                             </div>
                         </router-link>
                     </v-btn>
-                    <v-btn flat class="nav-item profile">
+                    <v-btn flat class="nav-item profile" v-if="currentuser">
                         <router-link class="menu-link" :to="{ name: 'lkorders' }">
                                 <div class="flexer">
                                     <img class="nav-img" src="../../../imgs/profile.png" alt="profile">
-                                    Личный кабинет
+                                    Личный кабинет <br>
+                                    {{ currentuser.login }}
                                 </div>
+                            </router-link>
+                    </v-btn>
+                    <v-btn flat class="nav-item" v-if="!currentuser">
+                            <router-link class="menu-link" :to="{ name: 'login' }">
+                                <div class="flexer">
+                                    <img class="nav-img" src="../../../imgs/vhod.png" alt="catalog">
+                                    Вход
+                                </div>   
                             </router-link>
                     </v-btn>
                      <v-btn flat class="nav-item">
@@ -84,7 +78,7 @@
                     Каталог
                 </div>   
             </router-link>
-            </v-list-tile>
+        </v-list-tile>
             <v-divider></v-divider>
         <v-list-tile class="sidebar-item">
             <router-link class="menu-link" :to="{ name: 'faq' }">
@@ -93,18 +87,28 @@
                     F&Q
                 </div>
             </router-link>
-            </v-list-tile>
+        </v-list-tile>
             <v-divider></v-divider>
-        <v-list-tile class="sidebar-item">
+        <v-list-tile class="sidebar-item" v-if="currentuser">
             <router-link class="menu-link" :to="{ name: 'lkorders' }">
                 <div class="flexer">
                     <img class="nav-img" src="../../../imgs/profile.png" alt="profile">
-                    Личный кабинет
+                    Личный кабинет <br>
+                    {{ currentuser.login }}
                 </div>
             </router-link>
-            </v-list-tile>
+        </v-list-tile>
+                    <v-divider></v-divider>
+        <v-list-tile class="sidebar-item" v-if="!currentuser">
+            <router-link class="menu-link" :to="{ name: 'login' }">
+                <div class="flexer">
+                    <img class="nav-img" src="../../../imgs/vhod.png" alt="profile">
+                    Вход 
+                </div>
+            </router-link>
+        </v-list-tile>
             <v-divider></v-divider>
-            <v-list-tile class="sidebar-item">
+        <v-list-tile class="sidebar-item">
             <router-link class="menu-link" :to="{ name: 'card' }">
                 <div class="flexer">
                     <img class="nav-img" src="../../../imgs/card.png" alt="card">
@@ -119,6 +123,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
     name: 'vheader',
     data () {
@@ -129,7 +135,12 @@ export default {
           { title: 'About', icon: 'question_answer' }
         ]
       }
-    }
+    },
+    computed: {
+       ...mapGetters({
+        currentuser: 'GET_CURRENTUSER',
+       })
+  },
 }
 </script>
 
@@ -165,6 +176,10 @@ export default {
     }
     .nav-item.profile {
         width: 33%;
+    }
+
+    .hidden-sm-and-down {
+        width: 60%;
     }
     .sidebar-item {
         .flexer {

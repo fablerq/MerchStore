@@ -21,18 +21,14 @@
                                 <div v-if="submitted && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="password" v-model="register.password" placeholder="Пароль" class="form-control" v-validate="{ required: true, min: 7 }" :class="{ 'is-invalid': submitted && errors.has('password') }" >
+                                <input type="password" name="password" v-model="register.password" placeholder="Пароль" class="form-control" v-validate="{ required: true, min: 7 }" :class="{ 'is-invalid': submitted && errors.has('password') }" >
                                 <div v-if="submitted && errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</div>
-                            </div>
-                            <label for="networks">или вход через социальные сети</label>
-                            <div class="networks" id="networks">
-                                <a href="#"><img src="../../../imgs/google.png" alt=""></a>
-                                <a href="#"><img src="../../../imgs/facebook.png" alt=""></a>
-                                <a href="#"><img src="../../../imgs/vk.png" alt=""></a>
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Зарегистрироваться" class="btn btn-light btn-block">
+                                <router-link class="menu-link to-reg" :to="{ name: 'login' }">Вернуться к авторизации</router-link>
                             </div>
+                            
                         </form>
                 </div>
             </div>
@@ -69,8 +65,8 @@ export default {
         registerUser() {
             axios.post('/api/register', this.register)
             .then(response=> {
-                window.location.href = "/successreg";
                 this.feedback = null
+                this.$router.push('successreg') 
             })
             .catch(error => {
                 console.log(error.response)

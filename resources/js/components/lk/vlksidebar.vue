@@ -11,7 +11,7 @@
 
                         <router-link class="menu-link" :to="{ name: 'lkdata' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Личные данные</button></router-link>
 
-                        <router-link class="menu-link" :to="{ name: 'signin' }"><button type="button" class="btn btn-secondary btn-lg btn-block">Выход</button></router-link>
+                        <span class="menu-link"><button type="button" class="btn btn-secondary btn-lg btn-block" v-on:click="logout">Выход</button></span>
 
                         <router-link class="menu-link" :to="{ name: 'admstats' }">Админка</router-link>
                     </div>
@@ -19,8 +19,23 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-    name: 'vlksidebar'
+    name: 'vlksidebar',
+    methods: {
+        logout() {
+            axios.post('/api/logout')
+            .then(response=> {
+                console.log(response);
+                this.$store.commit('SET_CURRENTUSER', null);
+                this.$router.push('/login')
+            })
+            .catch(error=> {
+                console.log(error.response)
+            })
+        },
+    }
 }
 </script>
 

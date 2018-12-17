@@ -98,6 +98,16 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        if($id == 1) {
+            return response()->json([
+                'message' => 'Пользователя нельзя удалить',
+            ]);
+        }
+        if($id == 2) {
+            return response()->json([
+                'message' => 'Админа нельзя удалить',
+            ]);
+        }
         if (User::where('role_id', $id)->first()) {
             return response()->json([
                 'message' => 'Роль номер '.$id.' не получилось удалить. Существует пользователь с такой ролью.',

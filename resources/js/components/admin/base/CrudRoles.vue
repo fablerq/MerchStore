@@ -30,7 +30,7 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -38,7 +38,7 @@
     <tr v-for="role in roles">
       <th>{{ role.id }}</th>
       <td>{{ role.title }}</td>
-      <td><a href="#" @click="showRole(role.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showRole(role.id)">Show</a></td> -->
       <td><a href="#" @click="deleteRole(role.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -88,25 +88,25 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadRoles()
+                  this.$store.dispatch('LOAD_ROLES')
                   this.feedback = null
           },
-          showRole(id) {       
-                axios.get('/api/roles/' + id)
-                      .then(response => {
-                alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.roles = this.roles.filter(role => {
-                    return role.id == id;
-                 });
-                })
-          },
+        //   showRole(id) {       
+        //         axios.get('/api/roles/' + id)
+        //               .then(response => {
+        //         alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.roles = this.roles.filter(role => {
+        //             return role.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteRole(id) {
                 axios.delete('/api/roles/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadRoles()
+                this.$store.dispatch('LOAD_ROLES')
           }
       },
   }

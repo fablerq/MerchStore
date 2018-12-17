@@ -2,12 +2,15 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that are mass assignable.

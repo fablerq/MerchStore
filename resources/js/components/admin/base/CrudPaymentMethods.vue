@@ -31,7 +31,7 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -39,7 +39,7 @@
     <tr v-for="paymentmethod in paymentmethods">
       <th>{{ paymentmethod.id }}</th>
       <td>{{ paymentmethod.title }}</td>
-      <td><a href="#" @click="showPaymentMethod(paymentmethod.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showPaymentMethod(paymentmethod.id)">Show</a></td> -->
       <td><a href="#" @click="deletePaymentMethod(paymentmethod.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -88,25 +88,25 @@ import { mapActions, mapGetters } from 'vuex'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadPaymentMethods()
+                  this.$store.dispatch('LOAD_PAYMENTMETHODS')
                   this.feedback = null
           },
-          showPaymentMethod(id) {       
-                axios.get('/api/paymentmethods/' + id)
-                      .then(response => {
-                   alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                   this.paymentmethods = this.paymentmethods.filter(paymentmethod => {
-                    return paymentmethod.id == id;
-                 });
-                })
-          },
+        //   showPaymentMethod(id) {       
+        //         axios.get('/api/paymentmethods/' + id)
+        //               .then(response => {
+        //            alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //            this.paymentmethods = this.paymentmethods.filter(paymentmethod => {
+        //             return paymentmethod.id == id;
+        //          });
+        //         })
+        //   },
 
           deletePaymentMethod(id) {
                 axios.delete('/api/paymentmethods/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadPaymentMethods()
+                this.$store.dispatch('LOAD_PAYMENTMETHODS')
           }
       },
   }

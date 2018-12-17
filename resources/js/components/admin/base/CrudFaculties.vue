@@ -31,7 +31,7 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -39,7 +39,7 @@
     <tr v-for="faculty in faculties">
       <th>{{ faculty.id }}</th>
       <td>{{ faculty.title }}</td>
-      <td><a href="#" @click="showFaculty(faculty.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showFaculty(faculty.id)">Show</a></td> -->
       <td><a href="#" @click="deleteFaculty(faculty.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -88,25 +88,25 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadFaculties()
+                  this.$store.dispatch('LOAD_FACULTIES')
                   this.feedback = null
           },
-          showFaculty(id) {       
-                axios.get('/api/faculties/' + id)
-                      .then(response => {
-                alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.faculties = this.faculties.filter(faculty => {
-                    return faculty.id == id;
-                 });
-                })
-          },
+        //   showFaculty(id) {       
+        //         axios.get('/api/faculties/' + id)
+        //               .then(response => {
+        //         alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.faculties = this.faculties.filter(faculty => {
+        //             return faculty.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteFaculty(id) {
                 axios.delete('/api/faculties/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadFaculties()
+                this.$store.dispatch('LOAD_FACULTIES')
           }
       },
   }

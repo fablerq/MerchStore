@@ -64,7 +64,7 @@
       <th scope="col">user_id</th>
       <th scope="col">status_id</th>
       <th scope="col">paymentmethod_id</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -96,7 +96,7 @@
       <td>{{ order.user.login }}</td>
       <td>{{ order.status.title }}</td>
       <td>{{ order.paymentmethod.title }}</td>
-      <td><a href="#" @click="showOrder(order.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showOrder(order.id)">Show</a></td> -->
       <td><a href="#" @click="deleteOrder(order.id)">Delete</a></td>
     </tr>
   </tbody>          
@@ -166,8 +166,10 @@ import { mapActions, mapGetters } from 'vuex'
                         alert(response.data.message)        
                   })
                   .catch(error => {
+                      console.log(error.response)
                       this.feedback = error.response.data.errors;
                   }); 
+
               for (let i = 0; i < this.productsvariants_id.length; i++) { 
                     axios.put('/api/productsvariants/' + this.productsvariants_id[i], { 
                         order_id: this.orders[this.orders.length-1].id+1,
@@ -179,25 +181,26 @@ import { mapActions, mapGetters } from 'vuex'
                         this.feedback = error.response.data.errors;
                     });
               }
-                //this.loadOrders()
+                this.$store.dispatch('LOAD_ORDERS')
+                this.$store.dispatch('LOAD_PRODUCTSVARIANTS')
                 this.feedback = null
           },
-          showOrder(id) {       
-                axios.get('/api/orders/' + id)
-                      .then(response => {
-                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.orders = this.orders.filter(order => {
-                    return order.id == id;
-                 });
-                })
-          },
+        //   showOrder(id) {       
+        //         axios.get('/api/orders/' + id)
+        //               .then(response => {
+        //          alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.orders = this.orders.filter(order => {
+        //             return order.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteOrder(id) {
                 axios.delete('/api/orders/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadOrders()
+                    this.$store.dispatch('LOAD_ORDERS')
           },
       },
   }

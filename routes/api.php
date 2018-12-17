@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 //AUTH
 Route::post('register', 'AuthController@register');
-Route::post('login', 'AuthController@login');
+Route::post('login', 'AuthController@login'); 
 Route::post('recover', 'AuthController@recover');
 Route::post('logout', 'AuthController@logout');
 Route::post('getuser', 'AuthController@getuser');
@@ -38,6 +38,8 @@ Route::get('paginateproducts/{count}', 'ProductController@paginate');
 Route::resource('orders', 'OrderController', [
     'except' => ['edit'],
   ]);
+
+Route::get('showforuser/{count}', 'OrderController@showforuser');
 
 //Additional
 Route::resource('faculties', 'FacultyController', [
