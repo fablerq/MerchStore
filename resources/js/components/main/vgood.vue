@@ -92,63 +92,59 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 feedback">
+                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 feedback">
                             <div class="row">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                    <h2>Отзывы</h2>
+                                    <h2>Комментарии</h2>
                                 </div>
+                                
                             </div>
-                                    <v-form v-model="valid">
-                                        v-model="name"
-                                        :rules="nameRules"
-                                        :counter="10"
-                                        label="Name"
-                                        required
-                                        ></v-text-field>
-                                        <v-text-field
-                                        class="email"
-                                        v-model="email"
-                                        :rules="emailRules"
-                                        label="E-mail"
-                                        required
-                                        ></v-text-field>
-                                    </v-form>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
-                                    <v-textarea
-                                    name="input-7-1"
-                                    value=""
-                                    hint="Hint text"
-                                    ></v-textarea>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                    <br>
+                                    <div class="alert alert-danger" v-if="feedback">
+                                        <ul>
+                                            <li v-for="error in feedback">{{ error[0] }}</li>
+                                        </ul>
+                                    </div>
+
+                            <form @submit.prevent="handleSubmit">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
                                         <div class="form-group">
-                                            <v-btn type="submit" block small color="orange lighten-2" dark>Отправить</v-btn>
+                                            <label for="question">Текст комментария</label>
+                                            <textarea type="text" rows="5" v-model="question" v-validate="{ required: true, max: 400, min: 20 }" name="body" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('body') }"></textarea>
+                                            <div v-if="submittedAsk && errors.has('body')" class="invalid-feedback">{{ errors.first('body') }}</div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                        <div class="form-group">
+                                            <v-btn type="submit" block small color="orange lighten-2" dark>Добавить комментарий</v-btn>
+                                        </div>
+                                        <p>Если коррент юзер нуль, то дисейблд</p>
                                 </div> 
                             </form>
+
+                        </div> 
+                   </div>
+            </div>
+    </div>
+
+
+            <div class="row comment" v-for="comment in comments" :key="comment.id" v-if="comment.product_id == $route.params.id">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                        <div class="userInfo">
+                            <img src="../../../imgs/user-icon.png" alt="user-icon">
+                            <div class="userName">{{comment.user_id}}</div>
+                            <div class="date">{{comment.created_at}}</div>
                         </div>
                     </div>
-
-                            <div class="row comment" v-for="comment in comments" :key="comment.id">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                    <div class="userInfo">
-                                        <img src="../../../imgs/user-icon.png" alt="user-icon">
-                                        <div class="userName">{{comment.user_id}}</div>
-                                        <div class="date">{{comment.created_at}}</div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-10">
-                                    <p class="commentBody">{{comment.body}}</p>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-10">
+                        <p class="commentBody">{{comment.body}}</p>
+                    </div>
+            </div>
                     </div>
                 </div>
-            </div>
+            
 </template>
 
 <script>
@@ -187,6 +183,8 @@ export default {
         product_price: '',
         product_faculty_id: '',
         product_type: '',
+        feedback: '',
+        submitted: false,
       }
     },
 
@@ -220,6 +218,32 @@ export default {
         adds: 'GET_ADDS',
         }) 
     },
+    methods: {
+        handleSubmit(e) {
+            this.submitted = true;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                    this.addComment()
+                }
+            });
+          },
+        addComment() {
+              axios.post('/api/comments', { 
+                    user_id: this.currentuser.id,
+                    body: this.body,
+                    product_id: this.$route.params.id,
+                  })                    
+                  .then(function (response) {
+                        alert(response.data.message)
+                  })
+                  .catch(error => {
+                      this.feedback = error.response.data.errors;
+                  });
+                  //this.loadComments()
+                  this.feedback = null
+                  this.$store.dispatch('LOAD_COMMENTS')
+          },
+    }
   }
 </script>
 
@@ -294,10 +318,10 @@ export default {
 
             .userName {
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 14px;
             }
         }
-    }
+      }
 
 $color-1: #FFB300;
 $color-2: #FB8C00;

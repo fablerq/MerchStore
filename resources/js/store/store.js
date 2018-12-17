@@ -18,6 +18,7 @@ export default new Vuex.Store({
      faqs: [],
      faculties: [],
      orders: [],
+     ordersforuser: [],
      paymentmethods: [],
      photos: [],
      products: [],
@@ -70,12 +71,23 @@ export default new Vuex.Store({
             commit('SET_FAQS', response.data)
             })
     },
+
+    //orders
     LOAD_ORDERS({ commit }) {
         axios.get('/api/orders')
             .then(response => {
             commit('SET_ORDERS', response.data)
             })
     },
+    LOAD_ORDERSFORUSER({ commit }, userId) {
+        axios.get('/api/showforuser/' + userId)                    
+            .then(response => {
+              commit('SET_ORDERSFORUSER', response.data)
+        })
+    },
+
+
+
     LOAD_PRODUCTSVARIANTS({ commit }) {
         axios.get('/api/productsvariants')
             .then(response => {
@@ -138,9 +150,15 @@ export default new Vuex.Store({
     SET_FAQS (state, faqs) {
         state.faqs = faqs
     },
+
+   //orders
     SET_ORDERS (state, orders) {
-        state.orders = orders
+    state.orders = orders
     },
+    SET_ORDERSFORUSER (state, ordersforusers) {
+        state.ordersforusers = ordersforusers
+    },
+
     SET_PRODUCTSVARIANTS (state, productsvariants) {
         state.productsvariants = productsvariants
     },
@@ -191,9 +209,17 @@ export default new Vuex.Store({
     GET_FAQS(state) {
         return state.faqs
     },
+
+    
+    //orders
     GET_ORDERS(state) {
         return state.orders
     },
+    GET_ORDERSFORUSER(state) {
+        return state.ordersforusers
+    },
+
+
     GET_PRODUCTSVARIANTS(state) {
         return state.productsvariants
     },

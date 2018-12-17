@@ -196,11 +196,10 @@ export default {
 
     .nav-item.cart {
         width: 25%;
-
+    }
 
     .hidden-sm-and-down {
         width: 60%;
-
     }
     .sidebar-item {
         .flexer {

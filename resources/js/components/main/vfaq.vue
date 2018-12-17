@@ -19,10 +19,6 @@
                             <p class="question">- Как добавить свой мерч на сайт?</p>
                             <p class="answer">- Вы можете добавить свой мерч, написав администратору или дизайнеру. Мы оценим вашу работу и решим, пустим мы  ее в продажу или нет.</p>
                         </li>
-                        <li class="faqItem">
-                            <p class="question">- Какие гениальные люди сделали этот сайт?</p>
-                            <p class="answer">- Ну как бы это. Самая крутая команда по Деву номер 1. АГАГА</p>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -39,6 +35,13 @@
                                     <h2>Ждём ваших вопросов</h2>
                                 </div>
                             </div>
+
+                                    <div class="alert alert-danger" v-if="feedback">
+                                        <ul>
+                                            <li v-for="error in feedback">{{ error[0] }}</li>
+                                        </ul>
+                                    </div>
+
                             <form @submit.prevent="handleSubmitAsk">
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -48,14 +51,14 @@
                                         <div v-if="submittedAsk && errors.has('askername')" class="invalid-feedback">{{ errors.first('askername') }}</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email*</label>
                                         <input type="text" v-model="email" v-validate="{ required: true, email: true }" name="email" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('email') }"/>
                                         <div v-if="submittedAsk && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
                                     </div>
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
                                         <div class="form-group">
-                                            <label for="question">Ваш вопрос</label>
+                                            <label for="question">Ваш вопрос*</label>
                                             <textarea type="text" rows="5" v-model="question" v-validate="{ required: true, max: 400, min: 20 }" name="question" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('question') }"></textarea>
                                             <div v-if="submittedAsk && errors.has('question')" class="invalid-feedback">{{ errors.first('question') }}</div>
                                         </div>
@@ -70,9 +73,9 @@
                                 </div> 
                             </form>
                         </div>
-                    
-            </div>
-            <div class="row comment" v-for="faq in faqs" :key="faq.id">
+                   </div>
+
+            <div class="row comment" v-for="faq in faqs" :key="faq.id" v-if="faq.answer">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                                     <div class="userInfo">
                                         <img src="../../../imgs/user-icon.png" alt="user-icon">
@@ -81,9 +84,14 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-10">
-                                    <p class="commentBody">{{faq.question}}</p>
+                                    <p class="commentBody">Вопрос: {{faq.question}}</p>
+                                    <div>
+                                        <p class="commentBody">Отвечает пользователь: {{faq.user.login}}</p>
+                                        <p class="commentBody">Ответ: {{faq.answer}}</p>
+                                    </div>
                                 </div>
-                            </div>
+                                
+             </div>
         </div>
     </div>
 </template>
@@ -141,7 +149,7 @@ export default {
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadFAQs()
+                  this.$store.dispatch('LOAD_FAQS')
                   this.feedback = null
           },
 
