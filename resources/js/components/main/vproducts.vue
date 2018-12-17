@@ -5,25 +5,64 @@
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 hoody-col">
                     <div class="hoodys">
+                                                                                <v-hover>
+                            <v-card slot-scope="{ hover }">
                         <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/hoody.jpg" alt="logo">
+                                                                <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
+                                            style="height: 20%;"
+                                        >
+                                            Канцелярия
+                                        </div>
+                                    </v-expand-transition>
                         </router-link>
+                                         </v-card>
+                        </v-hover>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pins-col">
                             <div class="pins">
+                                                        <v-hover>
+                            <v-card slot-scope="{ hover }">
                                 <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/stickers.png" alt="logo">
+                            <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
+                                            style="height: 20%;"
+                                        >
+                                            Значки
+                                        </div>
+                                    </v-expand-transition>
                         </router-link>
+                                                                            </v-card>
+                        </v-hover>
                             </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 top-buffer">
                             <div class="stickers">
+                                                                                        <v-hover>
+                            <v-card slot-scope="{ hover }">
                                 <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/badge.png" alt="logo">
+                                                                <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
+                                            style="height: 20%;"
+                                        >
+                                            Стикеры
+                                        </div>
+                                    </v-expand-transition>
                         </router-link>
+                            </v-card>
+                        </v-hover>
                             </div>
                         </div>
                     </div>
@@ -51,16 +90,42 @@
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 top-buffer">
                     <div class="backpacks">
+                            <v-hover>
+                               <v-card slot-scope="{ hover }">
                                 <router-link class="menu-link" :to="{ name: 'main' }">
                                     <img  class="" src="../../../imgs/backpack.jpg" alt="logo">
+                                    <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
+                                            style="height: 20%;"
+                                        >
+                                            Сумки
+                                        </div>
+                                    </v-expand-transition>
                                 </router-link>
+                                                            </v-card>
+                        </v-hover>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 top-buffer">
                     <div class="tees">
+                                                    <v-hover>
+                               <v-card slot-scope="{ hover }">
                         <router-link class="menu-link" :to="{ name: 'main' }">
                             <img  class="" src="../../../imgs/tees.jpg" alt="logo">
+                            <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
+                                            style="height: 20%;"
+                                        >
+                                            Футболки
+                                        </div>
+                                    </v-expand-transition>
                         </router-link>
+                                                                                    </v-card>
+                        </v-hover>
                     </div>
                 </div>
             </div>

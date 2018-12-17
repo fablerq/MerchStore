@@ -44,7 +44,7 @@
       <th scope="col">user_id</th>
       <th scope="col">body</th>
       <th scope="col">product_id</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -54,7 +54,7 @@
       <td>{{ comment.user.email }}</td>
       <td>{{ comment.body }}</td>
       <td>{{ comment.product.title }}</td>
-      <td><a href="#" @click="showComment(comment.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showComment(comment.id)">Show</a></td> -->
       <td><a href="#" @click="deleteComment(comment.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -113,23 +113,24 @@ import { mapActions, mapGetters } from 'vuex'
                   });
                   //this.loadComments()
                   this.feedback = null
+                  this.$store.dispatch('LOAD_COMMENTS')
           },
-          showComment(id) {       
-                axios.get('/api/comments/' + id)
-                      .then(response => {
-                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.comments = this.comments.filter(comment => {
-                    return comment.id == id;
-                 });
-                })
-          },
+        //   showComment(id) {       
+        //         axios.get('/api/comments/' + id)
+        //               .then(response => {
+        //          alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.comments = this.comments.filter(comment => {
+        //             return comment.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteComment(id) {
                 axios.delete('/api/comments/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadComments()
+                this.$store.dispatch('LOAD_COMMENTS')
           }
       },
   }

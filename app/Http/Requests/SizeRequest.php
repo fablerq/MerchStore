@@ -24,13 +24,12 @@ class SizeRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:50|unique:sizes',
+            'title'       => 'required|max:50|unique:sizes',
             'description' => 'required|min:5|max:300',
         ];
     }
 
-
-        /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -38,12 +37,12 @@ class SizeRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Заглавие размера не может быть пустым',
-            'title.max' => 'Максимальная длина заглавия 50 символов',
-            'title.unique' => 'Размер с таким заглавием уже существует',
+            'title.required'        => 'Заглавие размера не может быть пустым',
+            'title.max'             => 'Максимальная длина заглавия 50 символов',
+            'title.unique'          => 'Размер с таким заглавием уже существует',
             'description.required'  => 'Описание размера не может быть пустым',
-            'description.min' => 'Минимальная длина описания размера 5 символов',
-            'description.max' => 'Максимальная длина описания размера 300 символов',
+            'description.min'       => 'Минимальная длина описания размера 5 символов',
+            'description.max'       => 'Максимальная длина описания размера 300 символов',
         ];
     }
 }

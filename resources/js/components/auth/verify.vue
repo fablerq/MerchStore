@@ -13,13 +13,19 @@
 
           <div class="title mb-3">Переходите в каталог и выбирайте нужный для Вас товар!</div>
 
-          <v-btn
-            class="mx-0"
-            color="primary"
-            large
-          >
-            Каталог
-          </v-btn>
+
+
+          <router-link class="menu-link" :to="{ name: 'catalog' }">
+                <v-btn
+                class="mx-0"
+                color="primary"
+                large
+                >
+                Каталог
+                </v-btn>
+         </router-link>
+          
+
         </v-flex>
       </v-layout>
     </v-container>

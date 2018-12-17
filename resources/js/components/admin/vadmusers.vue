@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="goodslist">
     <div class="container">

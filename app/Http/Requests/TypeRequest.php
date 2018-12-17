@@ -28,8 +28,7 @@ class TypeRequest extends FormRequest
         ];
     }
 
-
-     /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -38,10 +37,9 @@ class TypeRequest extends FormRequest
     {
         return [
             'title.required' => 'Заглавие типа не может быть пустым',
-            'title.min' => 'Минимальная длина заглавия 5 символов',
-            'title.max' => 'Максимальная длина заглавия 50 символов',
-            'title.unique' => 'Тип с таким заглавием уже существует',
+            'title.min'      => 'Минимальная длина заглавия 5 символов',
+            'title.max'      => 'Максимальная длина заглавия 50 символов',
+            'title.unique'   => 'Тип с таким заглавием уже существует',
         ];
     }
-
 }

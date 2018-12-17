@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Models\Order;
+use App\Http\Requests\UserRequest;
 use App\Models\Comment;
 use App\Models\FAQ;
-use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
-
     // public function register(Request $request) {
     //     $this->validate($request, [
     //         'email' => 'required|email|unique:users',
@@ -22,9 +20,7 @@ class UserController extends Controller
     //     ]);
     // }
 
-
-
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -32,7 +28,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')->get();
-        return response()->json($users, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($users, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -42,9 +39,7 @@ class UserController extends Controller
      */
     public function create()
     {
-
     }
-    
 
     /**
      * Store a newly created resource in storage.
@@ -55,11 +50,12 @@ class UserController extends Controller
     {
         $validated = $request->validated();
         User::create([
-            'login' => $validated['login'],
+            'login'    => $validated['login'],
             'password' => Hash::make($validated['password']),
-            'email' => $validated['email'],
-            'role_id' => $validated['role_id'],
+            'email'    => $validated['email'],
+            'role_id'  => $validated['role_id'],
         ]);
+
         return response()->json([
             'message' => 'Успешно добавлено! (я пришел с сервера)',
         ]);
@@ -68,19 +64,22 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         $user = User::with('role')->where('id', '=', $id)->get();
-        return response()->json($user, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($user, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
@@ -91,32 +90,32 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update($id)
     {
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
-        if(Order::where('user_id', $id)->first() || Comment::where('user_id', $id)->first() || FAQ::where('user_id', $id)->first()) {
+        if (Order::where('user_id', $id)->first() || Comment::where('user_id', $id)->first() || FAQ::where('user_id', $id)->first()) {
             return response()->json([
                 'message' => 'Пользователя номер '.$id.' не получилось удалить. Существует заказ, комент или ответ на вопрос от этого пользователя.',
             ]);
         }
         User::destroy($id);
+
         return response()->json([
             'message' => 'Юзер номер '.$id.' удален успешно (я пришел с сервера)',
         ]);
     }
-
-
 }

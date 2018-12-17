@@ -30,7 +30,7 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -38,7 +38,7 @@
     <tr v-for="type1 in types">
       <th>{{ type1.id }}</th>
       <td>{{ type1.title }}</td>
-      <td><a href="#" @click="showType(type1.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showType(type1.id)">Show</a></td> -->
       <td><a href="#" @click="deleteType(type1.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -87,25 +87,25 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadTypes()
+                  this.$store.dispatch('LOAD_TYPES')
                   this.feedback = null
           },
-          showType(id) {       
-                axios.get('/api/types/' + id)
-                      .then(response => {
-                alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.types = this.types.filter(type => {
-                    return type.id == id;
-                 });
-                })
-          },
+        //   showType(id) {       
+        //         axios.get('/api/types/' + id)
+        //               .then(response => {
+        //         alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.types = this.types.filter(type => {
+        //             return type.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteType(id) {
                 axios.delete('/api/types/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadTypes()
+                this.$store.dispatch('LOAD_TYPES')
           }
       },
   }

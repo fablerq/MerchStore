@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
@@ -16,7 +16,8 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::with('product', 'user')->get();
-        return response()->json($comments, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($comments, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -32,17 +33,19 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(CommentRequest $request)
     {
         $validated = $request->validated();
         Comment::create([
-            'user_id' => $validated['user_id'],
-            'body' => $validated['body'],
+            'user_id'    => $validated['user_id'],
+            'body'       => $validated['body'],
             'product_id' => $validated['product_id'],
         ]);
+
         return response()->json([
             'message' => 'Успешно добавлено! (я пришел с сервера)',
         ]);
@@ -51,19 +54,22 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param \App\Comment $comment
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $comment = Comment::with('product', 'user')->where('id', '=', $id)->get();
-        return response()->json($comment, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($comment, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param \App\Comment $comment
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Comment $comment)
@@ -74,8 +80,9 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Comment             $comment
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Comment $comment)
@@ -86,12 +93,14 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param \App\Comment $comment
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         Comment::destroy($id);
+
         return response()->json([
             'message' => 'Комментарий номер '.$id.' удален успешно (я пришел с сервера)',
         ]);

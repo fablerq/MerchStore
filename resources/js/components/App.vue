@@ -1,8 +1,8 @@
 <template>
-  <div>
-      <vheader/>
-       <router-view></router-view>
-     <vfooter/>
+  <div class="body">
+      <vheader></vheader>
+       <router-view class="content"></router-view>
+     <vfooter></vfooter>
   </div>
 </template>
 
@@ -70,6 +70,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-   
+  
+.body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 
+.content {
+  flex: 1;
+}
 </style>

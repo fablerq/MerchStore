@@ -17,6 +17,11 @@
                 <div v-if="submitted && errors.has('title')" class="invalid-feedback">{{ errors.first('title') }}</div>
             </div>
             <div class="form-group">
+                <label for="code">Code</label>
+                <input type="text" v-model="code" v-validate="{ required: true, max: 100, min: 3 }" name="code" class="form-control" :class="{ 'is-invalid': submitted && errors.has('code') }" />
+                <div v-if="submitted && errors.has('code')" class="invalid-feedback">{{ errors.first('code') }}</div>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-info">Add Color</button>
             </div>
         </form>
@@ -24,14 +29,15 @@
 
 <br>
 
-<h3>Таблица факультетов</h3>
+<h3>Таблица цветов</h3>
 
 <table class="table table-bordered">
   <thead>
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
-      <th scope="col">show</th>
+      <th scope="col">code</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -39,7 +45,8 @@
     <tr v-for="color in colors">
       <th>{{ color.id }}</th>
       <td>{{ color.title }}</td>
-      <td><a href="#" @click="showColor(color.id)">Show</a></td>
+      <td>{{ color.code }}</td>
+      <!-- <td><a href="#" @click="showColor(color.id)">Show</a></td> -->
       <td><a href="#" @click="deleteColor(color.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -57,6 +64,7 @@ import { mapActions, mapGetters } from 'vuex'
       data() {
           return {
              title: '',
+             code: '',
              feedback: '',
              submitted: false,
         }
@@ -81,32 +89,34 @@ import { mapActions, mapGetters } from 'vuex'
           addColor() {
               axios.post('/api/colors', { 
                   title: this.title, 
+                  code: this.code, 
                   })                    
                   .then(function (response) {
                         alert(response.data.message)
                   })
                   .catch(error => {
                       this.feedback = error.response.data.errors;
+                      console.log(error.response)
                   });
-                  //this.loadColors()
+                  this.$store.dispatch('LOAD_COLORS')
                   this.feedback = null
           },
-          showColor(id) {       
-                axios.get('/api/colors/' + id)
-                      .then(response => {
-                alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.colors = this.colors.filter(color => {
-                    return color.id == id;
-                 });
-                })
-          },
+        //   showColor(id) {       
+        //         axios.get('/api/colors/' + id)
+        //               .then(response => {
+        //         alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.colors = this.colors.filter(color => {
+        //             return color.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteColor(id) {
                 axios.delete('/api/colors/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadColors()
+                this.$store.dispatch('LOAD_COLORS')
           }
       },
   }

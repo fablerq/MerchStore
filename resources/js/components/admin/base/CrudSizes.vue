@@ -37,7 +37,7 @@
       <th scope="col">id</th>
       <th scope="col">title</th>
       <th scope="col">description</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -46,7 +46,7 @@
       <th>{{ size.id }}</th>
       <td>{{ size.title }}</td>
       <td>{{ size.description }}</td>
-      <td><a href="#" @click="showSize(size.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showSize(size.id)">Show</a></td> -->
       <td><a href="#" @click="deleteSize(size.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -97,25 +97,25 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadSizes()
+                  this.$store.dispatch('LOAD_SIZES')
                   this.feedback = null
           },
-          showSize(id) {       
-                axios.get('/api/sizes/' + id)
-                      .then(response => {
-                alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.sizes = this.sizes.filter(size => {
-                    return size.id == id;
-                 });
-                })
-          },
+        //   showSize(id) {       
+        //         axios.get('/api/sizes/' + id)
+        //               .then(response => {
+        //         alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.sizes = this.sizes.filter(size => {
+        //             return size.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteSize(id) {
                 axios.delete('/api/sizes/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadSizes()
+                this.$store.dispatch('LOAD_SIZES')
           }
       },
   }

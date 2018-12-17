@@ -92,28 +92,34 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                         <form @submit.prevent="handleSubmitAsk">
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                        <div class="form-group">
-                                        <label for="askername">Ваше имя</label>
-                                        <input type="text" v-model="askername" v-validate="{ required: false, max: 100, min: 3 }" name="askername" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('askername') }"/>
-                                        <div v-if="submittedAsk && errors.has('askername')" class="invalid-feedback">{{ errors.first('askername') }}</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="text" v-model="email" v-validate="{ required: true, email: true }" name="email" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('email') }"/>
-                                        <div v-if="submittedAsk && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
-                                    </div>
-                                    </div>
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
-                                        <div class="form-group">
-                                            <label for="question">Ваш вопрос</label>
-                                            <textarea type="text" rows="5" v-model="question" v-validate="{ required: true, max: 400, min: 20 }" name="question" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('question') }"></textarea>
-                                            <div v-if="submittedAsk && errors.has('question')" class="invalid-feedback">{{ errors.first('question') }}</div>
-                                        </div>
-                                    </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 feedback">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <h2>Отзывы</h2>
+                                </div>
+                            </div>
+                                    <v-form v-model="valid">
+                                        v-model="name"
+                                        :rules="nameRules"
+                                        :counter="10"
+                                        label="Name"
+                                        required
+                                        ></v-text-field>
+                                        <v-text-field
+                                        class="email"
+                                        v-model="email"
+                                        :rules="emailRules"
+                                        label="E-mail"
+                                        required
+                                        ></v-text-field>
+                                    </v-form>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+                                    <v-textarea
+                                    name="input-7-1"
+                                    value=""
+                                    hint="Hint text"
+                                    ></v-textarea>
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">

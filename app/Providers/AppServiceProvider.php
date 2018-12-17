@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Providers;
-use Validator;
-use Illuminate\Support\ServiceProvider;
+
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
+use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,11 +22,12 @@ class AppServiceProvider extends ServiceProvider
             if (in_array($type, $parameters)) {
                 return true;
             }
+
             return false;
         });
-    
-        Validator::replacer('image64', function($message, $attribute, $rule, $parameters) {
-            return str_replace(':values',join(",",$parameters),$message);
+
+        Validator::replacer('image64', function ($message, $attribute, $rule, $parameters) {
+            return str_replace(':values', implode(',', $parameters), $message);
         });
     }
 
@@ -36,6 +38,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-         //$this->app['request']->server->set('HTTPS', true);
+        //$this->app['request']->server->set('HTTPS', true);
     }
 }

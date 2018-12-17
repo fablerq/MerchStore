@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
-    public function product() {
+    public function product()
+    {
         return $this->hasMany('App\Models\Product');
     }
 
     protected $fillable = [
-        'title'
+        'title',
     ];
 
     public $timestamps = false;

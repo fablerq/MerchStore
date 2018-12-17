@@ -121,7 +121,7 @@ import { mapActions, mapGetters } from 'vuex'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadFAQs()
+                          this.$store.dispatch('LOAD_FAQS')
                   this.feedback = null
           },
 
@@ -130,7 +130,7 @@ import { mapActions, mapGetters } from 'vuex'
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadFAQs()
+                        this.$store.dispatch('LOAD_FAQS')
           }
       },
   }

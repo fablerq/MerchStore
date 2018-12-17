@@ -8,10 +8,10 @@ class FAQ extends Model
 {
     public function user()
     {
-      return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User');
     }
 
     protected $fillable = [
-      'askername', 'email', 'question', 'user_id', 'answer'
+      'askername', 'email', 'question', 'user_id', 'answer',
   ];
 }

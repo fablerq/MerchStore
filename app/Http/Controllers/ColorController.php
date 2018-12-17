@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ColorRequest;
 use App\Models\Color;
 use App\Models\ProductsVariants;
 use Illuminate\Http\Request;
-use App\Http\Requests\ColorRequest;
 
 class ColorController extends Controller
 {
@@ -17,7 +17,8 @@ class ColorController extends Controller
     public function index()
     {
         $colors = Color::all();
-        return response()->json($colors, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($colors, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -33,15 +34,19 @@ class ColorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(ColorRequest $request)
     {
         $validated = $request->validated();
+
         Color::create([
             'title' => $validated['title'],
+            'code'  => $validated['code'],
         ]);
+
         return response()->json([
             'message' => 'Успешно добавлено! (я пришел с сервера)',
         ]);
@@ -50,19 +55,22 @@ class ColorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Color  $color
+     * @param \App\Models\Color $color
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $color = Color::find($id);
-        return response()->json($color, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($color, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Color  $color
+     * @param \App\Models\Color $color
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Color $color)
@@ -73,8 +81,9 @@ class ColorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Color  $color
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Color        $color
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Color $color)
@@ -85,17 +94,19 @@ class ColorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Color  $color
+     * @param \App\Models\Color $color
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if(ProductsVariants::where('color_id', $id)->first()) {
+        if (ProductsVariants::where('color_id', $id)->first()) {
             return response()->json([
                 'message' => 'Цвет номер '.$id.' не получилось удалить. Существует товар с таким факультетом.',
             ]);
         }
         Color::destroy($id);
+
         return response()->json([
             'message' => 'Цвет номер '.$id.' удален успешно (я пришел с сервера)',
         ]);

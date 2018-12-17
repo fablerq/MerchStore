@@ -4,26 +4,26 @@
             <div class="container">
                 <div class="row">
                         <h4>Форма входа</h4>
-                        <form class="col" @submit.prevent="signin">
+
+                        <div class="alert alert-danger" v-if="feedback">
+                                    {{ feedback}}
+                                </div>
+
+                        <form class="col" @submit.prevent="handleSubmit">
                             <div class="form-group">
-                                <input type="text" name="login" v-model="login.login" placeholder="Ведите логин" class="form-control">
+                                <input type="text" name="login" v-model="login.login" placeholder="Введите логин" class="form-control" v-validate="{ required: true }" :class="{ 'is-invalid': submitted && errors.has('login') }">
+                                <div v-if="submitted && errors.has('login')" class="invalid-feedback">{{ errors.first('login') }}</div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="password" v-model="login.password" placeholder="Введите пароль" class="form-control">
-                            </div>
-                            <label for="networks">или вход через социальные сети</label>
-                            <div class="networks" id="networks">
-                                <a href="#"><img src="../../../imgs/google.png" alt=""></a>
-                                <a href="#"><img src="../../../imgs/facebook.png" alt=""></a>
-                                <a href="#"><img src="
-                                /../imgs/vk.png" alt=""></a>
+                                <input type="password" name="password" v-model="login.password" placeholder="Введите пароль" class="form-control" v-validate="{ required: true }" :class="{ 'is-invalid': submitted && errors.has('password') }">
+                                <div v-if="submitted && errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</div>
+
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Войти" class="btn btn-light btn-block">
                                 <router-link class="menu-link to-reg" :to="{ name: 'register' }">Вы ещё не с нами?</router-link>
                             </div>
                         </form>
-                        <input type="submit" value="Выйти" v-on:click="logout" class="btn btn-light btn-block">
                 </div>
             </div>
         </div>
@@ -32,7 +32,9 @@
 
 <script>
 import axios from 'axios' 
+
 import { mapActions, mapGetters } from 'vuex'
+
 
 export default {
     name: 'vsignin',
@@ -41,31 +43,34 @@ export default {
             login: {
                 login: '',
                 password: '',
-            }
+            },
+            feedback: '',
+            submitted: false,
         }
     },
     methods: {
+        handleSubmit(e) {
+            this.submitted = true;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                    this.signin()
+                }
+            });
+        },
         signin() {
             axios.post('/api/login', { login: this.login.login, password: this.login.password })
             .then(response=> {
-                console.log(response);
-                //this.$store.dispatch('LOAD_CURRENTUSER', response.data.userdata);
-                //store.commit('increment');
+                if (response.data.error) {
+                    console.log(response.data.error)
+                    this.feedback = response.data.error;
+                } else {
+                    console.log(response.data)
+                    this.$store.commit('SET_CURRENTUSER', response.data.userdata);
+                    this.$router.push('successlog') 
+                }
             })
-            .catch(error=> {
-                console.log(error.response)
-            })
-            //console.log('юзер: ', this.$store.state.currentUser)
+            this.feedback = null
         },
-        logout() {
-            axios.post('/api/getuser')
-            .then(response=> {
-                console.log(response);
-            })
-            .catch(error=> {
-                console.log(error.response)
-            })
-        }
     }
 }
 </script>
