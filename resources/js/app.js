@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 Vue.use(Vuetify, {
   iconfont: 'fa',
   icons: {
