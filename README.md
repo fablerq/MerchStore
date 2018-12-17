@@ -1,7 +1,8 @@
 # MerchStore
 [![Build Status](https://travis-ci.org/fablerq/MerchStore.svg)](https://travis-ci.org/fablerq/MerchStore)
 [![StyleCI](https://github.styleci.io/repos/159022107/shield?branch=master)](https://github.styleci.io/repos/159022107)
-## STILL IN DEVELOPMENT STAGE, NOT READY
+### Warning: no middlewares (due to little api/token trouble)
+### There are a lot of bugs inside, not release version...
 ## Description
 Singlepage app build with Vuejs on frontend and Laravel on backend. Data is collected with backend API from Postgres database on Heroku. We are also using Travis CI for continuous integration and deployment to our hosting
 ## Features 
