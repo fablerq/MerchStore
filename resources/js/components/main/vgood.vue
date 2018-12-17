@@ -121,14 +121,16 @@
                                     hint="Hint text"
                                     ></v-textarea>
                                 </div>
-                            </div>
-
-                            <div class="row justify-content-center">
+                                <div class="row justify-content-center">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                        <v-btn block small color="orange lighten-2" dark>Отправить</v-btn>
+                                        <div class="form-group">
+                                            <v-btn type="submit" block small color="orange lighten-2" dark>Отправить</v-btn>
+                                        </div>
                                     </div>
                                 </div> 
-                            </div>
+                            </form>
+                        </div>
+                    </div>
 
                             <div class="row comment" v-for="comment in comments" :key="comment.id">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
@@ -147,7 +149,6 @@
                     </div>
                 </div>
             </div>
-        </div>
 </template>
 
 <script>
@@ -225,7 +226,7 @@ export default {
 <style lang="scss" scoped>
     .discription {
         background: #e2e2e2;
-        margin: 20px 15px 0;
+        margin: 20px 15px 20px;
         padding: 10px;
         border-left: 5px solid #212121;
     }

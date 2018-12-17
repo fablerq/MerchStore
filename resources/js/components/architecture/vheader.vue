@@ -2,7 +2,9 @@
     <header>
        
             <v-toolbar class="navigashka"  type="light" height="100px">
-                    <v-toolbar-side-icon @click.stop="drawer = !drawer" class="botton"></v-toolbar-side-icon>
+                    <v-toolbar-side-icon @click.stop="drawer = !drawer" class="botton">
+                        <img class="burger" src="../../../imgs/menu.png" alt="">
+                    </v-toolbar-side-icon>
     
                     <v-toolbar-title>
                         <div class="menu-link" :to="{ name: 'main' }">
@@ -15,7 +17,6 @@
                     <v-spacer></v-spacer>
 
                     <v-toolbar-items class="hidden-sm-and-down">
-                        
                     <v-btn flat class="nav-item">
                             <router-link class="menu-link" :to="{ name: 'catalog' }">
                                 <div class="flexer">
@@ -41,6 +42,7 @@
                                 </div>
                             </router-link>
                     </v-btn>
+
                     <v-btn flat class="nav-item" v-if="!currentuser">
                             <router-link class="menu-link" :to="{ name: 'login' }">
                                 <div class="flexer">
@@ -49,15 +51,16 @@
                                 </div>   
                             </router-link>
                     </v-btn>
+                    
                      <v-btn flat class="nav-item">
                          <router-link class="menu-link" :to="{ name: 'card' }">
                                 <div class="flexer">
-                                    <img class="nav-img" src="../../../imgs/card.png" alt="card">
-                                    Корзина
+                                    <img class="nav-img" src="../../../imgs/card.png" alt="cart">
+                                    Корзина ({{addsCount}})
                                 </div>
                             </router-link>
                     </v-btn>
-                    </v-toolbar-items>
+                </v-toolbar-items>
 
             </v-toolbar>
       
@@ -112,7 +115,7 @@
             <router-link class="menu-link" :to="{ name: 'card' }">
                 <div class="flexer">
                     <img class="nav-img" src="../../../imgs/card.png" alt="card">
-                    Корзина
+                    Корзина {{addsCount}}
                 </div>
             </router-link>
         </v-list-tile>
@@ -123,6 +126,9 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -133,20 +139,30 @@ export default {
         items: [
           { title: 'Home', icon: 'dashboard' },
           { title: 'About', icon: 'question_answer' }
-        ]
+        ],
       }
     },
-    computed: {
-       ...mapGetters({
-        currentuser: 'GET_CURRENTUSER',
-       })
-  },
+
+    computed: { 
+        ...mapGetters({ 
+            adds: 'GET_ADDS',
+            currentuser: 'GET_CURRENTUSER',
+        }),
+        addsCount () {
+            return this.$store.getters.GET_ADDSCOUNT
+        }
+    },
+
 }
 </script>
 
 <style lang="scss" scoped>
     header {
         width: 100%;
+
+        .burger {
+            width: 100%;
+        }
     }
     .navigashka {
         background: #fff;
@@ -172,14 +188,19 @@ export default {
         }
     }
     .nav-item {
-        width: 22%;
+        width: 21%;
     }
     .nav-item.profile {
         width: 33%;
     }
 
+    .nav-item.cart {
+        width: 25%;
+
+
     .hidden-sm-and-down {
         width: 60%;
+
     }
     .sidebar-item {
         .flexer {

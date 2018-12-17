@@ -17,6 +17,7 @@
                             <div class="form-group">
                                 <input type="password" name="password" v-model="login.password" placeholder="Введите пароль" class="form-control" v-validate="{ required: true }" :class="{ 'is-invalid': submitted && errors.has('password') }">
                                 <div v-if="submitted && errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</div>
+
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Войти" class="btn btn-light btn-block">
@@ -31,6 +32,9 @@
 
 <script>
 import axios from 'axios' 
+
+import { mapActions, mapGetters } from 'vuex'
+
 
 export default {
     name: 'vsignin',

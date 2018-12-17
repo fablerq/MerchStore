@@ -182,6 +182,9 @@ export default new Vuex.Store({
     GET_PRODUCTS(state) {
         return state.products
     },
+    GET_PRODUCTSCOUNT: (state, getters) => {
+        return getters.GET_PRODUCTS.length;
+    },
     GET_FACULTIES(state) {
         return state.faculties
     },
@@ -212,5 +215,8 @@ export default new Vuex.Store({
     GET_ADDS(state) {
         return state.adds
     },
+    GET_ADDSCOUNT: (state, getters) => {
+        return getters.GET_ADDS.length;
+    }
   }
 })

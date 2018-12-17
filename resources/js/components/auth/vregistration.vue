@@ -21,6 +21,7 @@
                                 <div v-if="submitted && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
                             </div>
                             <div class="form-group">
+
                                 <input type="password" name="password" v-model="register.password" placeholder="Пароль" class="form-control" v-validate="{ required: true, min: 7 }" :class="{ 'is-invalid': submitted && errors.has('password') }" >
                                 <div v-if="submitted && errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</div>
                             </div>
