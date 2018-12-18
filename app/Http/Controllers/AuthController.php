@@ -76,44 +76,12 @@ class AuthController extends Controller
         return response()->json(['error'=> 'Такого проверочного кода не существует.']);
     }
 
-    /**
-     * API Recover Password.
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function recover(Request $request)
-    {
-        $user = User::where('email', $request->email)->first();
-        if (!$user) {
-            $error_message = 'Your email address was not found.';
-
-            return response()->json(['success' => false, 'error' => ['email'=> $error_message]], 401);
-        }
-
-        try {
-            Password::sendResetLink($request->only('email'), function (Message $message) {
-                $message->subject('Your Password Reset Link');
-            });
-        } catch (\Exception $e) {
-            //Return with error
-            $error_message = $e->getMessage();
-
-            return response()->json(['success' => false, 'error' => $error_message], 401);
-        }
-
-        return response()->json([
-            'success' => true, 'data'=> ['message'=> 'A reset email has been sent! Please check your email.'],
-        ]);
-    }
-
-    public function getuser(Request $request)
+    public function getuser()
     {
         if (Auth::guest()) {
             return response()->json(['userdata'=> 'никто не в системе']);
         }
-        $currentuserid = Auth::user()->role_id;
+        $currentuserid = Auth::user();
 
         return response()->json(['userdata'=> $currentuserid]);
     }
@@ -125,7 +93,7 @@ class AuthController extends Controller
         if (Auth::attempt($validated, true)) {
             $user = Auth::user();
             $user->makeVisible(['remember_token']);
-
+            Auth::login($user);
             return response()->json(['message'=> 'работает', 'userdata' => $user]);
         } else {
             return response()->json(['error'=> 'Не правильный логин или пароль']);
@@ -136,7 +104,6 @@ class AuthController extends Controller
     {
         if (Auth::user()) {
             Auth::logout();
-
             return response()->json(['error'=> 'Вышли успешно']);
         } else {
             return response()->json(['error'=> 'Чтобы разлогиниться надо сначала авторизироваться']);

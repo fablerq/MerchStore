@@ -7,15 +7,15 @@
                     <div class="hoodys">
                                                                                 <v-hover>
                             <v-card slot-scope="{ hover }">
-                        <router-link class="menu-link" :to="{ name: 'main' }">
+                        <router-link class="menu-link" :to="{ path: '/catalog/filter/1' }">
                             <img  class="" src="../../../imgs/hoody.jpg" alt="logo">
-                                                                <v-expand-transition>
+                                     <v-expand-transition>
                                         <div
                                             v-if="hover"
                                             class="d-flex transition-fast-in-fast-out grey lighten-3 v-card--reveal"
                                             style="height: 20%;"
                                         >
-                                            Канцелярия
+                                            Толстовки
                                         </div>
                                     </v-expand-transition>
                         </router-link>
@@ -29,7 +29,7 @@
                             <div class="pins">
                                                         <v-hover>
                             <v-card slot-scope="{ hover }">
-                                <router-link class="menu-link" :to="{ name: 'main' }">
+                                <router-link class="menu-link" :to="{ path: '/catalog/filter/4' }">
                             <img  class="" src="../../../imgs/stickers.png" alt="logo">
                             <v-expand-transition>
                                         <div
@@ -49,7 +49,7 @@
                             <div class="stickers">
                                                                                         <v-hover>
                             <v-card slot-scope="{ hover }">
-                                <router-link class="menu-link" :to="{ name: 'main' }">
+                                <router-link class="menu-link" :to="{ path: '/catalog/filter/6' }">
                             <img  class="" src="../../../imgs/badge.png" alt="logo">
                                                                 <v-expand-transition>
                                         <div
@@ -72,7 +72,7 @@
                     <div class="stationery">
                         <v-hover>
                             <v-card slot-scope="{ hover }">
-                                <router-link class="menu-link" :to="{ name: 'main' }">
+                                <router-link class="menu-link" :to="{ path: '/catalog/filter/7' }">
                                     <img  class="" src="../../../imgs/cans.jpg" alt="logo">
                                     <v-expand-transition>
                                         <div
@@ -92,7 +92,7 @@
                     <div class="backpacks">
                             <v-hover>
                                <v-card slot-scope="{ hover }">
-                                <router-link class="menu-link" :to="{ name: 'main' }">
+                                <router-link class="menu-link" :to="{ path: '/catalog/filter/11' }">
                                     <img  class="" src="../../../imgs/backpack.jpg" alt="logo">
                                     <v-expand-transition>
                                         <div
@@ -112,7 +112,7 @@
                     <div class="tees">
                                                     <v-hover>
                                <v-card slot-scope="{ hover }">
-                        <router-link class="menu-link" :to="{ name: 'main' }">
+                        <router-link class="menu-link" :to="{ path: '/catalog/filter/2' }">
                             <img  class="" src="../../../imgs/tees.jpg" alt="logo">
                             <v-expand-transition>
                                         <div
@@ -136,7 +136,7 @@
 
 <script>
 //components
-import vsearch from '../main/vsearch.vue'
+import vsearch from '../productlayout/vsearch.vue'
 import vcharts from '../main/vcharts.vue'
 import vflypage from '../architecture/vflypage.vue'
 

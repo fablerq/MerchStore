@@ -22,6 +22,8 @@ export default new Vuex.Store({
      paymentmethods: [],
      photos: [],
      products: [],
+     productsfilter: [],
+     paginateproducts: [],
      productsvariants: [],
      sizes: [],
      statuses: [],
@@ -53,12 +55,30 @@ export default new Vuex.Store({
             commit('SET_COMMENTS', response.data)
             })
     },
+
+    //products
     LOAD_PRODUCTS({ commit }) {
         axios.get('/api/products')
             .then(response => {
             commit('SET_PRODUCTS', response.data)
             })
     },
+    LOAD_PRODUCTSCOUNT({ commit }, { type, activefaculty }) {
+        axios.post('/api/productscount/' + type + '/' + activefaculty)                    
+            .then(response => {
+              commit('SET_PRODUCTSCOUNT', response.data)
+        })
+    },
+    LOAD_PAGINATEPRODUCTS({ commit }, { page, type, activefaculty }) {
+        axios.post('/api/paginateproducts/' + page + '/' + type + '/' + activefaculty)                    
+            .then(response => {
+                console.log(page + ' rtr' + type + 'wfe' + activefaculty)
+                console.log(response.data)
+              commit('SET_PAGINATEPRODUCTS', response.data)
+        })
+    },
+
+
     LOAD_FACULTIES({ commit }) {
         axios.get('/api/faculties')
             .then(response => {
@@ -141,9 +161,19 @@ export default new Vuex.Store({
     SET_COMMENTS (state, comments) {
         state.comments = comments
     },
+
+    //products
     SET_PRODUCTS (state, products) {
         state.products = products
     },
+    SET_PRODUCTSCOUNT (state, productsfilter) {
+        state.productsfilter = productsfilter
+    },
+    SET_PAGINATEPRODUCTS (state, paginateproducts) {
+        state.paginateproducts = paginateproducts
+    },
+
+
     SET_FACULTIES (state, faculties) {
         state.faculties = faculties
     },
@@ -197,11 +227,26 @@ export default new Vuex.Store({
     GET_COMMENTS(state) {
         return state.comments
     },
+
+    //products
     GET_PRODUCTS(state) {
         return state.products
     },
-    GET_PRODUCTSCOUNT: (state, getters) => {
-        return getters.GET_PRODUCTS.length;
+
+    GET_PRODUCTSCOUNT(state) {
+        return state.productsfilter
+    },
+
+    GET_PAGINATEPRODUCTS(state) {
+        return state.paginateproducts
+    },
+    
+    // GET_PAGINATEPRODUCTS_LENGTH: (state, getters) => {
+    //     return getters.GET_PAGINATEPRODUCTS.length;
+    // },
+
+    GET_PRODUCTSCOUNT2: (state, getters) => {
+        return getters.GET_PRODUCTSCOUNT.length;
     },
     GET_FACULTIES(state) {
         return state.faculties

@@ -69,6 +69,9 @@ export default {
                     this.$router.push('successlog') 
                 }
             })
+            .catch(error => {
+                console.log(error.response)
+            })
             this.feedback = null
         },
     }

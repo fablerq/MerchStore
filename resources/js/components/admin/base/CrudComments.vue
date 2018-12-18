@@ -35,7 +35,7 @@
 
 <br>
 
-<h3>Таблица товаров</h3>
+<h3>Таблица комментариев</h3>
 
 <table class="table table-bordered">
   <thead>

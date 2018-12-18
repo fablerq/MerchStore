@@ -5,11 +5,12 @@ Vue.use(VueRouter);
 
 //routers
 import main from './components/main/vproducts.vue'
-import catalog from './components/main/vlisting.vue'
+import catalog from './components/productlayout/vlisting.vue'
+import catalogclear from './components/productlayout/vlistingclear.vue'
 import contacts from './components/main/vcontacts.vue'
 import card from './components/main/vcard.vue'
 import faq from './components/main/vfaq.vue'
-import good from './components/main/vgood.vue'
+import good from './components/productlayout/vgood.vue'
 import lkorders from './components/lk/vlkorders.vue'
 import lkfavorites from './components/lk/vlkfavorites.vue'
 import lkdata from './components/lk/vlkdata.vue'
@@ -26,18 +27,36 @@ import verify from './components/auth/verify.vue'
 import successreg from './components/auth/successreg.vue'
 import successlog from './components/auth/successlog.vue'
 
+import productlayout from './components/productlayout/productlayout.vue'
+
 const routes = [
       { path: '/404', component: error404 },
-      { path: '*', redirect: '/404' },  
+      //{ path: '*', redirect: '/404' },  
       {
         path: '/',
         name: 'main',
         component: main,
       },
       {
-        path: '/catalog',
-        name: 'catalog',
-        component: catalog,
+        path: '/catalog/',
+        component: productlayout,
+        children: [
+          {
+            path: '',
+            name: 'catalog',
+            component: catalogclear,
+          },
+          {
+            path: '/catalog/filter/:id',
+            name: 'catalogid',
+            component: catalog,
+          },
+          {
+            path: '/catalog/good/:id',
+            name: 'good',
+            component: good,
+          },
+        ]
       },
       {
         path: '/contacts',
@@ -53,11 +72,6 @@ const routes = [
         path: '/faq',
         name: 'faq',
         component: faq,
-      },
-      {
-        path: '/catalog/good/:id',
-        name: 'good',
-        component: good,
       },
       {
         path: '/lk/orders',

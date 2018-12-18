@@ -1,11 +1,11 @@
 <template>
     <div class="good">
-        <vsearch/>
-        <div class="container">
+        
+       
             
-            <div class="row">
-                <vsidebar/>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+           
+               
+              
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
                             <img class="good-img" src="../../../imgs/tee.png" alt="">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 info-block">
                             <div class="name">
-                                "{{product_title}}""
+                                "{{product_title}}"
                                 <v-chip class="type" outline color="orange lighten-2" small disabled>{{product_type}}</v-chip>
                             </div>
                             
@@ -125,8 +125,8 @@
 
                         </div> 
                    </div>
-            </div>
-    </div>
+            
+    
 
 
             <div class="row comment" v-for="comment in comments" :key="comment.id" v-if="comment.product_id == $route.params.id">
@@ -141,7 +141,7 @@
                         <p class="commentBody">{{comment.body}}</p>
                     </div>
             </div>
-                    </div>
+                    
                 </div>
             
 </template>

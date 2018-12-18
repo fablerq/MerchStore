@@ -1,7 +1,7 @@
 <template>
   <div class="body">
       <vheader></vheader>
-       <router-view class="content"></router-view>
+       <router-view class="content" :key="$route.fullPath"></router-view>
      <vfooter></vfooter>
   </div>
 </template>
@@ -13,13 +13,13 @@ import vfooter from './architecture/vfooter.vue'
 import vflypage from './architecture/vflypage.vue'
 
 //Main
-import vsidebar from './main/vsidebar.vue'
-import vsearch from './main/vsearch.vue'
+import vsidebar from './productlayout/vsidebar.vue'
+import vsearch from './productlayout/vsearch.vue'
 import vproducts from './main/vproducts.vue'
 import vcharts from './main/vcharts.vue'
-import vlisting from './main/vlisting.vue'
+import vlisting from './productlayout/vlisting.vue'
 import vcard from './main/vcard.vue'
-import vgood from './main/vgood.vue'
+import vgood from './productlayout/vgood.vue'
 import vregistration from './auth/vregistration.vue'
 import vsignin from './auth/vsignin.vue'
 import vcontacts from './main/vcontacts.vue'
@@ -38,6 +38,8 @@ import vlksidebar from './lk/vlksidebar.vue'
 import vlkorders from './lk/vlkorders.vue'
 import vlkfavorites from './lk/vlkfavorites.vue'
 import vlkdata from './lk/vlkdata.vue'
+
+import vproductlayout from './productlayout/productlayout.vue'
 
 export default {
   components: {
@@ -65,6 +67,7 @@ export default {
     vregistration,
     vsignin,
     vcontacts,
+    vproductlayout
 	}
 }
 </script>

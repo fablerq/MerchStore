@@ -1,7 +1,7 @@
 <template>
  
       <v-card class="flypage">
-          <router-link class="menu-link" :price="price" :to="{ path: 'catalog/good/' + product_id}">
+          <router-link class="menu-link" :price="price" :to="{ path: '/catalog/good/' + product_id}">
         <v-img
             class="item-img"
           :src="require('../../../imgs/flypage.png')"
