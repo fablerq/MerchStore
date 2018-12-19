@@ -23,7 +23,3 @@ Route::get('/{vue_capture?}', function () {
 })->where('vue_capture', '[\/\w\.-]*');
 
 Route::post('user/verify/{verification_code}', 'AuthController@verifyUser');
-
-
-
-

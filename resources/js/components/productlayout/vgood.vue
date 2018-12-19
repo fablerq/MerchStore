@@ -74,7 +74,7 @@
                                             <img class="sizes" src="../../../imgs/size-table.png" alt="">
                                         </v-card>
                                 </v-dialog>
-                                <v-btn  v-on:click="adds.push(product)" color="orange lighten-2" block dark>Добавить в корзину</v-btn>
+                                <v-btn  v-on:click="addToCart" color="orange lighten-2" block dark>Добавить в корзину</v-btn>
                                 <v-btn v-on:click="addtoFav()" class="fav" flat  color="pink"><v-icon>favorite</v-icon>Добавить в избранное</v-btn>
                             </div>
                         </div>
@@ -149,7 +149,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 //database
 import axios from 'axios'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters} from 'vuex'
 
 export default {
     name: 'vgood',
@@ -185,6 +185,7 @@ export default {
 
     mounted: function () { 
         this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_PRODUCTSVARIANTS')
         this.$store.dispatch('LOAD_COLORS') 
         this.$store.dispatch('LOAD_SIZES') 
         this.$store.dispatch('LOAD_COMMENTS') 
@@ -209,6 +210,7 @@ export default {
         ...mapGetters({ 
         currentuser: 'GET_CURRENTUSER',
         products: 'GET_PRODUCTS',
+        productsvariants: 'GET_PRODUCTSVARIANTS',
         colors: 'GET_COLORS',
         sizes: 'GET_SIZES',
         comments: 'GET_COMMENTS',
@@ -231,6 +233,21 @@ export default {
                 alert('Авторизируйтесь чтобы добавить комент')
             }
           },
+
+        addToCart() {
+            var quantity = 0;
+            var product_id_check = this.product.id
+            this.adds.forEach(function(add) {
+                if (product_id_check === add.id) {
+                    quantity++;
+                }
+            });
+            if(quantity===0){
+                this.adds.push(this.product);
+                quantity = 0;
+            }
+        },
+
         addComment() {
               axios.post('/api/comments', { 
                     user_id: this.currentuser.id,

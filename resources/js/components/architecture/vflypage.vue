@@ -17,13 +17,17 @@
 
         <v-card-actions class="item-navbar">
           <h1>{{price}}р</h1>
-          <v-btn class="fav" flat icon color="pink">
-            <v-icon>favorite</v-icon>
-            
-          </v-btn>
-          <v-btn class="add"  v-on:click="adds.push(product)" outline fab color="orange">
-      <font-awesome-icon class="cart" :icon="['fas', 'cart-plus']" size="lg"/>
-    </v-btn>
+          <div class="btns">
+            <v-btn class="fav" flat icon color="pink">
+              <v-icon>favorite</v-icon>
+            </v-btn>
+            <div class="availability">
+              В наличии
+            </div>
+            <!--for better times <v-btn class="add"  v-on:click="adds.push(product)" outline fab color="orange">
+              <font-awesome-icon class="cart" :icon="['fas', 'cart-plus']" size="lg"/>
+            </v-btn>-->
+          </div>
         </v-card-actions>
       </v-card>
    
@@ -48,13 +52,6 @@ export default {
         types: 'GET_TYPES',
         adds: 'GET_ADDS'
         }),
-        /*GetTypeById: function () {
-          for (let type in this.types) {
-            console.log(this.type)
-            if (this.type_id === this.type.id)
-            return this.type.title;
-          }
-       }*/
     },
     methods: {
       ...mapMutations([
@@ -82,16 +79,23 @@ export default {
 }
 .item-navbar{
     margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+
     .item-img {
         width: 100%;
     }
-    .fav{
-        margin-left: 20%;
-        outline: none;
-    }
-    .add{
-        margin-left: 5px;
-        outline: none;
+
+    .availability {
+      display: inline-block;
+      color: #4CAF50;
+      padding: 2px 5px;
+      /*
+      border: 1px solid #4CAF50;
+      border-radius: 3px;
+      */
+      text-align: center;
+      vertical-align: middle;
     }
 }
 </style>

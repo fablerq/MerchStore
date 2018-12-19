@@ -10,7 +10,6 @@ Vue.use(VueAxios, axios)
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
-     currentUser: null,
      users: [],
      roles: [],
      colors: [],
@@ -151,9 +150,6 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    SET_CURRENTUSER (state, user) {
-        state.currentUser = user
-    },
     SET_USERS (state, users) {
         state.users = users
     },
@@ -220,9 +216,6 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    GET_CURRENTUSER (state) {
-        return state.currentUser
-    },
     GET_USERS(state) {
         return state.users
     },
@@ -298,6 +291,6 @@ export default new Vuex.Store({
     },
     GET_ADDSCOUNT: (state, getters) => {
         return getters.GET_ADDS.length;
-    }
+    },
   }
 })
