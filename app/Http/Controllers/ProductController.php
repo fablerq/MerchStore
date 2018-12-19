@@ -28,13 +28,13 @@ class ProductController extends Controller
         return response()->json($products, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
-    public function productscount($typeid, $facultyid) 
+    public function productscount($typeid, $facultyid)
     {
         //проверка, нужен ли фильтр на тип?
         if ($typeid == 0 && $facultyid == 0) {
             $products = Product::all();
         } else {
-                if ($typeid == 0) {
+            if ($typeid == 0) {
                 $products = Product::where('faculty_id', '=', $facultyid)->get();
             } else {
                 if ($facultyid == 0) {
@@ -45,48 +45,45 @@ class ProductController extends Controller
                     }
                 } else {
                     $products = Product::where('type_id', '=', $typeid)->where('faculty_id', '=', $facultyid)->get();
-                }   
+                }
             }
-        } 
+        }
 
         return response()->json($products, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
+    // //отдаем пользователю нужные данные по странице в пагинации, типу и факу продукта
+    public function paginate($count, $typeid, $facultyid)
+    {
+        $count = $count - 1;
 
- 
+        // return response()->json([
+        //     'count' => $count,
+        //     'typeid' => $typeid,
+        //     'facultyid' => $facultyid,
+        // ]);
 
-
-        // //отдаем пользователю нужные данные по странице в пагинации, типу и факу продукта
-        public function paginate($count, $typeid, $facultyid)
-        {
-            $count = $count - 1;
-            
-            // return response()->json([
-            //     'count' => $count,
-            //     'typeid' => $typeid,
-            //     'facultyid' => $facultyid,
-            // ]);
-    
-            //проверка, нужен ли фильтр на тип?
-            if ($typeid == 0 && $facultyid == 0) {
-                $products = Product::offset($count * 6)->limit(6)->get();
+        //проверка, нужен ли фильтр на тип?
+        if ($typeid == 0 && $facultyid == 0) {
+            $products = Product::offset($count * 6)->limit(6)->get();
+        } else {
+            if ($typeid == 0) {
+                $products = Product::where('faculty_id', '=', $facultyid)->offset($count * 6)->limit(6)->get();
             } else {
-                 if ($typeid == 0) {
-                    $products = Product::where('faculty_id', '=', $facultyid)->offset($count * 6)->limit(6)->get();
+                if ($facultyid == 0) {
+                    $products = Product::where('type_id', '=', $typeid)->offset($count * 6)->limit(6)->get();
+                    //Проверка, если выбрали тип other
+                    if (!$products) {
+                        $products = Product::where('type_id', '>', 11)->offset($count * 6)->limit(6)->get();
+                    }
                 } else {
-                    if ($facultyid == 0) {
-                        $products = Product::where('type_id', '=', $typeid)->offset($count * 6)->limit(6)->get();
-                        //Проверка, если выбрали тип other
-                        if (!$products) {
-                            $products = Product::where('type_id', '>', 11)->offset($count * 6)->limit(6)->get();
-                        }
-                    } else {
-                        $products = Product::where('type_id', '=', $typeid)->where('faculty_id', '=', $facultyid)->offset($count * 6)->limit(6)->get();
-                    }   
+                    $products = Product::where('type_id', '=', $typeid)->where('faculty_id', '=', $facultyid)->offset($count * 6)->limit(6)->get();
                 }
-            }       
-            return response()->json($products, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
+            }
         }
+
+        return response()->json($products, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
+    }
 
     /**
      * Show the form for creating a new resource.

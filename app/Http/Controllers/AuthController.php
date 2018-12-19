@@ -94,6 +94,7 @@ class AuthController extends Controller
             $user = Auth::user();
             $user->makeVisible(['remember_token']);
             Auth::login($user);
+
             return response()->json(['message'=> 'работает', 'userdata' => $user]);
         } else {
             return response()->json(['error'=> 'Не правильный логин или пароль']);
@@ -104,6 +105,7 @@ class AuthController extends Controller
     {
         if (Auth::user()) {
             Auth::logout();
+
             return response()->json(['error'=> 'Вышли успешно']);
         } else {
             return response()->json(['error'=> 'Чтобы разлогиниться надо сначала авторизироваться']);

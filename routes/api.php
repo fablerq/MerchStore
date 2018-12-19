@@ -47,8 +47,6 @@ Route::resource('faculties', 'FacultyController', [
     'except' => ['edit'],
   ]);
 
-
-
 Route::resource('photos', 'PhotoController', [
     'except' => ['edit'],
   ]);
