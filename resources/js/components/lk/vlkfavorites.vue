@@ -14,6 +14,8 @@
                 </div>
           </div>
 
+<p>Функционал избранных готов в админке, сюда еще предстоит добавить</p>
+
           <div class="row favorites align-items-center">
                 <div class="col-10 col-sm-10 col-md-10 col-lg-4 col-xl-4"> 
                    <div class="favorite-card">

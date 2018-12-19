@@ -5,43 +5,25 @@
         <vlksidebar/>
         <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
             <div class="row active">
-                <h3>Активные заказы</h3>
-                <table class="table order">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Заказ №10 от 27.11.18</th>
-                            <th scope="col">1200 р.</th>
-                            <th scope="col">ожидает оплаты</th>
-                            <th scope="col"><button type="button" class="btn btn-dark btn-sm btn-block change-btn">Повторить</button></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Футболка “ИСиТ”</td>
-                            <td>500 р</td>
-                            <td colspan="2">количество: 1</td>
-                        </tr>
-                        <tr>
-                            <td>Свитшот “Мощь”</td>
-                            <td>700р</td>
-                            <td colspan="2">количество: 1</td>
-                        </tr>
-                        <tr>
-                            <td class="table-active" colspan="4">Онлайн-оплата</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+               
+                                <h3>Заказы</h3>
 
-            <div class="row done">
-                <h3>Завершенные заказы</h3>
+
+          <!-- <ul class="form-group" v-for="order in ordersforuser"> 
+            <li>
+                {{ order.id }}
+            </li>
+          </ul>  -->
+
+
+
                 <table class="table order">
                     <thead class="table-success">
                         <tr>
-                            <th scope="col">Заказ №11 от 27.10.18</th>
+                            <!-- <th scope="col">Заказ №{{order.id}} от {{order.created_at}}</th> -->
+                            <th scope="col">Заказ № от </th>
                             <th scope="col">1200 р.</th>
-                            <th scope="col">успешная оплата</th>
-                            <th scope="col"><button type="button" class="btn btn-dark btn-sm btn-block change-btn">Повторить</button></th>
+                            <th scope="col">ожидает оплаты</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,8 +42,11 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
 
+                                <br>
+<p>Функционал заказов готов в админке, сюда еще предстоит добавить. Сверху статик поле</p>
+
+            </div>
         </div>
       </div>
     </div>
@@ -69,11 +54,37 @@
 </template>
 
 <script>
+import axios from 'axios' 
 import vlksidebar from './vlksidebar.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'vlkorders',
-  components: {vlksidebar}
+  components: {vlksidebar},
+  data() {
+      return {
+           ordersforuser: [],
+        }
+      },
+    computed: {
+       ...mapGetters({
+        currentuser: 'GET_CURRENTUSER',
+        orders: 'GET_ORDERS',
+       }),
+       getorders() {
+            axios.get('/api/showforuser' + currentuser.id)                    
+                  .then(function (response) {
+                        this.ordersforuser = response.data
+                        console.log(this.ordersforuser)       
+                        console.log('wefwe')   
+                  })
+       }
+  },
+  methods: {
+      kek() {
+          console.log(this.orders) 
+      }
+  }
 }
 
 </script>

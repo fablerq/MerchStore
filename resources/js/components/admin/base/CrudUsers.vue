@@ -49,7 +49,8 @@
       <th scope="col">password</th>
       <th scope="col">email</th>
       <th scope="col">role_id</th>
-      <th scope="col">show</th>
+      <th scope="col">is_verified</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -57,10 +58,13 @@
     <tr v-for="user in users">
       <th>{{ user.id }}</th>
       <td>{{ user.login }}</td>
-      <td>{{ user.password }}</td>
+      <!-- <td>{{ user.password }}</td> -->
+      <td>too long hash</td>
       <td>{{ user.email }}</td>
       <td>{{ user.role.title }}</td>
-      <td><a href="#" @click="showUser(user.id)">Show</a></td>
+      <td v-if="user.is_verified == 0">Не подтвержден</td>
+      <td v-if="user.is_verified == 1">Подтвержден</td>
+      <!-- <td><a href="#" @click="showUser(user.id)">Show</a></td> -->
       <td><a href="#" @click="deleteUser(user.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -109,7 +113,7 @@ import axios from 'axios'
             });
           },
         addUser() {
-              axios.post('/api/users/', { 
+              axios.post('/api/users', { 
                     login: this.user.login,
                     password: this.user.password,
                     email: this.user.email,
@@ -122,24 +126,24 @@ import axios from 'axios'
                       this.feedback = error.response.data.errors;
                       console.log(error.response)
                   });
-                  //this.loadUsers()
+                   this.$store.dispatch('LOAD_USERS')
                   this.feedback = null
           },
-          showUser(id) {       
-                axios.get('/api/users/' + id)
-                      .then(response => {
-                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.users = this.users.filter(user => {
-                    return user.id == id;
-                 });
-                })
-          },
+        //   showUser(id) {       
+        //         axios.get('/api/users/' + id)
+        //               .then(response => {
+        //          alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.users = this.users.filter(user => {
+        //             return user.id == id;
+        //          });
+        //         })
+        //   },
           deleteUser(id) {
                 axios.delete('/api/users/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadUsers()
+                 this.$store.dispatch('LOAD_USERS')
           }
       },
   }

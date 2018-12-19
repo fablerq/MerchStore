@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Color extends Model
 {
-    public function productsvariants() {
+    public function productsvariants()
+    {
         return $this->hasMany('App\Models\ProductsVariants');
     }
-    
+
     protected $fillable = [
-        'title'
+        'title', 'code',
     ];
 
     public $timestamps = false;

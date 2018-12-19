@@ -56,7 +56,7 @@
       <th scope="col">price</th>
       <th scope="col">faculty_id</th>
       <th scope="col">type_id</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -68,7 +68,7 @@
       <td>{{ product.price }}</td>
       <td>{{ product.faculty.title }}</td>
       <td>{{ product.type.title }}</td>
-      <td><a href="#" @click="showProduct(product.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showProduct(product.id)">Show</a></td> -->
       <td><a href="#" @click="deleteProduct(product.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -129,25 +129,25 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadProducts()
+                  this.$store.dispatch('LOAD_PRODUCTS')
                   this.feedback = null
           },
-          showProduct(id) {       
-                axios.get('/api/products/' + id)
-                      .then(response => {
-                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.products = this.products.filter(product => {
-                    return product.id == id;
-                 });
-                })
-          },
+        //   showProduct(id) {       
+        //         axios.get('/api/products/' + id)
+        //               .then(response => {
+        //          alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.products = this.products.filter(product => {
+        //             return product.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteProduct(id) {
                 axios.delete('/api/products/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadProducts()
+                this.$store.dispatch('LOAD_PRODUCTS')
           }
       },
   }

@@ -24,11 +24,10 @@ class StatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5|max:50|unique:statuses',
+            'title'       => 'required|min:5|max:50|unique:statuses',
             'description' => 'required|min:5|max:300',
         ];
     }
-
 
     /**
      * Get the error messages for the defined validation rules.
@@ -38,16 +37,13 @@ class StatusRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Заглавие статуса не может быть пустым',
-            'title.min' => 'Минимальная длина заглавия 5 символов',
-            'title.max' => 'Максимальная длина заглавия 50 символов',
-            'title.unique' => 'Статус с таким заглавием уже существует',
+            'title.required'        => 'Заглавие статуса не может быть пустым',
+            'title.min'             => 'Минимальная длина заглавия 5 символов',
+            'title.max'             => 'Максимальная длина заглавия 50 символов',
+            'title.unique'          => 'Статус с таким заглавием уже существует',
             'description.required'  => 'Описание статуса не может быть пустым',
-            'description.min' => 'Минимальная длина описания статуса 5 символов',
-            'description.max' => 'Максимальная длина описания статуса 300 символов',
+            'description.min'       => 'Минимальная длина описания статуса 5 символов',
+            'description.max'       => 'Максимальная длина описания статуса 300 символов',
         ];
     }
-
-    
-    
 }

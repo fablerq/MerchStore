@@ -36,7 +36,7 @@
       <th scope="col">id</th>
       <th scope="col">title</th>
       <th scope="col">description</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>
@@ -45,7 +45,7 @@
       <th>{{ status.id }}</th>
       <td>{{ status.title }}</td>
       <td>{{ status.description }}</td>
-      <td><a href="#" @click="showStatus(status.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showStatus(status.id)">Show</a></td> -->
       <td><a href="#" @click="deleteStatus(status.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -96,25 +96,25 @@ import axios from 'axios'
                   .catch(error => {
                       this.feedback = error.response.data.errors;
                   });
-                  //this.loadStatuses()
+                  this.$store.dispatch('LOAD_STATUSES')
                   this.feedback = null
           },
-          showStatus(id) {       
-                axios.get('/api/statuses/' + id)
-                      .then(response => {
-                alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.statuses = this.statuses.filter(status => {
-                    return status.id == id;
-                 });
-                })
-          },
+        //   showStatus(id) {       
+        //         axios.get('/api/statuses/' + id)
+        //               .then(response => {
+        //         alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.statuses = this.statuses.filter(status => {
+        //             return status.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteStatus(id) {
                 axios.delete('/api/statuses/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadStatuses()
+                this.$store.dispatch('LOAD_STATUSES')
           }
       },
   }

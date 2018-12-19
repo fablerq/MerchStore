@@ -80,7 +80,7 @@
                                             <img class="sizes" src="../../../imgs/size-table.png" alt="">
                                         </v-card>
                                 </v-dialog>
-                                <v-btn  v-on:click="adds.push(product)" color="orange lighten-2" block dark>Добавить в корзину</v-btn>
+                                <v-btn  v-on:click="addToCart" color="orange lighten-2" block dark>Добавить в корзину</v-btn>
                                 <v-btn class="fav" flat icon color="pink"><v-icon>favorite</v-icon> </v-btn>Добавить в избранное
                             </div>
                         </div>
@@ -92,57 +92,58 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                         <form @submit.prevent="handleSubmitAsk">
+                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 feedback">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <h2>Комментарии</h2>
+                                </div>
+                                
+                            </div>
+                                    <br>
+                                    <div class="alert alert-danger" v-if="feedback">
+                                        <ul>
+                                            <li v-for="error in feedback">{{ error[0] }}</li>
+                                        </ul>
+                                    </div>
+
+                            <form @submit.prevent="handleSubmit">
                                 <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                        <div class="form-group">
-                                        <label for="askername">Ваше имя</label>
-                                        <input type="text" v-model="askername" v-validate="{ required: false, max: 100, min: 3 }" name="askername" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('askername') }"/>
-                                        <div v-if="submittedAsk && errors.has('askername')" class="invalid-feedback">{{ errors.first('askername') }}</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="text" v-model="email" v-validate="{ required: true, email: true }" name="email" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('email') }"/>
-                                        <div v-if="submittedAsk && errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
-                                    </div>
-                                    </div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
                                         <div class="form-group">
-                                            <label for="question">Ваш вопрос</label>
-                                            <textarea type="text" rows="5" v-model="question" v-validate="{ required: true, max: 400, min: 20 }" name="question" class="form-control" :class="{ 'is-invalid': submittedAsk && errors.has('question') }"></textarea>
-                                            <div v-if="submittedAsk && errors.has('question')" class="invalid-feedback">{{ errors.first('question') }}</div>
+                                            <label for="body">Текст комментария</label>
+                                            <textarea type="text" rows="5" v-model="body" v-validate="{ required: true, max: 400, min: 20 }" name="body" class="form-control" :class="{ 'is-invalid': submitted && errors.has('body') }"></textarea>
+                                            <div v-if="submitted && errors.has('body')" class="invalid-feedback">{{ errors.first('body') }}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                                         <div class="form-group">
-                                            <v-btn type="submit" block small color="orange lighten-2" dark>Отправить</v-btn>
+                                            <v-btn type="submit" block small color="orange lighten-2" dark>Добавить комментарий</v-btn>
                                         </div>
-                                    </div>
                                 </div> 
                             </form>
+
+                        </div> 
+                   </div>
+            </div>
+    </div>
+
+
+            <div class="row comment" v-for="comment in comments" :key="comment.id" v-if="comment.product_id == $route.params.id">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                        <div class="userInfo">
+                            <img src="../../../imgs/user-icon.png" alt="user-icon">
+                            <div class="userName">{{comment.user.login}}</div>
+                            <div class="date">{{comment.created_at}}</div>
                         </div>
                     </div>
-
-                            <div class="row comment" v-for="comment in comments" :key="comment.id">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                    <div class="userInfo">
-                                        <img src="../../../imgs/user-icon.png" alt="user-icon">
-                                        <div class="userName">{{comment.user_id}}</div>
-                                        <div class="date">{{comment.created_at}}</div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-10">
-                                    <p class="commentBody">{{comment.body}}</p>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-10">
+                        <p class="commentBody">{{comment.body}}</p>
+                    </div>
+            </div>
                     </div>
                 </div>
-            </div>
+            
 </template>
 
 <script>
@@ -154,7 +155,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 //database
 import axios from 'axios'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters} from 'vuex'
 
 export default {
     name: 'vgood',
@@ -181,16 +182,21 @@ export default {
         product_price: '',
         product_faculty_id: '',
         product_type: '',
+        feedback: '',
+        submitted: false,
+        body: '',
       }
     },
 
     mounted: function () { 
         this.$store.dispatch('LOAD_PRODUCTS')
+        this.$store.dispatch('LOAD_PRODUCTSVARIANTS')
         this.$store.dispatch('LOAD_COLORS') 
         this.$store.dispatch('LOAD_SIZES') 
         this.$store.dispatch('LOAD_COMMENTS') 
         this.$store.dispatch('LOAD_FACULTIES') 
         this.$store.dispatch('LOAD_TYPES')
+        
 
         axios.get(`/api/products/${this.$route.params.id}`)
         .then( res => {
@@ -206,6 +212,7 @@ export default {
     computed: { 
         ...mapGetters({ 
         products: 'GET_PRODUCTS',
+        productsvariants: 'GET_PRODUCTSVARIANTS',
         colors: 'GET_COLORS',
         sizes: 'GET_SIZES',
         comments: 'GET_COMMENTS',
@@ -214,6 +221,53 @@ export default {
         adds: 'GET_ADDS',
         }) 
     },
+    methods: {
+        handleSubmit(e) {
+            if (this.currentuser) {
+                this.submitted = true;
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                            this.addComment()
+                    }
+                });
+            } else {
+                alert('Авторизируйтесь чтобы добавить комент')
+            }
+          },
+
+        addToCart() {
+            var quantity = 0;
+            var product_id_check = this.product.id
+            this.adds.forEach(function(add) {
+                if (product_id_check === add.id) {
+                    quantity++;
+                }
+            });
+            if(quantity===0){
+                this.adds.push(this.product);
+                quantity = 0;
+            }
+        },
+
+        addComment() {
+              axios.post('/api/comments', { 
+                    user_id: this.currentuser.id,
+                    body: this.body,
+                    product_id: this.$route.params.id,
+                  })                    
+                  .then(function (response) {
+                        alert(response.data.message)
+                  })
+                  .catch(error => {
+                      this.feedback = error.response.data.errors;
+                  });
+                  //this.loadComments()
+                  this.feedback = null
+                  this.$store.dispatch('LOAD_COMMENTS')
+          },
+
+        
+    }
   }
 </script>
 
@@ -288,10 +342,10 @@ export default {
 
             .userName {
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 14px;
             }
         }
-    }
+      }
 
 $color-1: #FFB300;
 $color-2: #FB8C00;

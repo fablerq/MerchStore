@@ -24,11 +24,10 @@ class FavouriteRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id|unique_with:product_user,product_id',
+            'user_id'    => 'required|exists:users,id|unique_with:product_user,product_id',
             'product_id' => 'required|exists:products,id',
         ];
     }
-
 
     /**
      * Get the error messages for the defined validation rules.
@@ -38,10 +37,10 @@ class FavouriteRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'Чтобы добавить в избранное нужен пользователь!',
-            'user_id.exists' => 'Нельзя добавить данный товар данному пользователю. Пользователя не существует',
+            'user_id.required'    => 'Чтобы добавить в избранное нужен пользователь!',
+            'user_id.exists'      => 'Нельзя добавить данный товар данному пользователю. Пользователя не существует',
             'product_id.required' => 'В избранное нужно добавить что-то конкретное!',
-            'product_id.exists' => 'Нельзя добавить данный товар данному пользователю. Данного товара не существует',
+            'product_id.exists'   => 'Нельзя добавить данный товар данному пользователю. Данного товара не существует',
             'user_id.unique_with' => 'Данный товар уже есть в избранном у данного пользователя',
         ];
     }

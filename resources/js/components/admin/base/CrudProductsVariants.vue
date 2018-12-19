@@ -46,7 +46,7 @@
       <th scope="col">product_id</th>
       <th scope="col">size_id</th>
       <th scope="col">color_id</th>
-      <th scope="col">show</th>
+      <!-- <th scope="col">show</th> -->
       <th scope="col">delete</th>
     </tr>
   </thead>  
@@ -59,7 +59,7 @@
       <td>{{ productsvariant.product.title }}</td>
       <td>{{ productsvariant.size.title }}</td>
       <td>{{ productsvariant.color.title }}</td>
-      <td><a href="#" @click="showProductsVariant(productsvariant.id)">Show</a></td>
+      <!-- <td><a href="#" @click="showProductsVariant(productsvariant.id)">Show</a></td> -->
       <td><a href="#" @click="deleteProductsVariant(productsvariant.id)">Delete</a></td>
     </tr>
   </tbody>
@@ -119,25 +119,25 @@ import axios from 'axios'
                       this.feedback = error.response.data.errors;
                       console.log(error.response)
                   });
-                 // this.loadProductsVariants()
+                 this.$store.dispatch('LOAD_PRODUCTSVARIANTS')
                   this.feedback = null
           },
-          showProductsVariant(id) {       
-                axios.get('/api/productsvariants/' + id)
-                      .then(response => {
-                 alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
-                 this.productsvariants = this.productsvariants.filter(productsvariant => {
-                    return productsvariant.id == id;
-                 });
-                })
-          },
+        //   showProductsVariant(id) {       
+        //         axios.get('/api/productsvariants/' + id)
+        //               .then(response => {
+        //          alert('Вот твоя строчка номер ' + id + ' (я пришел с клиента) (Влад, исправь меня, я не так передаю данные)'); 
+        //          this.productsvariants = this.productsvariants.filter(productsvariant => {
+        //             return productsvariant.id == id;
+        //          });
+        //         })
+        //   },
 
           deleteProductsVariant(id) {
                 axios.delete('/api/productsvariants/' + id)
                     .then(function (response) {
                         alert(response.data.message);
                     });
-                //this.loadProductsVariants()
+                this.$store.dispatch('LOAD_PRODUCTSVARIANTS')
           }
       },
   }

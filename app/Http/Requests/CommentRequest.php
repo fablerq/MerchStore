@@ -24,13 +24,13 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'user_id'    => 'required|exists:users,id',
             'product_id' => 'required|exists:products,id',
-            'body' => 'required|min:20|max:3000'
+            'body'       => 'required|min:20|max:3000',
         ];
     }
 
-         /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -38,13 +38,13 @@ class CommentRequest extends FormRequest
     public function messages()
     {
         return [
-            'body.required' => 'Комментарий не может быть пустым',
-            'body.min' => 'Минимальная длина комментария 20 символов',
-            'body.max' => 'Максимальная длина комментария 3000 символов',
-            'product_id.exists' => 'Данный товар не существует. Комментарий невозможен',
+            'body.required'       => 'Комментарий не может быть пустым',
+            'body.min'            => 'Минимальная длина комментария 20 символов',
+            'body.max'            => 'Максимальная длина комментария 3000 символов',
+            'product_id.exists'   => 'Данный товар не существует. Комментарий невозможен',
             'product_id.required' => 'Поле с выбором товара для комментария не должно быть пустым',
-            'user_id.exists' => 'Данный пользователь не существует. Комментарий невозможно добавить',
-            'user_id.required' => 'У комментария должен быть пользователь',
+            'user_id.exists'      => 'Данный пользователь не существует. Комментарий невозможно добавить',
+            'user_id.required'    => 'У комментария должен быть пользователь',
         ];
     }
 }

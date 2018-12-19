@@ -210,6 +210,6 @@ export default new Vuex.Store({
     },
     GET_ADDSCOUNT: (state, getters) => {
         return getters.GET_ADDS.length;
-    }
+    },
   }
 })

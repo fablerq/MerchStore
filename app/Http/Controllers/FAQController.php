@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FAQ;
-use Illuminate\Http\Request;
 use App\Http\Requests\FAQRequestAsk;
 use App\Http\Requests\FAQRequestReply;
+use App\Models\FAQ;
 
 class FAQController extends Controller
 {
@@ -17,7 +16,8 @@ class FAQController extends Controller
     public function index()
     {
         $faqs = FAQ::with('user')->get();
-        return response()->json($faqs, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($faqs, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -33,21 +33,22 @@ class FAQController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(FAQRequestAsk $request)
     {
         $validated = $request->validated();
-        if (!$validated['askername'])
-        {
+        if (!$validated['askername']) {
             $validated['askername'] = 'Страждующий';
         }
         FAQ::create([
             'askername' => $validated['askername'],
-            'email' => $validated['email'],
-            'question' => $validated['question'],
+            'email'     => $validated['email'],
+            'question'  => $validated['question'],
         ]);
+
         return response()->json([
             'message' => 'Вопрос в фак успешно добавлен. Ждите ответа.',
         ]);
@@ -56,19 +57,22 @@ class FAQController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\FAQ  $fAQ
+     * @param \App\FAQ $fAQ
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $faq = FAQ::with('user')->where('id', '=', $id)->get();
-        return response()->json($faq, 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE);
+
+        return response()->json($faq, 200, ['Content-Type' => 'application/json;charset=utf8'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\FAQ  $fAQ
+     * @param \App\FAQ $fAQ
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(FAQ $fAQ)
@@ -79,16 +83,17 @@ class FAQController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FAQ  $fAQ
+     * @param \Illuminate\Http\Request $request
+     * @param \App\FAQ                 $fAQ
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(FAQRequestReply $request, $id)
     {
         $validated = $request->validated();
-        $reply= FAQ::find($id);
-        $reply->user_id=$request->get('user_id');
-        $reply->answer=$request->get('answer');
+        $reply = FAQ::find($id);
+        $reply->user_id = $request->get('user_id');
+        $reply->answer = $request->get('answer');
         $reply->save();
 
         return response()->json([
@@ -99,12 +104,14 @@ class FAQController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\FAQ  $fAQ
+     * @param \App\FAQ $fAQ
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         FAQ::destroy($id);
+
         return response()->json([
             'message' => 'Вопрос к факу номер '.$id.' удален успешно (я пришел с сервера)',
         ]);

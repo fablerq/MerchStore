@@ -8,7 +8,7 @@
                             <h2>Моя корзина</h2>
                         </div>
                         <div class="col-12 col-sm-12 col-md-3 col-lg-2 col-xl-2 offset-md-3 offset-lg-6 offset-xl-6">
-                            <v-btn color="orange lighten-2" block dark large>Купить</v-btn>
+                            <v-btn  v-on:click="removeAll" color="orange lighten-2" block dark large>Купить</v-btn>
                         </div>
                     </div>
                     <div class="row">
@@ -29,13 +29,16 @@
 
                                 <v-card-actions>
                                     <div  class="item-navbar">
-                                    <h2>{{add.price}}р</h2>
-                                    <v-btn fab light small color="white" class="remove"><v-icon dark>remove</v-icon></v-btn>
-                                    <v-text-field
-                                        solo
-                                        class="count"
-                                    ></v-text-field>
-                                    <v-btn fab light small color="white" class="add"><v-icon dark>add</v-icon></v-btn>
+                                        <h2>{{add.price}}р</h2>
+                                        <div class="counter">
+                                            <button class="remove" type="button" onclick="this.parentNode.querySelector('[type=number]').stepDown();">
+                                                -
+                                            </button>
+                                            <input v-model="count" type="number" name="number" min="1" max="100" value="1">
+                                            <button class="add" type="button" onclick="this.parentNode.querySelector('[type=number]').stepUp();">
+                                                +
+                                            </button>
+                                        </div>
                                     </div>
                                 </v-card-actions>
                             </v-card>
@@ -60,7 +63,7 @@
 <script>
 //database
 import axios from 'axios'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
     name: 'vcard',
@@ -81,6 +84,20 @@ export default {
         adds: 'GET_ADDS'
         }),
     },
+
+    methods: {
+        ...mapMutations([
+            'SET_ADDS'
+        ]),
+        
+        
+        removeAll() {
+            console.log(adds);
+            this.adds.forEach(function(add) {
+                adds.remove(add)
+            });
+        }
+    }
 }
 </script>
 
@@ -133,7 +150,8 @@ export default {
 }
 .item-navbar{
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
+        width: 100%;
         h2 {
             margin: 7px;
             margin-right: 50px;
@@ -156,7 +174,7 @@ export default {
         }
 
         .pay-type {
-            background: orange;
+            background: #FDB777;
         }
         h2 {
             margin-bottom: 7%;
@@ -191,4 +209,46 @@ export default {
             width: 100%;
         }
     }
+
+    .counter {
+        height: 50px;
+        width: 130px;
+        margin: 0 0 10px 0;
+
+        input {
+  text-align:center;
+  border: 1px solid  #C4C4C4;
+   width: 50px;
+    box-shadow: inset -1px 3px 5px -3px #c2c2c2;
+    margin: 0 -12px;
+    height: 100%;
+}
+
+.add,
+.remove {
+    width: 30px;
+    height: 100%;
+    border: 1px solid  #C4C4C4;
+}
+
+.add {
+    border-radius: 0 5px 5px 0 ;
+}
+
+.remove {
+    border-radius: 5px 0 0 5px;
+
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  
+}
+    }
+    
+    
 </style>
