@@ -171,7 +171,6 @@ export default {
         },
         dialog: false,
         product: [],
-        photos: [],
         product_title: '',
         product_description: '',
         product_price: '',
