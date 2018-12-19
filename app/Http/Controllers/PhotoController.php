@@ -30,7 +30,7 @@ class PhotoController extends Controller
 
         $image = $request->get('image');
         $name = time().'.'.explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-        \Image::make($request->get('image'))->fit(300, 300)->save(public_path('images/upload/').$name);
+        \Image::make($request->get('image'))->fit(300, 400)->save(public_path('images/upload/').$name);
 
         Photo::create([
             'title'      => $validated['title'],

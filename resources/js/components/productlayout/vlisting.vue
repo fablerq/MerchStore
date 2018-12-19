@@ -49,7 +49,7 @@ export default {
   data () {
       return {
         page: 1,
-        pageid: '',
+        pageid: this.$route.params.id,
         activefaculty: 0,
       }
   },

@@ -55,7 +55,7 @@
     <tr v-for="photo in photos">
       <th>{{ photo.id }}</th>
       <td>{{ photo.title }}</td>
-      <td><img :src="'../images/upload/' + photo.image" alt="Girl in a jacket"> </td>
+      <td><img :src="'../images/upload/' + photo.image"> </td>
       <td>{{ photo.product.title }}</td>
       <!-- <td><a href="#" @click="showPhoto(photo.id)">Show</a></td> -->
       <td><a href="#" @click="deletePhoto(photo.id)">Delete</a></td>
@@ -107,9 +107,11 @@ import { mapActions, mapGetters } from 'vuex'
                     product_id: this.product_id,
                   })                    
                   .then(function (response) {
+                      console.log(response)
                         alert(response.data.message)
                   })
                   .catch(error => {
+                      console.log(error.response)
                       this.feedback = error.response.data.errors;
                   });
                   this.$store.dispatch('LOAD_PHOTOS')

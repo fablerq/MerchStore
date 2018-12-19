@@ -94,7 +94,6 @@ import axios from 'axios'
       name: 'crudfavourites',
       data() {
           return {
-             favourites: {},
              user_id: '',
              product_id: '',
              feedback: '',
@@ -109,6 +108,7 @@ import axios from 'axios'
           ...mapGetters({
           products: 'GET_PRODUCTS',
           users: 'GET_USERS',
+          favourites: 'GET_FAVOURITESFORUSER',
         })
       },
       methods: {
@@ -135,12 +135,9 @@ import axios from 'axios'
                   this.feedback = null
           },
 
-            showFavourite(id) {       
-            axios.get('/api/favourites/' + id)
-                .then(response => {
-                    alert('Вот все избранные товары пользователя ' + id); 
-                    this.favourites = response.data;
-             })
+            showFavourite(id) {     
+                this.$store.dispatch('LOAD_FAVOURITESFORUSER', id)  
+                alert('Вот все избранные товары пользователя ' + id); 
             },
 
           deleteFavourite(userid, productid) {

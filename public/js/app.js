@@ -16473,19 +16473,19 @@ module.exports = Cancel;
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = "/images/catalog.png?f84b456d4112ad53c1b918b21ccc2e76";
+module.exports = "/images/catalog.png?b73a6be816100cb3ed004efe70d1d2ab";
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = "/images/faq.png?7b7447c52a602f6eb2863262068359a6";
+module.exports = "/images/faq.png?04f7c68cc244eed14a639fc14cbb37c0";
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = "/images/profile.png?82da2782843f140a0fbf395d18c9a1ae";
+module.exports = "/images/profile.png?d06baa815d18451bd2fb105c8b6c83c1";
 
 /***/ }),
 /* 34 */
@@ -16497,7 +16497,7 @@ module.exports = "/images/vhod.png?07ada902280daf2f76d263dfd861b9b6";
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = "/images/card.png?726ea043bf1634efcefa913070d15f25";
+module.exports = "/images/card.png?df55a680a672050ccc1b6be9fa30f7c6";
 
 /***/ }),
 /* 36 */
@@ -17474,6 +17474,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuet
     'cart': 'fas fa-shopping-cart'
   }
 });
+
+// import Lightbox from 'vue-my-photos'
+// Vue.component('lightbox', Lightbox);
 
 
 
@@ -74487,7 +74490,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data: function data() {
     return {
       page: 1,
-      pageid: '',
+      pageid: this.$route.params.id,
       activefaculty: 0
     };
   },
@@ -75269,12 +75272,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 //components
 
@@ -75293,9 +75290,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             swiperOption: {
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 5,
-                slidesPerGroup: 3,
+                slidesPerGroup: 2,
                 loop: true,
                 autoHeight: true,
                 loopFillGroupWithBlank: true,
@@ -75306,6 +75303,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             },
             dialog: false,
             product: [],
+            photos: [],
             product_title: '',
             product_description: '',
             product_price: '',
@@ -75327,6 +75325,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.$store.dispatch('LOAD_COMMENTS');
         this.$store.dispatch('LOAD_FACULTIES');
         this.$store.dispatch('LOAD_TYPES');
+        this.$store.dispatch('LOAD_PHOTOS');
 
         __WEBPACK_IMPORTED_MODULE_4_axios___default.a.get('/api/products/' + this.$route.params.id).then(function (res) {
             _this.product = res.data[0];
@@ -75336,6 +75335,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             _this.product_faculty_id = res.data[0].faculty_id;
             _this.product_type = res.data[0].type.title;
         });
+
+        console.log(this.comments);
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])({
@@ -75346,7 +75347,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         comments: 'GET_COMMENTS',
         faculties: 'GET_FACULTIES',
         types: 'GET_TYPES',
-        adds: 'GET_ADDS'
+        adds: 'GET_ADDS',
+        photos: 'GET_PHOTOS'
     })),
     methods: {
         handleSubmit: function handleSubmit(e) {
@@ -75378,6 +75380,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             //this.loadComments()
             this.feedback = null;
             this.$store.dispatch('LOAD_COMMENTS');
+        },
+        addtoFav: function addtoFav() {
+            var _this4 = this;
+
+            if (this.currentuser) {
+                __WEBPACK_IMPORTED_MODULE_4_axios___default.a.post('/api/favourites/', {
+                    user_id: this.user_id,
+                    product_id: this.product_id
+                }).then(function (response) {
+                    alert(response.data.message);
+                }).catch(function (error) {
+                    _this4.feedback = error.response.data.errors;
+                });
+            } else {
+                alert('Чтобы добавить товар в избранное нужно авторизироваться');
+            }
         }
     }
 });
@@ -75401,19 +75419,18 @@ var render = function() {
           [
             _c("img", {
               staticClass: "good-img",
-              attrs: { src: __webpack_require__(15), alt: "" }
+              attrs: {
+                src: __webpack_require__(15),
+                alt: "",
+                width: "300",
+                height: "400"
+              }
             }),
             _vm._v(" "),
             _c(
               "swiper",
               { attrs: { options: _vm.swiperOption } },
               [
-                _c("swiper-slide", [
-                  _c("img", {
-                    attrs: { src: __webpack_require__(15), alt: "" }
-                  })
-                ]),
-                _vm._v(" "),
                 _c("swiper-slide", [
                   _c("img", {
                     attrs: { src: __webpack_require__(15), alt: "" }
@@ -75578,12 +75595,19 @@ var render = function() {
                   "v-btn",
                   {
                     staticClass: "fav",
-                    attrs: { flat: "", icon: "", color: "pink" }
+                    attrs: { flat: "", color: "pink" },
+                    on: {
+                      click: function($event) {
+                        _vm.addtoFav()
+                      }
+                    }
                   },
-                  [_c("v-icon", [_vm._v("favorite")])],
+                  [
+                    _c("v-icon", [_vm._v("favorite")]),
+                    _vm._v("Добавить в избранное")
+                  ],
                   1
-                ),
-                _vm._v("Добавить в избранное\n                        ")
+                )
               ],
               1
             )
@@ -75723,6 +75747,12 @@ var render = function() {
           ]
         )
       ]),
+      _vm._v(" "),
+      !_vm.comments.length
+        ? _c("h4", { staticStyle: { "font-style": "italic" } }, [
+            _vm._v("К данному товару не написано ни одного комментария")
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.comments, function(comment) {
         return comment.product_id == _vm.$route.params.id
@@ -77871,7 +77901,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     name: 'crudfavourites',
     data: function data() {
         return {
-            favourites: {},
             user_id: '',
             product_id: '',
             feedback: '',
@@ -77885,7 +77914,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
         products: 'GET_PRODUCTS',
-        users: 'GET_USERS'
+        users: 'GET_USERS',
+        favourites: 'GET_FAVOURITESFORUSER'
     })),
     methods: {
         handleSubmit: function handleSubmit(e) {
@@ -77913,20 +77943,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.feedback = null;
         },
         showFavourite: function showFavourite(id) {
-            var _this3 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/favourites/' + id).then(function (response) {
-                alert('Вот все избранные товары пользователя ' + id);
-                _this3.favourites = response.data;
-            });
+            this.$store.dispatch('LOAD_FAVOURITESFORUSER', id);
+            alert('Вот все избранные товары пользователя ' + id);
         },
         deleteFavourite: function deleteFavourite(userid, productid) {
-            var _this4 = this;
+            var _this3 = this;
 
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/favourites/delfavourite/' + userid + '/' + productid).then(function (response) {
                 alert(response.data.message);
             }).catch(function (error) {
-                _this4.feedback = error.response.data.errors;
+                _this3.feedback = error.response.data.errors;
             });
             this.loadFavourites();
         }
@@ -81554,8 +81580,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 image: this.image,
                 product_id: this.product_id
             }).then(function (response) {
+                console.log(response);
                 alert(response.data.message);
             }).catch(function (error) {
+                console.log(error.response);
                 _this2.feedback = error.response.data.errors;
             });
             this.$store.dispatch('LOAD_PHOTOS');
@@ -81763,12 +81791,7 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(photo.title))]),
             _vm._v(" "),
             _c("td", [
-              _c("img", {
-                attrs: {
-                  src: "../images/upload/" + photo.image,
-                  alt: "Girl in a jacket"
-                }
-              })
+              _c("img", { attrs: { src: "../images/upload/" + photo.image } })
             ]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(photo.product.title))]),
@@ -90777,6 +90800,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vue_
         productsfilter: [],
         paginateproducts: [],
         productsvariants: [],
+        favourites: [],
         sizes: [],
         statuses: [],
         types: [],
@@ -90837,8 +90861,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vue_
                 activefaculty = _ref9.activefaculty;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('/api/paginateproducts/' + page + '/' + type + '/' + activefaculty).then(function (response) {
-                console.log(page + ' rtr' + type + 'wfe' + activefaculty);
-                console.log(response.data);
                 commit('SET_PAGINATEPRODUCTS', response.data);
             });
         },
@@ -90856,60 +90878,67 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vue_
                 commit('SET_FAQS', response.data);
             });
         },
+        LOAD_FAVOURITESFORUSER: function LOAD_FAVOURITESFORUSER(_ref12, userid) {
+            var commit = _ref12.commit;
+
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/favourites/' + userid).then(function (response) {
+                commit('SET_FAVOURITESFORUSER', response.data);
+            });
+        },
 
 
         //orders
-        LOAD_ORDERS: function LOAD_ORDERS(_ref12) {
-            var commit = _ref12.commit;
+        LOAD_ORDERS: function LOAD_ORDERS(_ref13) {
+            var commit = _ref13.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/orders').then(function (response) {
                 commit('SET_ORDERS', response.data);
             });
         },
-        LOAD_ORDERSFORUSER: function LOAD_ORDERSFORUSER(_ref13, userId) {
-            var commit = _ref13.commit;
+        LOAD_ORDERSFORUSER: function LOAD_ORDERSFORUSER(_ref14, userId) {
+            var commit = _ref14.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/showforuser/' + userId).then(function (response) {
                 commit('SET_ORDERSFORUSER', response.data);
             });
         },
-        LOAD_PRODUCTSVARIANTS: function LOAD_PRODUCTSVARIANTS(_ref14) {
-            var commit = _ref14.commit;
+        LOAD_PRODUCTSVARIANTS: function LOAD_PRODUCTSVARIANTS(_ref15) {
+            var commit = _ref15.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/productsvariants').then(function (response) {
                 commit('SET_PRODUCTSVARIANTS', response.data);
             });
         },
-        LOAD_STATUSES: function LOAD_STATUSES(_ref15) {
-            var commit = _ref15.commit;
+        LOAD_STATUSES: function LOAD_STATUSES(_ref16) {
+            var commit = _ref16.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/statuses').then(function (response) {
                 commit('SET_STATUSES', response.data);
             });
         },
-        LOAD_PAYMENTMETHODS: function LOAD_PAYMENTMETHODS(_ref16) {
-            var commit = _ref16.commit;
+        LOAD_PAYMENTMETHODS: function LOAD_PAYMENTMETHODS(_ref17) {
+            var commit = _ref17.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/paymentmethods').then(function (response) {
                 commit('SET_PAYMENTMETHODS', response.data);
             });
         },
-        LOAD_PHOTOS: function LOAD_PHOTOS(_ref17) {
-            var commit = _ref17.commit;
+        LOAD_PHOTOS: function LOAD_PHOTOS(_ref18) {
+            var commit = _ref18.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/photos').then(function (response) {
                 commit('SET_PHOTOS', response.data);
             });
         },
-        LOAD_TYPES: function LOAD_TYPES(_ref18) {
-            var commit = _ref18.commit;
+        LOAD_TYPES: function LOAD_TYPES(_ref19) {
+            var commit = _ref19.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/types').then(function (response) {
                 commit('SET_TYPES', response.data);
             });
         },
-        LOAD_SIZES: function LOAD_SIZES(_ref19) {
-            var commit = _ref19.commit;
+        LOAD_SIZES: function LOAD_SIZES(_ref20) {
+            var commit = _ref20.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/sizes').then(function (response) {
                 commit('SET_SIZES', response.data);
@@ -90949,6 +90978,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vue_
         },
         SET_FAQS: function SET_FAQS(state, faqs) {
             state.faqs = faqs;
+        },
+        SET_FAVOURITESFORUSER: function SET_FAVOURITESFORUSER(state, favourites) {
+            state.favourites = favourites;
         },
 
 
@@ -91023,6 +91055,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vue_
         },
         GET_FAQS: function GET_FAQS(state) {
             return state.faqs;
+        },
+        GET_FAVOURITESFORUSER: function GET_FAVOURITESFORUSER(state) {
+            return state.favourites;
         },
 
 

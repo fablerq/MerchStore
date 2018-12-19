@@ -25,6 +25,7 @@ export default new Vuex.Store({
      productsfilter: [],
      paginateproducts: [],
      productsvariants: [],
+     favourites: [],
      sizes: [],
      statuses: [],
      types: [],
@@ -72,8 +73,6 @@ export default new Vuex.Store({
     LOAD_PAGINATEPRODUCTS({ commit }, { page, type, activefaculty }) {
         axios.post('/api/paginateproducts/' + page + '/' + type + '/' + activefaculty)                    
             .then(response => {
-                console.log(page + ' rtr' + type + 'wfe' + activefaculty)
-                console.log(response.data)
               commit('SET_PAGINATEPRODUCTS', response.data)
         })
     },
@@ -89,6 +88,12 @@ export default new Vuex.Store({
         axios.get('/api/faqs')
             .then(response => {
             commit('SET_FAQS', response.data)
+            })
+    },
+    LOAD_FAVOURITESFORUSER({ commit }, userid) {
+        axios.get('/api/favourites/' + userid)
+            .then(response => {
+            commit('SET_FAVOURITESFORUSER', response.data)
             })
     },
 
@@ -180,6 +185,9 @@ export default new Vuex.Store({
     SET_FAQS (state, faqs) {
         state.faqs = faqs
     },
+    SET_FAVOURITESFORUSER (state, favourites) {
+        state.favourites = favourites
+    },
 
    //orders
     SET_ORDERS (state, orders) {
@@ -254,7 +262,9 @@ export default new Vuex.Store({
     GET_FAQS(state) {
         return state.faqs
     },
-
+    GET_FAVOURITESFORUSER(state) {
+        return state.favourites
+    },
     
     //orders
     GET_ORDERS(state) {

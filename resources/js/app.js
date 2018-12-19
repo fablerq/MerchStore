@@ -9,6 +9,9 @@ Vue.use(Vuetify, {
   }
  })
 
+// import Lightbox from 'vue-my-photos'
+// Vue.component('lightbox', Lightbox);
+
 import WebFontLoader from 'webfontloader'
 
 //icons for Vuetify

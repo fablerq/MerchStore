@@ -1,16 +1,10 @@
 <template>
     <div class="good">
-        
-       
-            
-           
-               
-              
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
-                            <img class="good-img" src="../../../imgs/tee.png" alt="">
+                            <img class="good-img" src="../../../imgs/tee.png" alt="" width="300" height="400">
                                     <swiper :options="swiperOption">
-                                        <swiper-slide><img src="../../../imgs/tee.png" alt=""></swiper-slide>
+                                        <!-- <swiper-slide v-for="photo in photos" v-if="photo.product_id == this.$route.params.id"><img :src="'../../../../public/images/upload/' + photo.image"></swiper-slide> -->
                                         <swiper-slide><img src="../../../imgs/tee.png" alt=""></swiper-slide>
                                         <swiper-slide><img src="../../../imgs/tee.png" alt=""></swiper-slide>
                                         <div class="swiper-button-prev" slot="button-prev"></div>
@@ -81,7 +75,7 @@
                                         </v-card>
                                 </v-dialog>
                                 <v-btn  v-on:click="adds.push(product)" color="orange lighten-2" block dark>Добавить в корзину</v-btn>
-                                <v-btn class="fav" flat icon color="pink"><v-icon>favorite</v-icon> </v-btn>Добавить в избранное
+                                <v-btn v-on:click="addtoFav()" class="fav" flat  color="pink"><v-icon>favorite</v-icon>Добавить в избранное</v-btn>
                             </div>
                         </div>
                     </div>
@@ -127,7 +121,7 @@
                    </div>
             
     
-
+            <h4 v-if="!comments.length" style="font-style: italic;">К данному товару не написано ни одного комментария</h4>
 
             <div class="row comment" v-for="comment in comments" :key="comment.id" v-if="comment.product_id == $route.params.id">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
@@ -164,9 +158,9 @@ export default {
     data() {
       return {
         swiperOption: {
-          slidesPerView: 3,
+          slidesPerView: 2,
           spaceBetween: 5,
-          slidesPerGroup: 3,
+          slidesPerGroup: 2,
           loop: true,
           autoHeight: true,
           loopFillGroupWithBlank: true,
@@ -177,6 +171,7 @@ export default {
         },
         dialog: false,
         product: [],
+        photos: [],
         product_title: '',
         product_description: '',
         product_price: '',
@@ -195,7 +190,7 @@ export default {
         this.$store.dispatch('LOAD_COMMENTS') 
         this.$store.dispatch('LOAD_FACULTIES') 
         this.$store.dispatch('LOAD_TYPES')
-        
+        this.$store.dispatch('LOAD_PHOTOS')
 
         axios.get(`/api/products/${this.$route.params.id}`)
         .then( res => {
@@ -206,6 +201,8 @@ export default {
           this.product_faculty_id = res.data[0].faculty_id;
           this.product_type = res.data[0].type.title;
         })
+
+        console.log(this.comments)
     }, 
 
     computed: { 
@@ -218,6 +215,7 @@ export default {
         faculties: 'GET_FACULTIES',
         types: 'GET_TYPES',
         adds: 'GET_ADDS',
+        photos: 'GET_PHOTOS',
         }) 
     },
     methods: {
@@ -248,7 +246,24 @@ export default {
                   //this.loadComments()
                   this.feedback = null
                   this.$store.dispatch('LOAD_COMMENTS')
+                  
           },
+          addtoFav() {
+              if (this.currentuser) {
+              axios.post('/api/favourites/', { 
+                    user_id: this.user_id,
+                    product_id: this.product_id,
+                  })                    
+                  .then(function (response) {
+                        alert(response.data.message)
+                  })
+                  .catch(error => {
+                      this.feedback = error.response.data.errors;
+                  });
+              } else {
+                  alert('Чтобы добавить товар в избранное нужно авторизироваться')
+              }
+          }
     }
   }
 </script>
